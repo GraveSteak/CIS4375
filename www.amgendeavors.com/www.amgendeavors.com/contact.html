@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--[-->
+    <title>Contact</title>
+    <!---->
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <link rel="apple-touch-icon" href="data:;base64,iVBORw0KGgo=">
+    <meta content="https://www.amgendeavors.com/contact" property="og:url">
+    <link rel="canonical" href="https://www.amgendeavors.com/contact">
+    <meta content="Contact" property="og:title">
+    <meta name="twitter:title" content="Contact">
+    <meta content="website" property="og:type">
+    <!---->
+    <!---->
+    <!---->
+    <!---->
+    <meta property="og:image">
+    <meta name="twitter:image">
+    <meta content="" property="og:image:alt">
+    <meta content="" name="twitter:image:alt">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preconnect">
+    <!---->
+    <!---->
+    <!---->
+    <!---->
+    <!---->
+    <!--[-->
+    <link rel="alternate" hreflang="x-default" href="https://www.amgendeavors.com/contact">
+    <!--]-->
+    <link href="https://cdn.zyrosite.com/u1/google-fonts/font-faces?family=Libre+Caslon+Display:wght@400&amp;family=Nunito:wght@400&amp;display=swap" rel="preconnect" crossorigin="true">
+    <link href="https://cdn.zyrosite.com/u1/google-fonts/font-faces?family=Libre+Caslon+Display:wght@400&amp;family=Nunito:wght@400&amp;display=swap" rel="preload" as="style">
+    <link href="https://cdn.zyrosite.com/u1/google-fonts/font-faces?family=Libre+Caslon+Display:wght@400&amp;family=Nunito:wght@400&amp;display=swap" rel="stylesheet" referrerpolicy="no-referrer">
+    <!--]-->
+    <style></style>
+    <link rel="prefetch" href="https://cdn.zyrosite.com/cdn-builder-placeholders/astro-traffic.txt">
+
+
+    <link rel="stylesheet" href="/_astro/_...slug_.b75092c2.css" />
+    <script type="module" src="/_astro/page.d79c7bc6.js"></script>
+</head>
+
+<body>
+    <div>
+        <style>
+            astro-island,
+            astro-slot,
+            astro-static-slot {
+                display: contents
+            }
+        </style>
+        <script>
+            (() => {
+                var e = async t => {
+                    await (await t())()
+                };
+                (self.Astro || (self.Astro = {})).only = e;
+                window.dispatchEvent(new Event("astro:only"));
+            })();;
+            (() => {
+                var l; {
+                    let c = {
+                            0: t => t,
+                            1: t => JSON.parse(t, o),
+                            2: t => new RegExp(t),
+                            3: t => new Date(t),
+                            4: t => new Map(JSON.parse(t, o)),
+                            5: t => new Set(JSON.parse(t, o)),
+                            6: t => BigInt(t),
+                            7: t => new URL(t),
+                            8: t => new Uint8Array(JSON.parse(t)),
+                            9: t => new Uint16Array(JSON.parse(t)),
+                            10: t => new Uint32Array(JSON.parse(t))
+                        },
+                        o = (t, s) => {
+                            if (t === "" || !Array.isArray(s)) return s;
+                            let [e, n] = s;
+                            return e in c ? c[e](n) : void 0
+                        };
+                    customElements.get("astro-island") || customElements.define("astro-island", (l = class extends HTMLElement {
+                        constructor() {
+                            super(...arguments);
+                            this.hydrate = () => {
+                                if (!this.hydrator || this.parentElement && this.parentElement.closest("astro-island[ssr]")) return;
+                                let s = this.querySelectorAll("astro-slot"),
+                                    e = {},
+                                    n = this.querySelectorAll("template[data-astro-template]");
+                                for (let r of n) {
+                                    let i = r.closest(this.tagName);
+                                    !i || !i.isSameNode(this) || (e[r.getAttribute("data-astro-template") || "default"] = r.innerHTML, r.remove())
+                                }
+                                for (let r of s) {
+                                    let i = r.closest(this.tagName);
+                                    !i || !i.isSameNode(this) || (e[r.getAttribute("name") || "default"] = r.innerHTML)
+                                }
+                                let a = this.hasAttribute("props") ? JSON.parse(this.getAttribute("props"), o) : {};
+                                this.hydrator(this)(this.Component, a, e, {
+                                    client: this.getAttribute("client")
+                                }), this.removeAttribute("ssr"), window.removeEventListener("astro:hydrate", this.hydrate), window.dispatchEvent(new CustomEvent("astro:hydrate"))
+                            }
+                        }
+                        connectedCallback() {
+                            !this.hasAttribute("await-children") || this.firstChild ? this.childrenConnectedCallback() : new MutationObserver((s, e) => {
+                                e.disconnect(), this.childrenConnectedCallback()
+                            }).observe(this, {
+                                childList: !0
+                            })
+                        }
+                        async childrenConnectedCallback() {
+                            window.addEventListener("astro:hydrate", this.hydrate);
+                            let s = this.getAttribute("before-hydration-url");
+                            s && await
+                            import (s), this.start()
+                        }
+                        start() {
+                            let s = JSON.parse(this.getAttribute("opts")),
+                                e = this.getAttribute("client");
+                            if (Astro[e] === void 0) {
+                                window.addEventListener(`astro:${e}`, () => this.start(), {
+                                    once: !0
+                                });
+                                return
+                            }
+                            Astro[e](async () => {
+                                let n = this.getAttribute("renderer-url"),
+                                    [a, {
+                                        default: r
+                                    }] = await Promise.all([
+                                        import (this.getAttribute("component-url")), n ?
+                                        import (n) : () => () => {}
+                                    ]),
+                                    i = this.getAttribute("component-export") || "default";
+                                if (!i.includes(".")) this.Component = a[i];
+                                else {
+                                    this.Component = a;
+                                    for (let d of i.split(".")) this.Component = this.Component[d]
+                                }
+                                return this.hydrator = r, this.hydrate
+                            }, s, this)
+                        }
+                        attributeChangedCallback() {
+                            this.hydrator && this.hydrate()
+                        }
+                    }, l.observedAttributes = ["props"], l))
+                }
+            })();
+        </script>
+        <astro-island uid="Zw0HRP" component-url="/_astro/ClientHead.e26cfb84.js" component-export="default" renderer-url="/_astro/client.b8996d05.js" props="{&quot;page-noindex&quot;:[0,null],&quot;canonical-url&quot;:[0,&quot;https://www.amgendeavors.com/contact&quot;],&quot;site-meta&quot;:[0,{&quot;version&quot;:[0,114],&quot;isLayout&quot;:[0,true],&quot;template&quot;:[0,&quot;dossenbach&quot;],&quot;headerHeight&quot;:[0,206],&quot;defaultLocale&quot;:[0,&quot;system&quot;],&quot;demoEcwidStoreId&quot;:[0,&quot;26103239&quot;],&quot;demoEcommerceStoreId&quot;:[0,&quot;demo_01G0E9P2R0CFTNBWEEFCEV8EG5&quot;],&quot;shouldAddWWWPrefixToDomain&quot;:[0,true]}],&quot;domain&quot;:[0,&quot;www.amgendeavors.com&quot;]}"
+            ssr="" client="only" opts="{&quot;name&quot;:&quot;ClientHead&quot;,&quot;value&quot;:&quot;vue&quot;}"></astro-island>
+        <script>
+            (() => {
+                var e = async t => {
+                    await (await t())()
+                };
+                (self.Astro || (self.Astro = {})).load = e;
+                window.dispatchEvent(new Event("astro:load"));
+            })();
+        </script>
+        <astro-island uid="ZYWv9Q" component-url="/_astro/Page.18377dd1.js" component-export="default" renderer-url="/_astro/client.b8996d05.js" props="{&quot;page-data&quot;:[0,{&quot;pages&quot;:[0,{&quot;home&quot;:[0,{&quot;name&quot;:[0,&quot;Home&quot;],&quot;slug&quot;:[0,&quot;&quot;],&quot;type&quot;:[0,&quot;default&quot;],&quot;blocks&quot;:[1,&quot;[[0,\&quot;zdrTNB\&quot;],[0,\&quot;zByssN\&quot;],[0,\&quot;zdO1jo\&quot;],[0,\&quot;zHNuKR\&quot;],[0,\&quot;z2OgzH\&quot;],[0,\&quot;zKgPcj\&quot;],[0,\&quot;z2ICRl\&quot;],[0,\&quot;zKWtNW\&quot;],[0,\&quot;zE30Fr\&quot;]]&quot;]}],&quot;z2Hl_m&quot;:[0,{&quot;date&quot;:[0,&quot;2023-04-23T08:36:52.772Z&quot;],&quot;meta&quot;:[0,{&quot;title&quot;:[0,&quot;A blog post&quot;],&quot;ogImageAlt&quot;:[0,&quot;sliced fruit on white ceramic plate&quot;],&quot;description&quot;:[0,&quot;Blog post description.&quot;],&quot;ogImagePath&quot;:[0,&quot;https://cdn.zyrosite.com/cdn-builder-placeholders/blog/pancakes-with-strawberries.jpeg&quot;],&quot;ogImageOrigin&quot;:[0,&quot;other&quot;]}],&quot;name&quot;:[0,&quot;A blog post&quot;],&quot;slug&quot;:[0,&quot;newBlogPost-z2Hl_m&quot;],&quot;type&quot;:[0,&quot;blog&quot;],&quot;blocks&quot;:[1,&quot;[[0,\&quot;znAMVF\&quot;],[0,\&quot;zYjj8T\&quot;]]&quot;],&quot;isDraft&quot;:[0,false],&quot;categories&quot;:[1,&quot;[]&quot;],&quot;coverImageAlt&quot;:[0,&quot;sliced fruit on white ceramic plate&quot;],&quot;minutesToRead&quot;:[0,&quot;0&quot;],&quot;coverImagePath&quot;:[0,&quot;https://cdn.zyrosite.com/cdn-builder-placeholders/blog/pancakes-with-strawberries.jpeg&quot;],&quot;coverImageOrigin&quot;:[0,&quot;other&quot;]}],&quot;z6CCF8&quot;:[0,{&quot;meta&quot;:[0,{&quot;title&quot;:[0,&quot;&quot;],&quot;noindex&quot;:[0,false],&quot;ogImageAlt&quot;:[0,&quot;&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;ogImagePath&quot;:[0,null],&quot;ogImageOrigin&quot;:[0,null]}],&quot;name&quot;:[0,&quot;Full Truck Load&quot;],&quot;slug&quot;:[0,&quot;full-truck-load&quot;],&quot;type&quot;:[0,&quot;default&quot;],&quot;blocks&quot;:[1,&quot;[[0,\&quot;zfIs30\&quot;],[0,\&quot;zzJggE\&quot;],[0,\&quot;zezNmo\&quot;],[0,\&quot;z1-VRQ\&quot;],[0,\&quot;zlEK3T\&quot;]]&quot;]}],&quot;z8Bi7q&quot;:[0,{&quot;meta&quot;:[0,{&quot;title&quot;:[0,&quot;&quot;],&quot;noindex&quot;:[0,false],&quot;ogImageAlt&quot;:[0,&quot;&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;ogImagePath&quot;:[0,null],&quot;ogImageOrigin&quot;:[0,null]}],&quot;name&quot;:[0,&quot;Heavy Haul&quot;],&quot;slug&quot;:[0,&quot;heavy-haul&quot;],&quot;type&quot;:[0,&quot;default&quot;],&quot;blocks&quot;:[1,&quot;[[0,\&quot;zTnqI-\&quot;],[0,\&quot;zfwsIU\&quot;],[0,\&quot;zZr3bC\&quot;],[0,\&quot;zuAf8m\&quot;]]&quot;]}],&quot;zCJP-j&quot;:[0,{&quot;date&quot;:[0,&quot;2023-04-23T08:36:52.772Z&quot;],&quot;meta&quot;:[0,{&quot;title&quot;:[0,&quot;A blog post&quot;],&quot;ogImageAlt&quot;:[0,&quot;body of water between high rise buildings during night time&quot;],&quot;description&quot;:[0,&quot;Blog post description.&quot;],&quot;ogImagePath&quot;:[0,&quot;https://cdn.zyrosite.com/cdn-builder-placeholders/blog/city-center-at-night.jpeg&quot;],&quot;ogImageOrigin&quot;:[0,&quot;other&quot;]}],&quot;name&quot;:[0,&quot;A blog post&quot;],&quot;slug&quot;:[0,&quot;newBlogPost-zCJP-j&quot;],&quot;type&quot;:[0,&quot;blog&quot;],&quot;blocks&quot;:[1,&quot;[[0,\&quot;zbW64n\&quot;],[0,\&quot;zfaibu\&quot;]]&quot;],&quot;isDraft&quot;:[0,false],&quot;categories&quot;:[1,&quot;[]&quot;],&quot;coverImageAlt&quot;:[0,&quot;body of water between high rise buildings during night time&quot;],&quot;minutesToRead&quot;:[0,&quot;0&quot;],&quot;coverImagePath&quot;:[0,&quot;https://cdn.zyrosite.com/cdn-builder-placeholders/blog/city-center-at-night.jpeg&quot;],&quot;coverImageOrigin&quot;:[0,&quot;other&quot;]}],&quot;zCJrrT&quot;:[0,{&quot;name&quot;:[0,&quot;About&quot;],&quot;slug&quot;:[0,&quot;about&quot;],&quot;type&quot;:[0,&quot;default&quot;],&quot;blocks&quot;:[1,&quot;[[0,\&quot;z8WdAD\&quot;],[0,\&quot;zo5fgj\&quot;],[0,\&quot;zUOO2z\&quot;],[0,\&quot;z17z7X\&quot;]]&quot;]}],&quot;zN8qTJ&quot;:[0,{&quot;meta&quot;:[0,{&quot;noindex&quot;:[0,false],&quot;password&quot;:[0,&quot;&quot;],&quot;ogImageAlt&quot;:[0,&quot;&quot;],&quot;ogImagePath&quot;:[0,null],&quot;ogImageOrigin&quot;:[0,null],&quot;passwordDesign&quot;:[0,&quot;default&quot;],&quot;passwordBackText&quot;:[0,&quot;Back to&quot;],&quot;passwordButtonText&quot;:[0,&quot;Enter&quot;],&quot;passwordHeadingText&quot;:[0,&quot;Guest area&quot;],&quot;passwordSubheadingText&quot;:[0,&quot;Please enter the password to access the page&quot;],&quot;passwordPlaceholderText&quot;:[0,&quot;Type password&quot;]}],&quot;name&quot;:[0,&quot;Privacy policy&quot;],&quot;slug&quot;:[0,&quot;privacy-policy&quot;],&quot;type&quot;:[0,&quot;default&quot;],&quot;blocks&quot;:[1,&quot;[[0,\&quot;zz2gll\&quot;]]&quot;]}],&quot;zOCX2T&quot;:[0,{&quot;meta&quot;:[0,{&quot;title&quot;:[0,&quot;&quot;],&quot;noindex&quot;:[0,false],&quot;ogImageAlt&quot;:[0,&quot;&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;ogImagePath&quot;:[0,null],&quot;ogImageOrigin&quot;:[0,null]}],&quot;name&quot;:[0,&quot;Auto Haul&quot;],&quot;slug&quot;:[0,&quot;auto-haul&quot;],&quot;type&quot;:[0,&quot;default&quot;],&quot;blocks&quot;:[1,&quot;[[0,\&quot;zZl04O\&quot;],[0,\&quot;zyrsLf\&quot;],[0,\&quot;z_v7mN\&quot;],[0,\&quot;zTpdcZ\&quot;]]&quot;]}],&quot;zXGnec&quot;:[0,{&quot;name&quot;:[0,&quot;Contact&quot;],&quot;slug&quot;:[0,&quot;contact&quot;],&quot;type&quot;:[0,&quot;default&quot;],&quot;blocks&quot;:[1,&quot;[[0,\&quot;z0kuri\&quot;],[0,\&quot;ze5jOP\&quot;]]&quot;]}],&quot;zXveYB&quot;:[0,{&quot;name&quot;:[0,&quot;Blog&quot;],&quot;slug&quot;:[0,&quot;page-zXveYB&quot;],&quot;type&quot;:[0,&quot;default&quot;],&quot;blocks&quot;:[1,&quot;[[0,\&quot;zZ9NMA\&quot;],[0,\&quot;zIDFfe\&quot;]]&quot;]}],&quot;ze12fj&quot;:[0,{&quot;meta&quot;:[0,{&quot;title&quot;:[0,&quot;&quot;],&quot;noindex&quot;:[0,false],&quot;ogImageAlt&quot;:[0,&quot;&quot;],&quot;description&quot;:[0,&quot;&quot;],&quot;ogImagePath&quot;:[0,null],&quot;ogImageOrigin&quot;:[0,null]}],&quot;name&quot;:[0,&quot;Less Than Truckload&quot;],&quot;slug&quot;:[0,&quot;less-than-truckload&quot;],&quot;type&quot;:[0,&quot;default&quot;],&quot;blocks&quot;:[1,&quot;[[0,\&quot;z2Vc3e\&quot;],[0,\&quot;zKtMYW\&quot;],[0,\&quot;zDVTqD\&quot;],[0,\&quot;z0DnGz\&quot;]]&quot;]}],&quot;zfBQp-&quot;:[0,{&quot;date&quot;:[0,&quot;2023-04-23T08:36:52.771Z&quot;],&quot;meta&quot;:[0,{&quot;title&quot;:[0,&quot;A blog post&quot;],&quot;ogImageAlt&quot;:[0,&quot;man in black and gray hoodie and black pants standing beside blue wall&quot;],&quot;description&quot;:[0,&quot;Blog post description.&quot;],&quot;ogImagePath&quot;:[0,&quot;https://cdn.zyrosite.com/cdn-builder-placeholders/blog/blue-woman-near-blue-house.jpeg&quot;],&quot;ogImageOrigin&quot;:[0,&quot;other&quot;]}],&quot;name&quot;:[0,&quot;A blog post&quot;],&quot;slug&quot;:[0,&quot;newBlogPost-zfBQp-&quot;],&quot;type&quot;:[0,&quot;blog&quot;],&quot;blocks&quot;:[1,&quot;[[0,\&quot;zR9cnR\&quot;],[0,\&quot;zxK3Lw\&quot;]]&quot;],&quot;isDraft&quot;:[0,false],&quot;categories&quot;:[1,&quot;[]&quot;],&quot;coverImageAlt&quot;:[0,&quot;man in black and gray hoodie and black pants standing beside blue wall&quot;],&quot;minutesToRead&quot;:[0,&quot;0&quot;],&quot;coverImagePath&quot;:[0,&quot;https://cdn.zyrosite.com/cdn-builder-placeholders/blog/blue-woman-near-blue-house.jpeg&quot;],&quot;coverImageOrigin&quot;:[0,&quot;other&quot;]}],&quot;ztZwBS&quot;:[0,{&quot;date&quot;:[0,&quot;2023-04-23T08:36:52.773Z&quot;],&quot;meta&quot;:[0,{&quot;title&quot;:[0,&quot;Freight Fraud: The Most Common Scams in the Freight Industry&quot;],&quot;authorName&quot;:[0,&quot;Jerrod Anthraper&quot;],&quot;ogImageAlt&quot;:[0,&quot;brown mountain under white sky during daytime&quot;],&quot;description&quot;:[0,&quot;This article focuses on the common scams that occur in the freight and transportation industries, such as cargo theft, false invoicing, and broker scams. The article provides tips on how to avoid falling victim to these scams and protect your business from fraudulent activities. Whether you are a shipper, carrier, or freight broker, this article provides valuable information on staying safe and secure in the freight industry.&quot;],&quot;ogImagePath&quot;:[0,&quot;https://cdn.zyrosite.com/cdn-builder-placeholders/blog/mountains-in-the-evening.jpeg&quot;],&quot;ogImageOrigin&quot;:[0,&quot;other&quot;]}],&quot;name&quot;:[0,&quot;Freight Fraud: The Most Common Scams in the Freight Industry&quot;],&quot;slug&quot;:[0,&quot;freight-fraud-the-most-common-scams-in-the-freight-industry&quot;],&quot;type&quot;:[0,&quot;blog&quot;],&quot;blocks&quot;:[1,&quot;[[0,\&quot;z6DP9c\&quot;],[0,\&quot;zMueHi\&quot;]]&quot;],&quot;isDraft&quot;:[0,false],&quot;categories&quot;:[1,&quot;[]&quot;],&quot;coverImageAlt&quot;:[0,&quot;brown mountain under white sky during daytime&quot;],&quot;minutesToRead&quot;:[0,&quot;2&quot;],&quot;coverImagePath&quot;:[0,&quot;https://cdn.zyrosite.com/cdn-builder-placeholders/blog/mountains-in-the-evening.jpeg&quot;],&quot;coverImageOrigin&quot;:[0,&quot;other&quot;]}]}],&quot;blocks&quot;:[0,{&quot;header&quot;:[0,{&quot;type&quot;:[0,&quot;BlockNavigation&quot;],&quot;mobile&quot;:[0,{&quot;logoHeight&quot;:[0,70]}],&quot;desktop&quot;:[0,{&quot;logoHeight&quot;:[0,108]}],&quot;settings&quot;:[0,{&quot;styles&quot;:[0,{&quot;width&quot;:[0,&quot;1240px&quot;],&quot;padding&quot;:[0,&quot;24px 16px 24px 16px&quot;],&quot;m-padding&quot;:[0,&quot;24px 16px 24px 16px&quot;],&quot;logo-width&quot;:[0,&quot;108px&quot;],&quot;cartIconSize&quot;:[0,&quot;24px&quot;],&quot;m-logo-width&quot;:[0,&quot;70px&quot;],&quot;oldContentWidth&quot;:[0,&quot;1600px&quot;],&quot;menu-item-spacing&quot;:[0,&quot;40px&quot;],&quot;space-between-menu&quot;:[0,&quot;64px&quot;],&quot;m-menu-item-spacing&quot;:[0,&quot;20px&quot;],&quot;contrastBackgroundColor&quot;:[0,&quot;rgb(104, 104, 98)&quot;]}],&quot;cartText&quot;:[0,&quot;Shopping bag&quot;],&quot;isSticky&quot;:[0,true],&quot;showLogo&quot;:[0,true],&quot;isCartVisible&quot;:[0,true],&quot;logoImagePath&quot;:[0,&quot;amg-transparent-YyvEMPLVO4CjzPQo.png&quot;],&quot;logoPlacement&quot;:[0,&quot;left&quot;],&quot;logoImageOrigin&quot;:[0,&quot;assets&quot;],&quot;m-logoPlacement&quot;:[0,&quot;left&quot;],&quot;navigationPlacement&quot;:[0,&quot;left&quot;],&quot;m-navigationPlacement&quot;:[0,&quot;right&quot;]}],&quot;zindexes&quot;:[1,&quot;[]&quot;],&quot;background&quot;:[0,{&quot;color&quot;:[0,&quot;rgb(135, 135, 128)&quot;],&quot;current&quot;:[0,&quot;color&quot;],&quot;isTransparent&quot;:[0,true]}],&quot;components&quot;:[1,&quot;[]&quot;],&quot;logoAspectRatio&quot;:[0,1],&quot;navLinkTextColor&quot;:[0,&quot;rgb(255, 255, 255)&quot;],&quot;navLinkTextColorHover&quot;:[0,&quot;rgb(250, 200, 200)&quot;]}],&quot;z0kuri&quot;:[0,{&quot;type&quot;:[0,&quot;BlockLayout&quot;],&quot;mobile&quot;:[0,{&quot;minHeight&quot;:[0,325]}],&quot;desktop&quot;:[0,{&quot;minHeight&quot;:[0,206]}],&quot;settings&quot;:[0,{&quot;styles&quot;:[0,{&quot;rows&quot;:[0,5],&quot;width&quot;:[0,&quot;1224px&quot;],&quot;row-gap&quot;:[0,&quot;16px&quot;],&quot;row-size&quot;:[0,&quot;48px&quot;],&quot;column-gap&quot;:[0,&quot;24px&quot;],&quot;block-padding&quot;:[0,&quot;0px 0px 0px 0px&quot;],&quot;m-block-padding&quot;:[0,&quot;80px 16px 80px 16px&quot;],&quot;grid-gap-history&quot;:[0,&quot;16px 24px&quot;]}]}],&quot;zindexes&quot;:[1,&quot;[[0,\&quot;zBtJ6X\&quot;],[0,\&quot;zAoXPu\&quot;]]&quot;],&quot;background&quot;:[0,{&quot;color&quot;:[0,&quot;rgb(243, 243, 242)&quot;],&quot;current&quot;:[0,&quot;color&quot;]}],&quot;components&quot;:[1,&quot;[[0,\&quot;zBtJ6X\&quot;],[0,\&quot;zAoXPu\&quot;]]&quot;]}],&quot;ze5jOP&quot;:[0,{&quot;type&quot;:[0,&quot;BlockLayout&quot;],&quot;mobile&quot;:[0,{&quot;minHeight&quot;:[0,146]}],&quot;desktop&quot;:[0,{&quot;minHeight&quot;:[0,806]}],&quot;settings&quot;:[0,{&quot;styles&quot;:[0,{&quot;cols&quot;:[0,&quot;12&quot;],&quot;rows&quot;:[0,8],&quot;width&quot;:[0,&quot;1224px&quot;],&quot;m-rows&quot;:[0,&quot;1&quot;],&quot;col-gap&quot;:[0,&quot;24px&quot;],&quot;row-gap&quot;:[0,&quot;0px&quot;],&quot;row-size&quot;:[0,&quot;64px&quot;],&quot;column-gap&quot;:[0,&quot;0px&quot;],&quot;block-padding&quot;:[0,&quot;0&quot;],&quot;m-block-padding&quot;:[0,&quot;40px 16px 40px 16px&quot;],&quot;grid-gap-history&quot;:[0,&quot;16px 24px&quot;]}]}],&quot;zindexes&quot;:[1,&quot;[[0,\&quot;zBEkbM\&quot;],[0,\&quot;zHxw9j\&quot;]]&quot;],&quot;background&quot;:[0,{&quot;color&quot;:[0,&quot;rgb(243, 243, 242)&quot;],&quot;current&quot;:[0,&quot;color&quot;]}],&quot;components&quot;:[1,&quot;[[0,\&quot;zBEkbM\&quot;],[0,\&quot;zHxw9j\&quot;]]&quot;]}],&quot;zlRpbV&quot;:[0,{&quot;slot&quot;:[0,&quot;footer&quot;],&quot;type&quot;:[0,&quot;BlockLayout&quot;],&quot;mobile&quot;:[0,{&quot;minHeight&quot;:[0,505]}],&quot;desktop&quot;:[0,{&quot;minHeight&quot;:[0,163]}],&quot;settings&quot;:[0,{&quot;styles&quot;:[0,{&quot;cols&quot;:[0,&quot;12&quot;],&quot;rows&quot;:[0,4],&quot;width&quot;:[0,&quot;1224px&quot;],&quot;m-rows&quot;:[0,&quot;1&quot;],&quot;col-gap&quot;:[0,&quot;24px&quot;],&quot;row-gap&quot;:[0,&quot;16px&quot;],&quot;row-size&quot;:[0,&quot;48px&quot;],&quot;column-gap&quot;:[0,&quot;24px&quot;],&quot;block-padding&quot;:[0,&quot;16px 0 16px 0&quot;],&quot;m-block-padding&quot;:[0,&quot;60px 40px 60px 40px&quot;]}]}],&quot;zindexes&quot;:[1,&quot;[[0,\&quot;zOLrRU\&quot;],[0,\&quot;zSIbh9\&quot;]]&quot;],&quot;background&quot;:[0,{&quot;color&quot;:[0,&quot;rgb(74, 74, 67)&quot;],&quot;current&quot;:[0,&quot;color&quot;]}],&quot;components&quot;:[1,&quot;[[0,\&quot;zOLrRU\&quot;],[0,\&quot;zSIbh9\&quot;]]&quot;]}]}],&quot;elements&quot;:[0,{&quot;zAoXPu&quot;:[0,{&quot;type&quot;:[0,&quot;GridTextBox&quot;],&quot;mobile&quot;:[0,{&quot;top&quot;:[0,117],&quot;left&quot;:[0,0],&quot;width&quot;:[0,382],&quot;height&quot;:[0,128]}],&quot;content&quot;:[0,&quot;&lt;h1 style=\&quot;color: rgb(26, 26, 26)\&quot;&gt;&lt;span style=\&quot;color: rgb(74, 74, 67); text-transform: none\&quot;&gt;Get in touch today&lt;/span&gt;&lt;/h1&gt;&quot;],&quot;desktop&quot;:[0,{&quot;top&quot;:[0,64],&quot;left&quot;:[0,104],&quot;width&quot;:[0,1016],&quot;height&quot;:[0,120]}],&quot;settings&quot;:[0,{&quot;styles&quot;:[0,{&quot;text&quot;:[0,&quot;center&quot;],&quot;align&quot;:[0,&quot;flex-start&quot;],&quot;justify&quot;:[0,&quot;flex-start&quot;],&quot;m-element-margin&quot;:[0,&quot;0 0 30px 0&quot;]}]}]}],&quot;zBEkbM&quot;:[0,{&quot;type&quot;:[0,&quot;GridForm&quot;],&quot;formId&quot;:[0,&quot;Contact form&quot;],&quot;mobile&quot;:[0,{&quot;top&quot;:[0,578],&quot;left&quot;:[0,0],&quot;width&quot;:[0,382],&quot;height&quot;:[0,569]}],&quot;desktop&quot;:[0,{&quot;top&quot;:[0,184],&quot;left&quot;:[0,309],&quot;width&quot;:[0,606],&quot;height&quot;:[0,568]}],&quot;settings&quot;:[0,{&quot;theme&quot;:[0,&quot;light&quot;],&quot;schema&quot;:[1,&quot;[[0,{\&quot;id\&quot;:[0,\&quot;K_8OLOWChSW2_g6J1l-gF\&quot;],\&quot;svg\&quot;:[0,\&quot;align-left-short\&quot;],\&quot;tag\&quot;:[0,\&quot;input\&quot;],\&quot;name\&quot;:[0,\&quot;firstName\&quot;],\&quot;type\&quot;:[0,\&quot;GridInput\&quot;],\&quot;fieldType\&quot;:[0,\&quot;short-answer\&quot;],\&quot;inputLabel\&quot;:[0,\&quot;Name\&quot;],\&quot;validation\&quot;:[1,\&quot;[[1,\\\&quot;[[0,\\\\\\\&quot;required\\\\\\\&quot;]]\\\&quot;]]\&quot;],\&quot;placeholder\&quot;:[0,\&quot;Your name\&quot;],\&quot;validation-messages\&quot;:[0,{\&quot;required\&quot;:[0,\&quot;This field is required\&quot;]}]}],[0,{\&quot;id\&quot;:[0,\&quot;4g1c5yG2YecIGlwxbWD7f\&quot;],\&quot;svg\&quot;:[0,\&quot;align-left-short\&quot;],\&quot;tag\&quot;:[0,\&quot;input\&quot;],\&quot;name\&quot;:[0,\&quot;Phone Number*\&quot;],\&quot;type\&quot;:[0,\&quot;GridInput\&quot;],\&quot;fieldType\&quot;:[0,\&quot;short-answer\&quot;],\&quot;inputLabel\&quot;:[0,\&quot;Phone Number*\&quot;],\&quot;validation\&quot;:[1,\&quot;[[1,\\\&quot;[[0,\\\\\\\&quot;bail\\\\\\\&quot;],[0,null]]\\\&quot;],[1,\\\&quot;[[0,\\\\\\\&quot;required\\\\\\\&quot;],[0,null]]\\\&quot;],[1,\\\&quot;[[0,\\\\\\\&quot;phone\\\\\\\&quot;],[0,\\\\\\\&quot;/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$/\\\\\\\&quot;]]\\\&quot;]]\&quot;],\&quot;placeholder\&quot;:[0,\&quot;Your phone number\&quot;],\&quot;validationType\&quot;:[0,\&quot;phone\&quot;],\&quot;validation-messages\&quot;:[0,{\&quot;phone\&quot;:[0,\&quot;Please enter a valid phone number\&quot;],\&quot;required\&quot;:[0,\&quot;This field is required\&quot;]}]}],[0,{\&quot;id\&quot;:[0,\&quot;Clc2966aRlrnQR-abv7Fc\&quot;],\&quot;svg\&quot;:[0,\&quot;align-left-short\&quot;],\&quot;tag\&quot;:[0,\&quot;input\&quot;],\&quot;name\&quot;:[0,\&quot;email\&quot;],\&quot;type\&quot;:[0,\&quot;GridInput\&quot;],\&quot;fieldType\&quot;:[0,\&quot;short-answer\&quot;],\&quot;inputLabel\&quot;:[0,\&quot;Your email\&quot;],\&quot;validation\&quot;:[1,\&quot;[[1,\\\&quot;[[0,\\\\\\\&quot;bail\\\\\\\&quot;]]\\\&quot;],[1,\\\&quot;[[0,\\\\\\\&quot;email\\\\\\\&quot;]]\\\&quot;],[1,\\\&quot;[[0,\\\\\\\&quot;required\\\\\\\&quot;]]\\\&quot;]]\&quot;],\&quot;placeholder\&quot;:[0,\&quot;Your email address\&quot;],\&quot;validationType\&quot;:[0,\&quot;email\&quot;],\&quot;validation-messages\&quot;:[0,{\&quot;email\&quot;:[0,\&quot;Please enter a valid email address\&quot;],\&quot;required\&quot;:[0,\&quot;This field is required\&quot;]}]}],[0,{\&quot;id\&quot;:[0,\&quot;zjr46E\&quot;],\&quot;svg\&quot;:[0,\&quot;align-left-short\&quot;],\&quot;name\&quot;:[0,\&quot;Pickup/Dropoff\&quot;],\&quot;type\&quot;:[0,\&quot;GridInput\&quot;],\&quot;fieldType\&quot;:[0,\&quot;short-answer\&quot;],\&quot;inputLabel\&quot;:[0,\&quot;Pickup/Dropoff\&quot;],\&quot;validation\&quot;:[1,\&quot;[[1,\\\&quot;[[0,\\\\\\\&quot;optional\\\\\\\&quot;]]\\\&quot;]]\&quot;],\&quot;placeholder\&quot;:[0,\&quot;Zipcodes Please!\&quot;],\&quot;validationType\&quot;:[0,\&quot;text\&quot;],\&quot;validation-messages\&quot;:[0,{\&quot;required\&quot;:[0,\&quot;This field is required\&quot;]}]}],[0,{\&quot;id\&quot;:[0,\&quot;rR79sp7YDQCE5EbCTsCWe\&quot;],\&quot;svg\&quot;:[0,\&quot;align-left\&quot;],\&quot;tag\&quot;:[0,\&quot;textarea\&quot;],\&quot;name\&quot;:[0,\&quot;Vehicle Type\&quot;],\&quot;type\&quot;:[0,\&quot;GridInput\&quot;],\&quot;inputLabel\&quot;:[0,\&quot;Vehicle Type\&quot;],\&quot;validation\&quot;:[1,\&quot;[[1,\\\&quot;[[0,\\\\\\\&quot;required\\\\\\\&quot;]]\\\&quot;]]\&quot;],\&quot;placeholder\&quot;:[0,\&quot;Year/Make/Model or VIN\&quot;],\&quot;validationType\&quot;:[0,\&quot;text\&quot;],\&quot;validation-messages\&quot;:[0,{\&quot;required\&quot;:[0,\&quot;This field is required\&quot;]}]}]]&quot;],&quot;styles&quot;:[0,{&quot;justify&quot;:[0,&quot;center&quot;],&quot;formSpacing&quot;:[0,&quot;22px 10px&quot;]}],&quot;successMessage&quot;:[0,&quot;Thank You for your submission. Can&#39;t wait? Give us a call! 832-310-7980&quot;]}],&quot;animation&quot;:[0,{&quot;name&quot;:[0,&quot;slide&quot;],&quot;type&quot;:[0,&quot;global&quot;]}],&quot;inputFillColor&quot;:[0,&quot;rgb(241, 241, 241)&quot;],&quot;inputTextColor&quot;:[0,&quot;rgb(136, 136, 136)&quot;],&quot;labelTextColor&quot;:[0,&quot;rgb(26, 26, 26)&quot;],&quot;formBorderColor&quot;:[0,&quot;#1d1e20&quot;],&quot;innerBackground&quot;:[0,{&quot;color&quot;:[0,&quot;rgb(255, 255, 255)&quot;],&quot;image&quot;:[0,&quot;&quot;],&quot;current&quot;:[0,&quot;&quot;]}],&quot;initialElementId&quot;:[0,&quot;AWMrQ-oOWm&quot;],&quot;inputBorderColor&quot;:[0,&quot;rgb(0, 0, 0)&quot;],&quot;submitButtonData&quot;:[0,{&quot;type&quot;:[0,&quot;GridButton&quot;],&quot;content&quot;:[0,&quot;Submit&quot;],&quot;settings&quot;:[0,{&quot;type&quot;:[0,&quot;primary&quot;],&quot;styles&quot;:[0,{&quot;align&quot;:[0,&quot;center&quot;],&quot;justify&quot;:[0,&quot;center&quot;],&quot;position&quot;:[0,&quot;8/8/9/10&quot;]}],&quot;isFormButton&quot;:[0,true]}]}],&quot;inputFillColorHover&quot;:[0,&quot;rgb(241, 241, 241)&quot;],&quot;submitButtonFontColor&quot;:[0,&quot;rgb(255, 255, 255)&quot;],&quot;submitButtonBorderColor&quot;:[0,&quot;rgb(50, 50, 50)&quot;],&quot;submitButtonBorderWidth&quot;:[0,0],&quot;submitButtonFontColorHover&quot;:[0,&quot;rgb(255, 255, 255)&quot;],&quot;submitButtonBackgroundColor&quot;:[0,&quot;rgb(73, 88, 103)&quot;],&quot;submitButtonBorderColorHover&quot;:[0,&quot;rgb(50, 50, 50)&quot;],&quot;submitButtonBorderWidthHover&quot;:[0,0],&quot;submitButtonBackgroundColorHover&quot;:[0,&quot;rgb(48, 63, 78)&quot;]}],&quot;zBtJ6X&quot;:[0,{&quot;type&quot;:[0,&quot;GridTextBox&quot;],&quot;mobile&quot;:[0,{&quot;top&quot;:[0,80],&quot;left&quot;:[0,0],&quot;width&quot;:[0,382],&quot;height&quot;:[0,21]}],&quot;content&quot;:[0,&quot;&lt;p class=\&quot;body-small\&quot; style=\&quot;color: rgb(26, 26, 26)\&quot;&gt;&lt;span style=\&quot;color: rgb(74, 74, 67); text-transform: none\&quot;&gt;CONTACT ME&lt;/span&gt;&lt;/p&gt;&quot;],&quot;desktop&quot;:[0,{&quot;top&quot;:[0,40],&quot;left&quot;:[0,417],&quot;width&quot;:[0,392],&quot;height&quot;:[0,21]}],&quot;settings&quot;:[0,{&quot;styles&quot;:[0,{&quot;text&quot;:[0,&quot;center&quot;],&quot;align&quot;:[0,&quot;flex-start&quot;],&quot;justify&quot;:[0,&quot;center&quot;],&quot;m-element-margin&quot;:[0,&quot;0 0 16px 0&quot;]}]}]}],&quot;zHxw9j&quot;:[0,{&quot;type&quot;:[0,&quot;GridTextBox&quot;],&quot;mobile&quot;:[0,{&quot;top&quot;:[0,1163],&quot;left&quot;:[0,0],&quot;width&quot;:[0,382],&quot;height&quot;:[0,77]}],&quot;content&quot;:[0,&quot;&lt;h3 style=\&quot;color: rgb(26, 26, 26)\&quot;&gt;Looking to get a Quote For Auto Transport?&lt;/h3&gt;&quot;],&quot;desktop&quot;:[0,{&quot;top&quot;:[0,64],&quot;left&quot;:[0,412],&quot;width&quot;:[0,400],&quot;height&quot;:[0,96]}],&quot;settings&quot;:[0,{&quot;styles&quot;:[0,{&quot;text&quot;:[0,&quot;center&quot;],&quot;align&quot;:[0,&quot;flex-start&quot;],&quot;justify&quot;:[0,&quot;flex-start&quot;],&quot;m-element-margin&quot;:[0,&quot;0 0 16px 0&quot;]}]}],&quot;animation&quot;:[0,{&quot;name&quot;:[0,&quot;slide&quot;],&quot;type&quot;:[0,&quot;global&quot;]}]}],&quot;zOLrRU&quot;:[0,{&quot;type&quot;:[0,&quot;GridImage&quot;],&quot;mobile&quot;:[0,{&quot;top&quot;:[0,60],&quot;left&quot;:[0,93],&quot;width&quot;:[0,197],&quot;height&quot;:[0,43]}],&quot;target&quot;:[0,&quot;_self&quot;],&quot;desktop&quot;:[0,{&quot;top&quot;:[0,40],&quot;left&quot;:[0,86],&quot;width&quot;:[0,220],&quot;height&quot;:[0,57]}],&quot;settings&quot;:[0,{&quot;alt&quot;:[0,&quot;&quot;],&quot;path&quot;:[0,&quot;amg-transparent-YyvEMPLVO4CjzPQo.png&quot;],&quot;origin&quot;:[0,&quot;assets&quot;],&quot;styles&quot;:[0,{&quot;align&quot;:[0,&quot;center&quot;],&quot;justify&quot;:[0,&quot;center&quot;],&quot;m-width&quot;:[0,&quot;58.862876254180605%&quot;],&quot;m-align-self&quot;:[0,&quot;center&quot;],&quot;m-element-margin&quot;:[0,&quot;0 0 16px 0&quot;]}],&quot;clickAction&quot;:[0,&quot;none&quot;]}],&quot;fullResolutionWidth&quot;:[0,500],&quot;fullResolutionHeight&quot;:[0,500]}],&quot;zSIbh9&quot;:[0,{&quot;type&quot;:[0,&quot;GridTextBox&quot;],&quot;mobile&quot;:[0,{&quot;top&quot;:[0,119],&quot;left&quot;:[0,24],&quot;width&quot;:[0,334],&quot;height&quot;:[0,48]}],&quot;content&quot;:[0,&quot;&lt;p style=\&quot;color: rgb(26, 26, 26)\&quot; class=\&quot;body\&quot;&gt;&lt;span style=\&quot;color: rgb(243, 243, 242)\&quot;&gt;AMG ENDEAVORS TRANSPORTATION SERVICES&lt;/span&gt;&lt;/p&gt;&quot;],&quot;desktop&quot;:[0,{&quot;top&quot;:[0,120],&quot;left&quot;:[0,8],&quot;width&quot;:[0,392],&quot;height&quot;:[0,24]}],&quot;settings&quot;:[0,{&quot;styles&quot;:[0,{&quot;text&quot;:[0,&quot;center&quot;],&quot;align&quot;:[0,&quot;flex-start&quot;],&quot;justify&quot;:[0,&quot;flex-start&quot;],&quot;m-element-margin&quot;:[0,&quot;0 0 93px 0&quot;]}]}]}]}],&quot;nav&quot;:[1,&quot;[[0,{\&quot;linkType\&quot;:[0,\&quot;Page\&quot;],\&quot;subItems\&quot;:[1,\&quot;[]\&quot;],\&quot;navItemId\&quot;:[0,\&quot;home\&quot;],\&quot;linkedPageId\&quot;:[0,\&quot;home\&quot;]}],[0,{\&quot;linkType\&quot;:[0,\&quot;Page\&quot;],\&quot;subItems\&quot;:[1,\&quot;[]\&quot;],\&quot;navItemId\&quot;:[0,\&quot;zCJrrT\&quot;],\&quot;linkedPageId\&quot;:[0,\&quot;zCJrrT\&quot;]}],[0,{\&quot;name\&quot;:[0,\&quot;Services\&quot;],\&quot;linkType\&quot;:[0,\&quot;Folder\&quot;],\&quot;subItems\&quot;:[1,\&quot;[[0,{\\\&quot;linkType\\\&quot;:[0,\\\&quot;Page\\\&quot;],\\\&quot;subItems\\\&quot;:[1,\\\&quot;[]\\\&quot;],\\\&quot;navItemId\\\&quot;:[0,\\\&quot;z6CCF8\\\&quot;],\\\&quot;linkedPageId\\\&quot;:[0,\\\&quot;z6CCF8\\\&quot;]}],[0,{\\\&quot;linkType\\\&quot;:[0,\\\&quot;Page\\\&quot;],\\\&quot;subItems\\\&quot;:[1,\\\&quot;[]\\\&quot;],\\\&quot;navItemId\\\&quot;:[0,\\\&quot;ze12fj\\\&quot;],\\\&quot;linkedPageId\\\&quot;:[0,\\\&quot;ze12fj\\\&quot;]}],[0,{\\\&quot;linkType\\\&quot;:[0,\\\&quot;Page\\\&quot;],\\\&quot;subItems\\\&quot;:[1,\\\&quot;[]\\\&quot;],\\\&quot;navItemId\\\&quot;:[0,\\\&quot;zOCX2T\\\&quot;],\\\&quot;linkedPageId\\\&quot;:[0,\\\&quot;zOCX2T\\\&quot;]}],[0,{\\\&quot;linkType\\\&quot;:[0,\\\&quot;Page\\\&quot;],\\\&quot;subItems\\\&quot;:[1,\\\&quot;[]\\\&quot;],\\\&quot;navItemId\\\&quot;:[0,\\\&quot;zbGGTM\\\&quot;],\\\&quot;linkedPageId\\\&quot;:[0,\\\&quot;z8Bi7q\\\&quot;]}]]\&quot;],\&quot;navItemId\&quot;:[0,\&quot;zmILOC\&quot;]}],[0,{\&quot;linkType\&quot;:[0,\&quot;Page\&quot;],\&quot;subItems\&quot;:[1,\&quot;[]\&quot;],\&quot;navItemId\&quot;:[0,\&quot;zXGnec\&quot;],\&quot;linkedPageId\&quot;:[0,\&quot;zXGnec\&quot;]}],[0,{\&quot;isHidden\&quot;:[0,false],\&quot;linkType\&quot;:[0,\&quot;Page\&quot;],\&quot;subItems\&quot;:[1,\&quot;[]\&quot;],\&quot;navItemId\&quot;:[0,\&quot;zbVu0M\&quot;],\&quot;linkedPageId\&quot;:[0,\&quot;zXveYB\&quot;]}],[0,{\&quot;isHidden\&quot;:[0,false],\&quot;linkType\&quot;:[0,\&quot;Page\&quot;],\&quot;subItems\&quot;:[1,\&quot;[]\&quot;],\&quot;navItemId\&quot;:[0,\&quot;zDIMKz\&quot;],\&quot;linkedPageId\&quot;:[0,\&quot;zN8qTJ\&quot;]}]]&quot;],&quot;currentLocale&quot;:[0,&quot;system&quot;],&quot;homePageId&quot;:[0,&quot;home&quot;],&quot;isNavHidden&quot;:[0,false],&quot;cookieBannerAcceptText&quot;:[0,null],&quot;cookieBannerDisclaimer&quot;:[0,null],&quot;cookieBannerDeclineText&quot;:[0,null],&quot;blogReadingTimeText&quot;:[0,null],&quot;metaTitle&quot;:[0,null],&quot;meta&quot;:[0,{&quot;version&quot;:[0,114],&quot;isLayout&quot;:[0,true],&quot;template&quot;:[0,&quot;dossenbach&quot;],&quot;headerHeight&quot;:[0,206],&quot;defaultLocale&quot;:[0,&quot;system&quot;],&quot;demoEcwidStoreId&quot;:[0,&quot;26103239&quot;],&quot;demoEcommerceStoreId&quot;:[0,&quot;demo_01G0E9P2R0CFTNBWEEFCEV8EG5&quot;],&quot;shouldAddWWWPrefixToDomain&quot;:[0,true]}],&quot;forms&quot;:[0,{&quot;Contact form&quot;:[0,{&quot;token&quot;:[0,&quot;m2WoDB06K7t9yObZ8nr0AMxoyy4mxXLe&quot;]}]}],&quot;styles&quot;:[0,{&quot;h1&quot;:[0,{&quot;font-size&quot;:[0,&quot;120px&quot;],&quot;font-style&quot;:[0,&quot;normal&quot;],&quot;font-family&quot;:[0,&quot;var(--font-primary)&quot;],&quot;font-weight&quot;:[0,400],&quot;line-height&quot;:[0,&quot;1.0&quot;],&quot;m-font-size&quot;:[0,&quot;64px&quot;],&quot;letter-spacing&quot;:[0,&quot;normal&quot;],&quot;text-transform&quot;:[0,&quot;none&quot;],&quot;text-decoration&quot;:[0,&quot;none&quot;]}],&quot;h2&quot;:[0,{&quot;font-size&quot;:[0,&quot;64px&quot;],&quot;font-style&quot;:[0,&quot;normal&quot;],&quot;font-family&quot;:[0,&quot;var(--font-primary)&quot;],&quot;font-weight&quot;:[0,400],&quot;line-height&quot;:[0,&quot;1.2&quot;],&quot;m-font-size&quot;:[0,&quot;36px&quot;],&quot;letter-spacing&quot;:[0,&quot;normal&quot;],&quot;text-transform&quot;:[0,&quot;none&quot;],&quot;text-decoration&quot;:[0,&quot;none&quot;]}],&quot;h3&quot;:[0,{&quot;font-size&quot;:[0,&quot;40px&quot;],&quot;font-style&quot;:[0,&quot;normal&quot;],&quot;font-family&quot;:[0,&quot;var(--font-primary)&quot;],&quot;font-weight&quot;:[0,400],&quot;line-height&quot;:[0,&quot;1.2&quot;],&quot;m-font-size&quot;:[0,&quot;32px&quot;],&quot;letter-spacing&quot;:[0,&quot;normal&quot;],&quot;text-transform&quot;:[0,&quot;none&quot;],&quot;text-decoration&quot;:[0,&quot;none&quot;]}],&quot;h4&quot;:[0,{&quot;font-size&quot;:[0,&quot;32px&quot;],&quot;font-style&quot;:[0,&quot;normal&quot;],&quot;font-family&quot;:[0,&quot;var(--font-primary)&quot;],&quot;font-weight&quot;:[0,400],&quot;line-height&quot;:[0,&quot;1.2&quot;],&quot;m-font-size&quot;:[0,&quot;28px&quot;],&quot;letter-spacing&quot;:[0,&quot;normal&quot;],&quot;text-transform&quot;:[0,&quot;none&quot;],&quot;text-decoration&quot;:[0,&quot;none&quot;]}],&quot;h5&quot;:[0,{&quot;font-size&quot;:[0,&quot;24px&quot;],&quot;font-style&quot;:[0,&quot;normal&quot;],&quot;font-family&quot;:[0,&quot;var(--font-primary)&quot;],&quot;font-weight&quot;:[0,400],&quot;line-height&quot;:[0,&quot;1.2&quot;],&quot;m-font-size&quot;:[0,&quot;24px&quot;],&quot;letter-spacing&quot;:[0,&quot;normal&quot;],&quot;text-transform&quot;:[0,&quot;none&quot;],&quot;text-decoration&quot;:[0,&quot;none&quot;]}],&quot;h6&quot;:[0,{&quot;font-size&quot;:[0,&quot;20px&quot;],&quot;font-style&quot;:[0,&quot;normal&quot;],&quot;font-family&quot;:[0,&quot;var(--font-primary)&quot;],&quot;font-weight&quot;:[0,400],&quot;line-height&quot;:[0,&quot;1.2&quot;],&quot;m-font-size&quot;:[0,&quot;20px&quot;],&quot;letter-spacing&quot;:[0,&quot;normal&quot;],&quot;text-transform&quot;:[0,&quot;none&quot;],&quot;text-decoration&quot;:[0,&quot;none&quot;]}],&quot;body&quot;:[0,{&quot;font-size&quot;:[0,&quot;16px&quot;],&quot;font-style&quot;:[0,&quot;normal&quot;],&quot;font-family&quot;:[0,&quot;var(--font-secondary)&quot;],&quot;font-weight&quot;:[0,400],&quot;line-height&quot;:[0,&quot;1.5&quot;],&quot;m-font-size&quot;:[0,&quot;16px&quot;],&quot;letter-spacing&quot;:[0,&quot;normal&quot;],&quot;text-transform&quot;:[0,&quot;none&quot;],&quot;text-decoration&quot;:[0,&quot;none&quot;]}],&quot;font&quot;:[0,{&quot;primary&quot;:[0,&quot;&#39;Libre Caslon Display&#39;, serif&quot;],&quot;secondary&quot;:[0,&quot;&#39;Nunito&#39;, sans-serif&quot;]}],&quot;nav-link&quot;:[0,{&quot;color&quot;:[0,&quot;rgb(255, 255, 255)&quot;],&quot;font-size&quot;:[0,&quot;14px&quot;],&quot;font-style&quot;:[0,&quot;normal&quot;],&quot;color-hover&quot;:[0,&quot;rgb(250, 200, 200)&quot;],&quot;font-family&quot;:[0,&quot;var(--font-secondary)&quot;],&quot;font-weight&quot;:[0,400],&quot;line-height&quot;:[0,&quot;1.8&quot;],&quot;m-font-size&quot;:[0,&quot;14px&quot;],&quot;letter-spacing&quot;:[0,&quot;normal&quot;],&quot;text-transform&quot;:[0,&quot;uppercase&quot;],&quot;text-decoration&quot;:[0,&quot;none&quot;]}],&quot;body-large&quot;:[0,{&quot;font-size&quot;:[0,&quot;18px&quot;],&quot;font-style&quot;:[0,&quot;normal&quot;],&quot;font-family&quot;:[0,&quot;var(--font-secondary)&quot;],&quot;font-weight&quot;:[0,400],&quot;line-height&quot;:[0,&quot;1.5&quot;],&quot;m-font-size&quot;:[0,&quot;18px&quot;],&quot;letter-spacing&quot;:[0,&quot;normal&quot;],&quot;text-transform&quot;:[0,&quot;none&quot;],&quot;text-decoration&quot;:[0,&quot;none&quot;]}],&quot;body-small&quot;:[0,{&quot;font-size&quot;:[0,&quot;14px&quot;],&quot;font-style&quot;:[0,&quot;normal&quot;],&quot;font-family&quot;:[0,&quot;var(--font-secondary)&quot;],&quot;font-weight&quot;:[0,400],&quot;line-height&quot;:[0,&quot;1.5&quot;],&quot;m-font-size&quot;:[0,&quot;14px&quot;],&quot;letter-spacing&quot;:[0,&quot;normal&quot;],&quot;text-transform&quot;:[0,&quot;none&quot;],&quot;text-decoration&quot;:[0,&quot;none&quot;]}],&quot;grid-button-primary&quot;:[0,{&quot;font-size&quot;:[0,&quot;14px&quot;],&quot;padding-x&quot;:[0,&quot;40px&quot;],&quot;padding-y&quot;:[0,&quot;12px&quot;],&quot;font-style&quot;:[0,&quot;normal&quot;],&quot;border-null&quot;:[0,&quot;&quot;],&quot;font-family&quot;:[0,&quot;var(--font-secondary)&quot;],&quot;font-weight&quot;:[0,400],&quot;line-height&quot;:[0,&quot;normal&quot;],&quot;m-font-size&quot;:[0,&quot;12px&quot;],&quot;m-padding-x&quot;:[0,&quot;36px&quot;],&quot;m-padding-y&quot;:[0,&quot;14px&quot;],&quot;box-shadow-x&quot;:[0,&quot;0px&quot;],&quot;box-shadow-y&quot;:[0,&quot;0px&quot;],&quot;border-radius&quot;:[0,&quot;0&quot;],&quot;letter-spacing&quot;:[0,&quot;0.1em&quot;],&quot;text-transform&quot;:[0,&quot;uppercase&quot;],&quot;box-shadow-blur&quot;:[0,&quot;0px&quot;],&quot;box-shadow-null&quot;:[0,&quot;&quot;],&quot;m-border-radius&quot;:[0,&quot;0&quot;],&quot;text-decoration&quot;:[0,&quot;none&quot;],&quot;box-shadow-color&quot;:[0,&quot;rgba(0, 0, 0, 0)&quot;],&quot;border-null-hover&quot;:[0,&quot;&quot;],&quot;box-shadow-spread&quot;:[0,&quot;0px&quot;],&quot;box-shadow-x-hover&quot;:[0,&quot;0px&quot;],&quot;box-shadow-y-hover&quot;:[0,&quot;0px&quot;],&quot;transition-duration&quot;:[0,&quot;0.2s&quot;],&quot;background-color-null&quot;:[0,&quot;rgba(0, 0, 0, 0)&quot;],&quot;box-shadow-blur-hover&quot;:[0,&quot;0px&quot;],&quot;box-shadow-null-hover&quot;:[0,&quot;&quot;],&quot;box-shadow-color-hover&quot;:[0,&quot;0px&quot;],&quot;box-shadow-spread-hover&quot;:[0,&quot;0px&quot;],&quot;transition-timing-function&quot;:[0,&quot;ease&quot;],&quot;background-color-null-hover&quot;:[0,&quot;&quot;]}],&quot;grid-button-secondary&quot;:[0,{&quot;font-size&quot;:[0,&quot;14px&quot;],&quot;padding-x&quot;:[0,&quot;40px&quot;],&quot;padding-y&quot;:[0,&quot;12px&quot;],&quot;font-style&quot;:[0,&quot;normal&quot;],&quot;border-null&quot;:[0,&quot;&quot;],&quot;font-family&quot;:[0,&quot;var(--font-secondary)&quot;],&quot;font-weight&quot;:[0,400],&quot;line-height&quot;:[0,&quot;normal&quot;],&quot;m-font-size&quot;:[0,&quot;14px&quot;],&quot;m-padding-x&quot;:[0,&quot;36px&quot;],&quot;m-padding-y&quot;:[0,&quot;13px&quot;],&quot;box-shadow-x&quot;:[0,&quot;0px&quot;],&quot;box-shadow-y&quot;:[0,&quot;0px&quot;],&quot;border-radius&quot;:[0,&quot;0&quot;],&quot;letter-spacing&quot;:[0,&quot;0.1em&quot;],&quot;text-transform&quot;:[0,&quot;uppercase&quot;],&quot;box-shadow-blur&quot;:[0,&quot;0px&quot;],&quot;box-shadow-null&quot;:[0,&quot;&quot;],&quot;m-border-radius&quot;:[0,&quot;0&quot;],&quot;text-decoration&quot;:[0,&quot;none&quot;],&quot;box-shadow-color&quot;:[0,&quot;rgba(0, 0, 0, 0)&quot;],&quot;border-null-hover&quot;:[0,&quot;&quot;],&quot;box-shadow-spread&quot;:[0,&quot;0px&quot;],&quot;box-shadow-x-hover&quot;:[0,&quot;0px&quot;],&quot;box-shadow-y-hover&quot;:[0,&quot;0px&quot;],&quot;transition-duration&quot;:[0,&quot;0.2s&quot;],&quot;background-color-null&quot;:[0,&quot;rgba(0, 0, 0, 0)&quot;],&quot;box-shadow-blur-hover&quot;:[0,&quot;0px&quot;],&quot;box-shadow-null-hover&quot;:[0,&quot;&quot;],&quot;box-shadow-color-hover&quot;:[0,&quot;0px&quot;],&quot;box-shadow-spread-hover&quot;:[0,&quot;0px&quot;],&quot;transition-timing-function&quot;:[0,&quot;ease&quot;],&quot;background-color-null-hover&quot;:[0,&quot;&quot;]}]}],&quot;domain&quot;:[0,&quot;www.amgendeavors.com&quot;],&quot;siteId&quot;:[0,&quot;YrD9r1V0P4Sgar1Z&quot;],&quot;ecommerceShoppingCart&quot;:[0,null],&quot;blogCategories&quot;:[0,{&quot;zDVaOd&quot;:[0,{&quot;name&quot;:[0,&quot;Anxiety&quot;]}],&quot;zjmMeI&quot;:[0,{&quot;name&quot;:[0,&quot;Relationships&quot;]}]}],&quot;languageSwitcherLanguages&quot;:[1,&quot;[]&quot;],&quot;currentPageId&quot;:[0,&quot;zXGnec&quot;],&quot;languageKeys&quot;:[1,&quot;[[0,\&quot;system\&quot;]]&quot;],&quot;ecwidPages&quot;:[0,{}]}]}"
+            ssr="" client="load" opts="{&quot;name&quot;:&quot;Page&quot;,&quot;value&quot;:true}" await-children="">
+            <!--[-->
+            <main style="--h1-font-size:120px;--h1-font-style:normal;--h1-font-family:var(--font-primary);--h1-font-weight:400;--h1-line-height:1.0;--h1-m-font-size:64px;--h1-letter-spacing:normal;--h1-text-transform:none;--h1-text-decoration:none;--h2-font-size:64px;--h2-font-style:normal;--h2-font-family:var(--font-primary);--h2-font-weight:400;--h2-line-height:1.2;--h2-m-font-size:36px;--h2-letter-spacing:normal;--h2-text-transform:none;--h2-text-decoration:none;--h3-font-size:40px;--h3-font-style:normal;--h3-font-family:var(--font-primary);--h3-font-weight:400;--h3-line-height:1.2;--h3-m-font-size:32px;--h3-letter-spacing:normal;--h3-text-transform:none;--h3-text-decoration:none;--h4-font-size:32px;--h4-font-style:normal;--h4-font-family:var(--font-primary);--h4-font-weight:400;--h4-line-height:1.2;--h4-m-font-size:28px;--h4-letter-spacing:normal;--h4-text-transform:none;--h4-text-decoration:none;--h5-font-size:24px;--h5-font-style:normal;--h5-font-family:var(--font-primary);--h5-font-weight:400;--h5-line-height:1.2;--h5-m-font-size:24px;--h5-letter-spacing:normal;--h5-text-transform:none;--h5-text-decoration:none;--h6-font-size:20px;--h6-font-style:normal;--h6-font-family:var(--font-primary);--h6-font-weight:400;--h6-line-height:1.2;--h6-m-font-size:20px;--h6-letter-spacing:normal;--h6-text-transform:none;--h6-text-decoration:none;--body-font-size:16px;--body-font-style:normal;--body-font-family:var(--font-secondary);--body-font-weight:400;--body-line-height:1.5;--body-m-font-size:16px;--body-letter-spacing:normal;--body-text-transform:none;--body-text-decoration:none;--font-primary:&#39;Libre Caslon Display&#39;, serif;--font-secondary:&#39;Nunito&#39;, sans-serif;--nav-link-color:rgb(255, 255, 255);--nav-link-font-size:14px;--nav-link-font-style:normal;--nav-link-color-hover:rgb(250, 200, 200);--nav-link-font-family:var(--font-secondary);--nav-link-font-weight:400;--nav-link-line-height:1.8;--nav-link-m-font-size:14px;--nav-link-letter-spacing:normal;--nav-link-text-transform:uppercase;--nav-link-text-decoration:none;--body-large-font-size:18px;--body-large-font-style:normal;--body-large-font-family:var(--font-secondary);--body-large-font-weight:400;--body-large-line-height:1.5;--body-large-m-font-size:18px;--body-large-letter-spacing:normal;--body-large-text-transform:none;--body-large-text-decoration:none;--body-small-font-size:14px;--body-small-font-style:normal;--body-small-font-family:var(--font-secondary);--body-small-font-weight:400;--body-small-line-height:1.5;--body-small-m-font-size:14px;--body-small-letter-spacing:normal;--body-small-text-transform:none;--body-small-text-decoration:none;--grid-button-primary-font-size:14px;--grid-button-primary-padding-x:40px;--grid-button-primary-padding-y:12px;--grid-button-primary-font-style:normal;--grid-button-primary-border-null:;--grid-button-primary-font-family:var(--font-secondary);--grid-button-primary-font-weight:400;--grid-button-primary-line-height:normal;--grid-button-primary-m-font-size:12px;--grid-button-primary-m-padding-x:36px;--grid-button-primary-m-padding-y:14px;--grid-button-primary-box-shadow-x:0px;--grid-button-primary-box-shadow-y:0px;--grid-button-primary-border-radius:0;--grid-button-primary-letter-spacing:0.1em;--grid-button-primary-text-transform:uppercase;--grid-button-primary-box-shadow-blur:0px;--grid-button-primary-box-shadow-null:;--grid-button-primary-m-border-radius:0;--grid-button-primary-text-decoration:none;--grid-button-primary-box-shadow-color:rgba(0, 0, 0, 0);--grid-button-primary-border-null-hover:;--grid-button-primary-box-shadow-spread:0px;--grid-button-primary-box-shadow-x-hover:0px;--grid-button-primary-box-shadow-y-hover:0px;--grid-button-primary-transition-duration:0.2s;--grid-button-primary-background-color-null:rgba(0, 0, 0, 0);--grid-button-primary-box-shadow-blur-hover:0px;--grid-button-primary-box-shadow-null-hover:;--grid-button-primary-box-shadow-color-hover:0px;--grid-button-primary-box-shadow-spread-hover:0px;--grid-button-primary-transition-timing-function:ease;--grid-button-primary-background-color-null-hover:;--grid-button-secondary-font-size:14px;--grid-button-secondary-padding-x:40px;--grid-button-secondary-padding-y:12px;--grid-button-secondary-font-style:normal;--grid-button-secondary-border-null:;--grid-button-secondary-font-family:var(--font-secondary);--grid-button-secondary-font-weight:400;--grid-button-secondary-line-height:normal;--grid-button-secondary-m-font-size:14px;--grid-button-secondary-m-padding-x:36px;--grid-button-secondary-m-padding-y:13px;--grid-button-secondary-box-shadow-x:0px;--grid-button-secondary-box-shadow-y:0px;--grid-button-secondary-border-radius:0;--grid-button-secondary-letter-spacing:0.1em;--grid-button-secondary-text-transform:uppercase;--grid-button-secondary-box-shadow-blur:0px;--grid-button-secondary-box-shadow-null:;--grid-button-secondary-m-border-radius:0;--grid-button-secondary-text-decoration:none;--grid-button-secondary-box-shadow-color:rgba(0, 0, 0, 0);--grid-button-secondary-border-null-hover:;--grid-button-secondary-box-shadow-spread:0px;--grid-button-secondary-box-shadow-x-hover:0px;--grid-button-secondary-box-shadow-y-hover:0px;--grid-button-secondary-transition-duration:0.2s;--grid-button-secondary-background-color-null:rgba(0, 0, 0, 0);--grid-button-secondary-box-shadow-blur-hover:0px;--grid-button-secondary-box-shadow-null-hover:;--grid-button-secondary-box-shadow-color-hover:0px;--grid-button-secondary-box-shadow-spread-hover:0px;--grid-button-secondary-transition-timing-function:ease;--grid-button-secondary-background-color-null-hover:;"
+                class="page">
+                <div class="sticky-trigger"></div>
+                <header class="block-header block-header--is-sticky" height="206" style="--width:1240px;--padding-top:24px;--padding:24px 16px 24px 16px;--padding-right:16px;--padding-bottom:24px;--padding-left:16px;--m-padding-top:24px;--m-padding:24px 16px 24px 16px;--m-padding-right:16px;--m-padding-bottom:24px;--m-padding-left:16px;--logo-width:108px;--cartIconSize:24px;--m-logo-width:70px;--oldContentWidth:1600px;--menu-item-spacing:40px;--space-between-menu:64px;--m-menu-item-spacing:20px;--contrastBackgroundColor:rgb(104, 104, 98);--background-color:rgb(135, 135, 128);--44d44540:flex-end;--cd7af960:none;--0d335b46:right;"
+                    data-v-711a92b6>
+                    <div class="background" style="--background-color:transparent;" data-v-711a92b6></div>
+                    <div class="block-header__content" style="--navigation-grid-template-columns:minmax(calc(var(--logo-width) + var(--space-between-menu)), auto) 1fr;--m-navigation-grid-template-columns:minmax(calc(var(--m-logo-width, var(--logo-width)) + var(--space-between-menu)), auto) 1fr;--logo-grid-row:1/2;--m-logo-grid-row:1/2;--logo-grid-column:1/2;--m-logo-grid-column:1/2;--logo-justify-self:flex-start;--m-logo-justify-self:flex-start;--logo-image-object-position:left center;--m-logo-image-object-position:left center;--links-grid-row:1/2;--m-links-grid-row:1/2;--links-grid-column:2/3;--m-links-grid-column:2/3;--cart-grid-row:1/2;--cart-grid-column:3/3;--logo-spacing:0 var(--space-between-menu) 0 0;--m-logo-spacing:0 var(--space-between-menu) 0 0;--navigation-text-align:left;--m-navigation-text-align:right;--navigation-justify-self:flex-start;--m-navigation-justify-self:flex-end;--mobile-background:var(--background-color,  var(--background-image));--dropdown-background-color:rgb(135, 135, 128);--m-dropdown-background-color:rgb(135, 135, 128);--dropdown-background-contrast-color:rgb(104, 104, 98);--nav-link-text-color:rgb(255, 255, 255);--nav-link-text-color-hover:rgb(250, 200, 200);"
+                        data-v-711a92b6><a class="block-header-logo block-header__logo" href="/" style="--height:108px;--m-height:70px;--width:108px;--m-width:70px;" data-v-711a92b6 data-v-237d5d94><img class="block-header-logo__image" src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=216,fit=crop,q=95/YrD9r1V0P4Sgar1Z/amg-transparent-YyvEMPLVO4CjzPQo.png" data-v-237d5d94></a>
+                        <button
+                            type="button" class="burger block-header__burger" title="Menu" style="--burger-color:var(--nav-link-text-color);" data-v-711a92b6 data-v-1f7d7080><span class="burger__bun" data-v-1f7d7080></span><span class="burger__meat" data-v-1f7d7080></span><span class="burger__bun" data-v-1f7d7080></span></button>
+                            <nav class="block-header__nav" data-v-711a92b6>
+                                <ul class="block-header__links block-header__links--align-right" data-v-711a92b6>
+                                    <!--[-->
+                                    <li class="block-header-item" data-v-711a92b6 data-v-ee55214b><label class="block-header-item__label" data-v-ee55214b><!----><div class="item-content-wrapper block-header-item__item" aria-haspopup="false" data-v-ee55214b data-v-cf3ff533><a class="item-content" href="/" data-v-cf3ff533>Home</a><!----></div><!----></label></li>
+                                    <li
+                                        class="block-header-item" data-v-711a92b6 data-v-ee55214b><label class="block-header-item__label" data-v-ee55214b><!----><div class="item-content-wrapper block-header-item__item" aria-haspopup="false" data-v-ee55214b data-v-cf3ff533><a class="item-content" href="/about" data-v-cf3ff533>About</a><!----></div><!----></label></li>
+                                        <li
+                                            class="block-header-item" data-v-711a92b6 data-v-ee55214b><label class="block-header-item__label" data-v-ee55214b><input type="checkbox" class="block-header-item__mobile-dropdown-trigger" data-v-ee55214b><div class="item-content-wrapper block-header-item__item" aria-haspopup="true" data-v-ee55214b data-v-cf3ff533><span class="item-content" data-v-cf3ff533>Services</span><div class="item-content__icon-container-wrapper" data-v-cf3ff533><span class="item-content__icon-container" data-v-cf3ff533><svg class="item-content__icon" width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg" data-v-cf3ff533><path d="M5 6.5L0.669873 0.5L9.33013 0.500001L5 6.5Z" fill="currentColor" data-v-cf3ff533></path></svg></span></div></div><div class="block-header-item__dropdown-area" data-v-ee55214b><ul class="block-header-item__dropdown" data-v-ee55214b><!--[--><li class="block-header-item" data-v-ee55214b data-v-ee55214b><label class="block-header-item__label" data-v-ee55214b><!----><div class="item-content-wrapper block-header-item__item" aria-haspopup="false" data-v-ee55214b data-v-cf3ff533><a class="item-content" href="/full-truck-load" data-v-cf3ff533>Full Truck Load</a><!----></div><!----></label></li>
+                                            <li
+                                                class="block-header-item" data-v-ee55214b data-v-ee55214b><label class="block-header-item__label" data-v-ee55214b><!----><div class="item-content-wrapper block-header-item__item" aria-haspopup="false" data-v-ee55214b data-v-cf3ff533><a class="item-content" href="/less-than-truckload" data-v-cf3ff533>Less Than Truckload</a><!----></div><!----></label></li>
+                                                <li
+                                                    class="block-header-item" data-v-ee55214b data-v-ee55214b><label class="block-header-item__label" data-v-ee55214b><!----><div class="item-content-wrapper block-header-item__item" aria-haspopup="false" data-v-ee55214b data-v-cf3ff533><a class="item-content" href="/auto-haul" data-v-cf3ff533>Auto Haul</a><!----></div><!----></label></li>
+                                                    <li
+                                                        class="block-header-item" data-v-ee55214b data-v-ee55214b><label class="block-header-item__label" data-v-ee55214b><!----><div class="item-content-wrapper block-header-item__item" aria-haspopup="false" data-v-ee55214b data-v-cf3ff533><a class="item-content" href="/heavy-haul" data-v-cf3ff533>Heavy Haul</a><!----></div><!----></label></li>
+                                                        <!--]-->
+                                </ul>
+                    </div>
+                    </label>
+                    </li>
+                    <li class="block-header-item" data-v-711a92b6 data-v-ee55214b><label class="block-header-item__label" data-v-ee55214b><!----><div class="item-content-wrapper item-content-wrapper--active block-header-item__item" aria-haspopup="false" data-v-ee55214b data-v-cf3ff533><a class="item-content" href="/contact" data-v-cf3ff533>Contact</a><!----></div><!----></label></li>
+                    <li
+                        class="block-header-item" data-v-711a92b6 data-v-ee55214b><label class="block-header-item__label" data-v-ee55214b><!----><div class="item-content-wrapper block-header-item__item" aria-haspopup="false" data-v-ee55214b data-v-cf3ff533><a class="item-content" href="/page-zXveYB" data-v-cf3ff533>Blog</a><!----></div><!----></label></li>
+                        <li
+                            class="block-header-item" data-v-711a92b6 data-v-ee55214b><label class="block-header-item__label" data-v-ee55214b><!----><div class="item-content-wrapper block-header-item__item" aria-haspopup="false" data-v-ee55214b data-v-cf3ff533><a class="item-content" href="/privacy-policy" data-v-cf3ff533>Privacy policy</a><!----></div><!----></label></li>
+                            <!--]-->
+                            <!---->
+                            <!---->
+                            </ul>
+                            </nav>
+                            <!---->
+                            <!---->
+    </div>
+    </header>
+    <div class="blocks">
+        <!--[-->
+        <section id="z0kuri" class="block" style="--header-height:206px;--header-height-mobile:undefinedpx;--rows:5;--width:1224px;--row-gap:16px;--row-size:48px;--column-gap:24px;--block-padding-top:0px;--block-padding:0px 0px 0px 0px;--block-padding-right:0px;--block-padding-bottom:0px;--block-padding-left:0px;--m-block-padding:80px 16px 80px 16px;--grid-gap-history:16px 24px;"
+            data-v-a3075b03>
+            <div class="block-background" style="--background-color:rgb(243, 243, 242);--background-overlay-opacity:0;" data-v-a3075b03>
+                <!---->
+                <!---->
+            </div>
+            <div class="block-layout block-layout--layout" style="--m-grid-template-rows:19.32367149758454vw auto 3.864734299516908vw auto 80px;--t-grid-template-rows:minmax(80px, auto) minmax(21px, auto) minmax(16px, auto) minmax(128px, auto) 1fr;--small-desktop-grid-template-rows:3.2679738562091503vw auto 0.24509803921568626vw auto 22px;--grid-template-rows:minmax(40px, auto) minmax(21px, auto) minmax(3px, auto) minmax(120px, auto) 1fr;--m-grid-template-columns:100%;--grid-template-columns:8.49673202614379% 25.571895424836597% 32.02614379084967% 25.408496732026144% 8.49673202614379%;--m-block-min-height:auto;--t-block-min-height:325px;--small-desktop-block-min-height:auto;--block-min-height:206px;--666d73bf:1224px;--3d2a3e41:414px;--0cffcf43:0 3.864734299516908vw;--80a3d7f2:0 16px;"
+                data-v-a3075b03>
+                <!--[-->
+                <!--[-->
+                <div class="layout-element layout-element--layout layout-element transition transition--undefined" style="--text:center;--align:flex-start;--justify:center;--m-element-margin:0 0 16px 0;--z-index:1;--grid-row:2/3;--grid-column:3/4;--m-grid-row:2/3;--m-grid-column:1/2;">
+                    <!--[-->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <div class="text-box layout-element__component layout-element__component--GridTextBox" id="zBtJ6X" style="--36f106d3:break-spaces;--0706d955:break-spaces;">
+                        <p class="body-small" style="color: rgb(26, 26, 26)"><span style="color: rgb(74, 74, 67); text-transform: none">CONTACT ME</span></p>
+                    </div>
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!--[-->
+                    <!--]-->
+                    <!--]-->
+                </div>
+                <div class="layout-element layout-element--layout layout-element transition transition--undefined" style="--text:center;--align:flex-start;--justify:flex-start;--m-element-margin:0 0 30px 0;--z-index:2;--grid-row:4/5;--grid-column:2/5;--m-grid-row:4/5;--m-grid-column:1/2;">
+                    <!--[-->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <div class="text-box layout-element__component layout-element__component--GridTextBox" id="zAoXPu" style="--36f106d3:break-spaces;--0706d955:break-spaces;">
+                        <h1 style="color: rgb(26, 26, 26)"><span style="color: rgb(74, 74, 67); text-transform: none">Get in touch today</span></h1>
+                    </div>
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!--[-->
+                    <!--]-->
+                    <!--]-->
+                </div>
+                <!--]-->
+                <!--]-->
+            </div>
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+        </section>
+        <section id="ze5jOP" class="block" style="--cols:12;--rows:8;--width:1224px;--m-rows:1;--col-gap:24px;--row-gap:0px;--row-size:64px;--column-gap:0px;--block-padding-top:0;--block-padding:0;--block-padding-right:0;--block-padding-bottom:0;--block-padding-left:0;--m-block-padding:40px 16px 40px 16px;--grid-gap-history:16px 24px;"
+            data-v-a3075b03>
+            <div class="block-background" style="--background-color:rgb(243, 243, 242);--background-overlay-opacity:0;" data-v-a3075b03>
+                <!---->
+                <!---->
+            </div>
+            <div class="block-layout block-layout--layout" style="--m-grid-template-rows:139.61352657004832vw auto 3.864734299516908vw auto 0px;--t-grid-template-rows:minmax(578px, auto) minmax(569px, auto) minmax(16px, auto) minmax(77px, auto) 1fr;--small-desktop-grid-template-rows:5.228758169934641vw auto 1.9607843137254901vw auto 54px;--grid-template-rows:minmax(64px, auto) minmax(96px, auto) minmax(24px, auto) minmax(568px, auto) 1fr;--m-grid-template-columns:100%;--grid-template-columns:25.245098039215684% 8.415032679738562% 32.6797385620915% 8.415032679738562% 25.245098039215684%;--m-block-min-height:auto;--t-block-min-height:146px;--small-desktop-block-min-height:auto;--block-min-height:806px;--666d73bf:1224px;--3d2a3e41:414px;--0cffcf43:0 3.864734299516908vw;--80a3d7f2:0 16px;"
+                data-v-a3075b03>
+                <!--[-->
+                <!--[-->
+                <div class="layout-element layout-element--layout layout-element transition transition--slide" style="--justify:center;--formSpacing:22px 10px;--z-index:1;--grid-row:4/5;--grid-column:2/5;--m-grid-row:2/3;--m-grid-column:1/2;">
+                    <!--[-->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <div id="zBEkbM" class="form layout-element__component layout-element__component--GridForm" style="--form-button-justify-self:center;--form-border-width:nullpx;--form-border-color:#1d1e20;--form-border-radius:nullpx;--input-fill-color:rgb(241, 241, 241);--input-fill-color--hover:rgb(241, 241, 241);--label-text-color:rgb(26, 26, 26);--input-text-color:rgb(136, 136, 136);--input-text-color--hover:rgb(136, 136, 136);--input-height:48px;--input-border-color:rgb(0, 0, 0);--input-border-color--hover:rgb(0, 0, 0);--form-spacing:var(--formSpacing);--grid-item-inner-padding:var(--gridItemInnerPadding);--grid-item-inner-background:var(--gridItemInnerBackground);"
+                        data-v-77575ff3>
+                        <form name="Contact form" class="form__control" data-v-77575ff3>
+                            <!--[-->
+                            <!--[-->
+                            <div class="input input--light" data-v-77575ff3 data-v-b6576945><label class="input__label--light input__label" data-v-b6576945>Name*</label><input placeholder="Your name" type="text" class="input__component--light input__component" value="" tabindex="0" data-v-b6576945>
+                                <!---->
+                                <!---->
+                            </div>
+                            <!---->
+                            <!--]-->
+                            <!--[-->
+                            <div class="input input--light" data-v-77575ff3 data-v-b6576945><label class="input__label--light input__label" data-v-b6576945>Phone Number**</label><input placeholder="Your phone number" type="text" class="input__component--light input__component" value="" tabindex="0" data-v-b6576945>
+                                <!---->
+                                <!---->
+                            </div>
+                            <!---->
+                            <!--]-->
+                            <!--[-->
+                            <div class="input input--light" data-v-77575ff3 data-v-b6576945><label class="input__label--light input__label" data-v-b6576945>Your email*</label><input placeholder="Your email address" type="text" class="input__component--light input__component" value="" tabindex="0" data-v-b6576945>
+                                <!---->
+                                <!---->
+                            </div>
+                            <!---->
+                            <!--]-->
+                            <!--[-->
+                            <div class="input input--light" data-v-77575ff3 data-v-b6576945><label class="input__label--light input__label" data-v-b6576945>Pickup/Dropoff</label><input placeholder="Zipcodes Please!" type="text" class="input__component--light input__component" value="" tabindex="0" data-v-b6576945>
+                                <!---->
+                                <!---->
+                            </div>
+                            <!---->
+                            <!--]-->
+                            <!--[-->
+                            <div class="input input--light" data-v-77575ff3 data-v-b6576945><label class="input__label--light input__label" data-v-b6576945>Vehicle Type*</label>
+                                <!----><textarea placeholder="Year/Make/Model or VIN" type="text" class="input__component--textarea input__component--light input__component" tabindex="0" data-v-b6576945></textarea>
+                                <!---->
+                            </div>
+                            <!---->
+                            <!--]-->
+                            <!--]--><button type="submit" name="submit" class="grid-button grid-button--primary form__button" aria-hidden="false" style="--border-width:0px;--background-color:rgb(73, 88, 103);--font-color:rgb(255, 255, 255);--border-color:rgb(50, 50, 50);--background-color-hover:rgb(48, 63, 78);--font-color-hover:rgb(255, 255, 255);--border-color-hover:rgb(50, 50, 50);--m-height:0vw;--m-width:0vw;"
+                                data-v-77575ff3 data-v-5b27dff6>Submit</button></form>
+                        <!--[-->
+                        <!---->
+                        <!--]-->
+                    </div>
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!--[-->
+                    <!--]-->
+                    <!--]-->
+                </div>
+                <div class="layout-element layout-element--layout layout-element transition transition--slide" style="--text:center;--align:flex-start;--justify:flex-start;--m-element-margin:0 0 16px 0;--z-index:2;--grid-row:2/3;--grid-column:3/4;--m-grid-row:4/5;--m-grid-column:1/2;">
+                    <!--[-->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <div class="text-box layout-element__component layout-element__component--GridTextBox" id="zHxw9j" style="--36f106d3:break-spaces;--0706d955:break-spaces;">
+                        <h3 style="color: rgb(26, 26, 26)">Looking to get a Quote For Auto Transport?</h3>
+                    </div>
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!--[-->
+                    <!--]-->
+                    <!--]-->
+                </div>
+                <!--]-->
+                <!--]-->
+            </div>
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+        </section>
+        <section id="zlRpbV" class="block block--footer" style="--cols:12;--rows:4;--width:1224px;--m-rows:1;--col-gap:24px;--row-gap:16px;--row-size:48px;--column-gap:24px;--block-padding-top:16px;--block-padding:16px 0 16px 0;--block-padding-right:0;--block-padding-bottom:16px;--block-padding-left:0;--m-block-padding:60px 40px 60px 40px;"
+            data-v-a3075b03>
+            <div class="block-background" style="--background-color:rgb(74, 74, 67);--background-overlay-opacity:0;" data-v-a3075b03>
+                <!---->
+                <!---->
+            </div>
+            <div class="block-layout block-layout--layout" style="--m-grid-template-rows:14.492753623188406vw auto 3.864734299516908vw auto 338px;--t-grid-template-rows:minmax(60px, auto) minmax(43px, auto) minmax(16px, auto) minmax(48px, auto) 1fr;--small-desktop-grid-template-rows:3.2679738562091503vw auto 1.8790849673202614vw auto 19px;--grid-template-rows:minmax(40px, auto) minmax(57px, auto) minmax(23px, auto) minmax(24px, auto) 1fr;--m-grid-template-columns:6.282722513089005% 18.06282722513089% 51.57068062827225% 17.801047120418847% 6.282722513089005%;--grid-template-columns:0.6535947712418301% 6.372549019607843% 17.973856209150327% 7.6797385620915035% 67.3202614379085%;--m-block-min-height:auto;--t-block-min-height:505px;--small-desktop-block-min-height:auto;--block-min-height:163px;--666d73bf:1224px;--3d2a3e41:414px;--0cffcf43:0 3.864734299516908vw;--80a3d7f2:0 16px;"
+                data-v-a3075b03>
+                <!--[-->
+                <!--[-->
+                <div class="layout-element layout-element--layout layout-element transition transition--undefined transition--root-hidden" style="--align:center;--justify:center;--m-width:58.862876254180605%;--m-align-self:center;--m-element-margin:0 0 16px 0;--z-index:1;--grid-row:2/3;--grid-column:3/4;--m-grid-row:2/3;--m-grid-column:3/4;">
+                    <!--[-->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <div id="zOLrRU" class="image-wrapper image-wrapper--layout layout-element__component layout-element__component--GridImage" style="--f9d068a6:57px;--4039472b:43px;" data-v-5b6a92b5>
+                        <div target="_self" title style="--18db2524:0;--2b48de0a:17.973856209150327vw;--465a2a4c:4.6568627450980395vw;--4fe7cede:0;--51c8afce:100%;--6309a667:auto;" class="image image--grid image-wrapper--desktop" data-selector="data-image"
+                            data-animation-role="image" data-v-5b6a92b5 data-v-0dbfdad3><img alt src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=220,h=57,fit=crop/YrD9r1V0P4Sgar1Z/amg-transparent-YyvEMPLVO4CjzPQo.png" srcset="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=328,h=85,fit=crop/YrD9r1V0P4Sgar1Z/amg-transparent-YyvEMPLVO4CjzPQo.png 328w,https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=656,h=170,fit=crop/YrD9r1V0P4Sgar1Z/amg-transparent-YyvEMPLVO4CjzPQo.png 656w,https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=861,h=223,fit=crop/YrD9r1V0P4Sgar1Z/amg-transparent-YyvEMPLVO4CjzPQo.png 861w,https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=984,h=255,fit=crop/YrD9r1V0P4Sgar1Z/amg-transparent-YyvEMPLVO4CjzPQo.png 984w,https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=220,h=57,fit=crop/YrD9r1V0P4Sgar1Z/amg-transparent-YyvEMPLVO4CjzPQo.png 220w,https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=440,h=114,fit=crop/YrD9r1V0P4Sgar1Z/amg-transparent-YyvEMPLVO4CjzPQo.png 440w"
+                                sizes="(min-width: 920px) 220px, calc(100vw - 0px)" height="57" width="220" loading="eager" class="image__image" data-v-0dbfdad3>
+                            <!--[-->
+                            <!--]-->
+                        </div>
+                        <div target="_self" title style="--18db2524:0;--2b48de0a:16.094771241830067vw;--465a2a4c:3.5130718954248366vw;--4fe7cede:0;--51c8afce:47.58454106280193vw;--6309a667:10.38647342995169vw;" class="image image--grid image-wrapper--mobile"
+                            data-selector="data-image" data-animation-role="image" data-v-5b6a92b5 data-v-0dbfdad3><img alt src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=197,h=43,fit=crop/YrD9r1V0P4Sgar1Z/amg-transparent-YyvEMPLVO4CjzPQo.png" srcset="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=360,h=79,fit=crop/YrD9r1V0P4Sgar1Z/amg-transparent-YyvEMPLVO4CjzPQo.png 360w,https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=720,h=157,fit=crop/YrD9r1V0P4Sgar1Z/amg-transparent-YyvEMPLVO4CjzPQo.png 720w,https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=945,h=206,fit=crop/YrD9r1V0P4Sgar1Z/amg-transparent-YyvEMPLVO4CjzPQo.png 945w,https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1080,h=236,fit=crop/YrD9r1V0P4Sgar1Z/amg-transparent-YyvEMPLVO4CjzPQo.png 1080w,https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=197,h=43,fit=crop/YrD9r1V0P4Sgar1Z/amg-transparent-YyvEMPLVO4CjzPQo.png 197w,https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=394,h=86,fit=crop/YrD9r1V0P4Sgar1Z/amg-transparent-YyvEMPLVO4CjzPQo.png 394w"
+                                sizes="(min-width: 920px) 220px, calc(100vw - 0px)" height="43" width="197" loading="eager" class="image__image" data-v-0dbfdad3>
+                            <!--[-->
+                            <!--]-->
+                        </div>
+                    </div>
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!--[-->
+                    <!--]-->
+                    <!--]-->
+                </div>
+                <div class="layout-element layout-element--layout layout-element transition transition--undefined" style="--text:center;--align:flex-start;--justify:flex-start;--m-element-margin:0 0 93px 0;--z-index:2;--grid-row:4/5;--grid-column:2/5;--m-grid-row:4/5;--m-grid-column:2/5;">
+                    <!--[-->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <div class="text-box layout-element__component layout-element__component--GridTextBox" id="zSIbh9" style="--36f106d3:break-spaces;--0706d955:break-spaces;">
+                        <p style="color: rgb(26, 26, 26)" class="body"><span style="color: rgb(243, 243, 242)">AMG ENDEAVORS TRANSPORTATION SERVICES</span></p>
+                    </div>
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!---->
+                    <!--[-->
+                    <!--]-->
+                    <!--]-->
+                </div>
+                <!--]-->
+                <!--]-->
+            </div>
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+        </section>
+        <!--]-->
+    </div>
+    <!---->
+    <!---->
+    <!---->
+    </main>
+    <!---->
+    <div>
+        <!---->
+        <!---->
+    </div>
+    <!--]-->
+    </astro-island>
+    </div>
+
+</body>
+
+</html>
