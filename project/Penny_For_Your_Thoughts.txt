@@ -1,0 +1,3 @@
+Becky: 
+Create a uniform header for all webpages, it will be a separate html file (header.html) and each page will use a script to call the header. 
+This increases efficiency instead of changing one thing of the header and having to change it for 5 pages. 
