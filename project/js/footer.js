@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Load header
-    fetch('header.html')
+    fetch('footer.html')
         .then(response => response.text())
         .then(data => {
-            document.getElementById('header-placeholder').innerHTML = data;
+            document.getElementById('footer-placeholder').innerHTML = data;
 
             // Extracting the page name from the URL
             let path = window.location.pathname.split('/').pop(); // gets 'about.html' from '/about.html'
@@ -28,5 +28,5 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         })
-        .catch(error => console.error('Error loading the header:', error));
-}); 
+        .catch(error => console.error('Error loading the footer:', error));
+});
