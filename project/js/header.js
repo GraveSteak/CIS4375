@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.text())
         .then(data => {
             document.getElementById('header-placeholder').innerHTML = data;
-
+            const header = document.querySelector('.custom-navbar');
             // Extracting the page name from the URL
             let path = window.location.pathname.split('/').pop(); // gets 'about.html' from '/about.html'
 
@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log("Active class added to: ", href);
                 }
             });
+            
         })
         .catch(error => console.error('Error loading the header:', error));
 }); 

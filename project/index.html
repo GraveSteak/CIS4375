@@ -25,76 +25,59 @@
 </head>
 
 	<body>
-		<div id="header-placeholder"></div>
-
-		<!-- Start Hero Section -->
-			<div class="hero">
-				<div class="container">
-					<div class="row justify-content-between">
-						<div class="col-lg-5">
-							<div class="intro-excerpt">
-								<h1>Modern IT Solutions <span clsas="d-block">Consulting firm</span></h1>
-								<p class="mb-4">This is some random text that I put as a placeholder</p>
-								<!-- Here is where we put the link that connects to the form page -->
-								<p><a href="/project/contact.html" class="btn btn-secondary me-2">Contact form</a><a href="#" class="btn btn-white-outline">Explore Services</a></p>
-							</div>
-						</div>
-						<div class="col-lg-7">
-							<div class="hero-img-wrap">
-								<img src="images/couch.png" class="img-fluid">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		<!-- End Hero Section -->
-
-		<!-- Start Product Section -->
+		<div class="header" id="header-placeholder"></div>		
+		<!-- Start Form Section -->
 		<div class="product-section">
 			<div class="container">
 				<div class="row">
-
 					<!-- Start Column 1 -->
-					<div class="col-md-12 col-lg-4 mb-5 mb-lg-0">
-						<h2 class="mb-4 section-title">Delivered with efficiency.</h2>
-						<p class="mb-4">Provide the car's information in the input box and submit to get your delivery quote ready. </p>
+					<div class="col-12 col-lg-4 mb-5 mb-lg-0">
+						<h2 class="mb-4 section-title">Get a quote</h2>
+						<h5 class="mb-4">Provide your car's information and submit to get your delivery quote ready. </h5>
+						<img src="images/luxury.jpg" style="max-width: 100%; height: auto;">
 					</div> 
 					<!-- End Column 1 -->
 
 					<!-- Start Form -->
-					<div class="col-1 col-md-4 col-lg-8 mb-4 mb-md-2" style="text-align: end;">
+					<div class="col-12 col-lg-8 mb-4 mb-md-2" style="text-align: left; padding: 5%;">
 						<form>
-							<div class="form-group row">
-								<label for="colFormLabel" class="col-sm-2 col-form-label" style="text-align: center;">Name</label>
-								<div class="col-sm-10">
-								  <input type="name" class="form-control" id="colFormLabel" placeholder="Full Name">
+							<div class="row">
+								<!-- First name input -->
+								<div class="col-md-6 mb-3">
+									<label for="firstName">First name</label>
+									<input type="text" class="form-control" id="firstName" placeholder="First name" required>
+								</div>
+								<!-- Last name input -->
+								<div class="col-md-6 mb-3">
+									<label for="lastName">Last name</label>
+									<input type="text" class="form-control" id="lastName" placeholder="Last name" required>
 								</div>
 							</div>
-							<br>
-							<div class="form-group row">
-								<label for="colFormLabel" class="col-sm-2 col-form-label" style="text-align: center;">Email</label>
-								<div class="col-sm-10">
-								  <input type="email" class="form-control" id="colFormLabel" placeholder="Email">
+							<!-- Row for Email Input -->
+							<div class="row">
+								<div class="col-md-12 mb-3">
+									<label for="emailAddress">Email address</label>
+									<input type="email" class="form-control" id="emailAddress" placeholder="Email address" required>
 								</div>
 							</div>
-							<br>
-							<div class="form-group row">
-								<label for="colFormLabel" class="col-sm-2 col-form-label" style="text-align: end;">Phone Number</label>
-								<div class="col-sm-10">
-								  <input type="phoneNumber" class="form-control" id="colFormLabel" placeholder="(713) XXX - XXX">
+							<!-- Row for Phone Input -->
+							<div class="row">
+								<div class="col-md-12 mb-3">
+									<label for="emailAddress">Phone Number</label>
+									<input type="phone" class="form-control" id="phoneNumber" placeholder="(713) XXX - XXXX" required>
 								</div>
 							</div>
-							<br>
-							<div class="form-group row">
-								<label for="colFormLabel" class="col-sm-2 col-form-label" style="text-align: center;">Make</label>
-								<div class="col-sm-10">
-									<input type="make" class="form-control" id="colFormLabel" placeholder="Car Make">
+							<!-- Row for car Make Input -->
+							<div class="row">
+								<div>
+									<label for="carMake">Make</label>
+									<input type="carMake" class="form-control" id="colFormLabel" placeholder="Car Make">
 								</div>  
 							</div>
-							<br>
-							<div class="form-group row">
-								<label for="colFormLabel" class="col-sm-2 col-form-label" style="text-align: center;">Type</label>
-									<div class="col-sm-10">
+							<!-- Row for car Type Input -->
+							<div class="row">
+								<label for="carType">Type</label>
+									<div class="col-md-12 mb-3">
 										<select class="form-control" id="colFormLabel">
 											<option selected>Choose...</option>
 											<option value="Truck">Truck</option>
@@ -106,18 +89,18 @@
 										</select>
 									</div>
 							</div>
-							<br>
-							<div class="form-group row">
-								<label for="colFormLabel" class="col-sm-2 col-form-label" style="text-align: center;">Model</label>
-								<div class="col-sm-10">
-									<input type="Model" class="form-control" id="colFormLabel" placeholder="Car Model">
+							<!-- Row for car model Input -->
+							<div class="row">
+								<label for="carModel">Model</label>
+								<div class="col-md-12 mb-3">
+									<input type="carModel" class="form-control" id="colFormLabel" placeholder="Car Model">
 								</div>  
 							</div>
-							<br>
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label" style="text-align: center;" for="colFormLabel">Year</label>
-								<div class="col-sm-10">
-								<select class="form-control" id="colFormLabel">
+							<!-- Row for car Year Input -->
+							<div class="row">
+								<label for="carYear">Year</label>
+								<div class="col-md-12 mb-3">
+								<select class="form-control" id="colFormLabel" required>
 									<option selected>Choose...</option>
 									<option value="2000">2000</option>
     								<option value="2001">2001</option>
@@ -160,7 +143,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- End Product Section -->
+		<!-- End Form Section -->
 
 		<!-- Start Why Choose Us Section -->
 		<div class="why-choose-section">
@@ -176,7 +159,7 @@
 									<div class="icon">
 										<img src="images/truck.svg" alt="Image" class="imf-fluid">
 									</div>
-									<h3>Fast &amp; Free Shipping</h3>
+									<h3>Fast &amp; Reliable Shipping</h3>
 									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
 								</div>
 							</div>
@@ -186,7 +169,7 @@
 									<div class="icon">
 										<img src="images/bag.svg" alt="Image" class="imf-fluid">
 									</div>
-									<h3>Easy to Shop</h3>
+									<h3>Quality Carriers</h3>
 									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
 								</div>
 							</div>
@@ -196,8 +179,8 @@
 									<div class="icon">
 										<img src="images/support.svg" alt="Image" class="imf-fluid">
 									</div>
-									<h3>24/7 Support</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+									<h3>Fully Insured</h3>
+									<p>We make sure that all of your cargo is properly insured so you can relax and trust that your goods are protected</p>
 								</div>
 							</div>
 
@@ -206,7 +189,7 @@
 									<div class="icon">
 										<img src="images/return.svg" alt="Image" class="imf-fluid">
 									</div>
-									<h3>Hassle Free Returns</h3>
+									<h3>Hassle Free Process</h3>
 									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
 								</div>
 							</div>
@@ -216,7 +199,7 @@
 
 					<div class="col-lg-5">
 						<div class="img-wrap">
-							<img src="images/why-choose-us-img.jpg" alt="Image" class="img-fluid">
+							<img src="images/truck.jpg" alt="Image" class="img-fluid">
 						</div>
 					</div>
 
@@ -224,236 +207,6 @@
 			</div>
 		</div>
 		<!-- End Why Choose Us Section -->
-
-		<!-- Start We Help Section -->
-		<div class="we-help-section">
-			<div class="container">
-				<div class="row justify-content-between">
-					<div class="col-lg-7 mb-5 mb-lg-0">
-						<div class="imgs-grid">
-							<div class="grid grid-1"><img src="images/img-grid-1.jpg" alt="Untree.co"></div>
-							<div class="grid grid-2"><img src="images/img-grid-2.jpg" alt="Untree.co"></div>
-							<div class="grid grid-3"><img src="images/img-grid-3.jpg" alt="Untree.co"></div>
-						</div>
-					</div>
-					<div class="col-lg-5 ps-lg-5">
-						<h2 class="section-title mb-4">We Help You Make Modern Interior Design</h2>
-						<p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
-
-						<ul class="list-unstyled custom-list my-4">
-							<li>Donec vitae odio quis nisl dapibus malesuada</li>
-							<li>Donec vitae odio quis nisl dapibus malesuada</li>
-							<li>Donec vitae odio quis nisl dapibus malesuada</li>
-							<li>Donec vitae odio quis nisl dapibus malesuada</li>
-						</ul>
-						<p><a herf="#" class="btn">Explore</a></p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- End We Help Section -->
-
-		<!-- Start Popular Product -->
-		<div class="popular-product">
-			<div class="container">
-				<div class="row">
-
-					<div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
-						<div class="product-item-sm d-flex">
-							<div class="thumbnail">
-								<img src="images/product-1.png" alt="Image" class="img-fluid">
-							</div>
-							<div class="pt-3">
-								<h3>Nordic Chair</h3>
-								<p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio </p>
-								<p><a href="#">Read More</a></p>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
-						<div class="product-item-sm d-flex">
-							<div class="thumbnail">
-								<img src="images/product-2.png" alt="Image" class="img-fluid">
-							</div>
-							<div class="pt-3">
-								<h3>Kruzo Aero Chair</h3>
-								<p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio </p>
-								<p><a href="#">Read More</a></p>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
-						<div class="product-item-sm d-flex">
-							<div class="thumbnail">
-								<img src="images/product-3.png" alt="Image" class="img-fluid">
-							</div>
-							<div class="pt-3">
-								<h3>Ergonomic Chair</h3>
-								<p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio </p>
-								<p><a href="#">Read More</a></p>
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-		<!-- End Popular Product -->
-
-		<!-- Start Testimonial Slider -->
-		<div class="testimonial-section">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-7 mx-auto text-center">
-						<h2 class="section-title">Testimonials</h2>
-					</div>
-				</div>
-
-				<div class="row justify-content-center">
-					<div class="col-lg-12">
-						<div class="testimonial-slider-wrap text-center">
-
-							<div id="testimonial-nav">
-								<span class="prev" data-controls="prev"><span class="fa fa-chevron-left"></span></span>
-								<span class="next" data-controls="next"><span class="fa fa-chevron-right"></span></span>
-							</div>
-
-							<div class="testimonial-slider">
-								
-								<div class="item">
-									<div class="row justify-content-center">
-										<div class="col-lg-8 mx-auto">
-
-											<div class="testimonial-block text-center">
-												<blockquote class="mb-5">
-													<p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
-												</blockquote>
-
-												<div class="author-info">
-													<div class="author-pic">
-														<img src="images/person-1.png" alt="Maria Jones" class="img-fluid">
-													</div>
-													<h3 class="font-weight-bold">Maria Jones</h3>
-													<span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
-												</div>
-											</div>
-
-										</div>
-									</div>
-								</div> 
-								<!-- END item -->
-
-								<div class="item">
-									<div class="row justify-content-center">
-										<div class="col-lg-8 mx-auto">
-
-											<div class="testimonial-block text-center">
-												<blockquote class="mb-5">
-													<p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
-												</blockquote>
-
-												<div class="author-info">
-													<div class="author-pic">
-														<img src="images/person-1.png" alt="Maria Jones" class="img-fluid">
-													</div>
-													<h3 class="font-weight-bold">Maria Jones</h3>
-													<span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
-												</div>
-											</div>
-
-										</div>
-									</div>
-								</div> 
-								<!-- END item -->
-
-								<div class="item">
-									<div class="row justify-content-center">
-										<div class="col-lg-8 mx-auto">
-
-											<div class="testimonial-block text-center">
-												<blockquote class="mb-5">
-													<p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
-												</blockquote>
-
-												<div class="author-info">
-													<div class="author-pic">
-														<img src="images/person-1.png" alt="Maria Jones" class="img-fluid">
-													</div>
-													<h3 class="font-weight-bold">Maria Jones</h3>
-													<span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
-												</div>
-											</div>
-
-										</div>
-									</div>
-								</div> 
-								<!-- END item -->
-
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- End Testimonial Slider -->
-
-		<!-- Start Blog Section -->
-		<div class="blog-section">
-			<div class="container">
-				<div class="row mb-5">
-					<div class="col-md-6">
-						<h2 class="section-title">Recent Blog</h2>
-					</div>
-					<div class="col-md-6 text-start text-md-end">
-						<a href="#" class="more">View All Posts</a>
-					</div>
-				</div>
-
-				<div class="row">
-
-					<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/post-1.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">First Time Home Owner Ideas</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 19, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/post-2.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">How To Keep Your Furniture Clean</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Robert Fox</a></span> <span>on <a href="#">Dec 15, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-						<div class="post-entry">
-							<a href="#" class="post-thumbnail"><img src="images/post-3.jpg" alt="Image" class="img-fluid"></a>
-							<div class="post-content-entry">
-								<h3><a href="#">Small Space Furniture Apartment Ideas</a></h3>
-								<div class="meta">
-									<span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec 12, 2021</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-		<!-- End Blog Section -->	
 
 		<!-- Start Footer Section -->
 		<div id="footer-placeholder"></div>
