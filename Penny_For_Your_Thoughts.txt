@@ -4,3 +4,5 @@ This increases efficiency instead of changing one thing of the header and having
 ^ Finished, double check my work. 
 
 Download "Live Server" on Visual Studio Code under Extensions, right click index.html "Open with Live Server" 
+
+Garr is an idiot
