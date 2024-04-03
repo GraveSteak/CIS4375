@@ -12,15 +12,15 @@ require('dotenv').config();
 // Initialize express app
 const app = express();
 const port = process.env.PORT || 3000; // Use port from environment variables or default to 3000
-const mysql = require('mysql2/promise');
+const mysql = require('mysql');
 const cors = require('cors');
 
 async function connectToDatabase() {
     return mysql.createConnection({
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
+      host: process.env.HOST,
+      user: process.env.USER,
+      password: process.env.PASSWORD,
+      database: process.env.DATABASE,
     });
   }
 
@@ -29,6 +29,9 @@ app.use(bodyParser.json()); // For parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
 
 app.use(cors()); 
+
+// Importing routes
+require('./js/quoteSystem')(app);
 
 // Define routes
 app.get('/', (req, res) => {
