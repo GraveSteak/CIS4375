@@ -40,45 +40,58 @@
 
 					<!-- Start Form -->
 					<div class="col-12 col-lg-8 mb-4 mb-md-2" style="text-align: left; padding: 5%;">
-						<form>
+						<form id="clientForm"> <!-- Added ID for the form -->
 							<div class="row">
 								<!-- First name input -->
 								<div class="col-md-6 mb-3">
 									<label for="firstName">First name</label>
-									<input type="text" class="form-control" id="firstName" placeholder="First name" required>
+									<input type="text" class="form-control" name="C_F_Name" placeholder="First name" required> <!-- Changed ID to name -->
 								</div>
 								<!-- Last name input -->
 								<div class="col-md-6 mb-3">
 									<label for="lastName">Last name</label>
-									<input type="text" class="form-control" id="lastName" placeholder="Last name" required>
+									<input type="text" class="form-control" name="C_L_Name" placeholder="Last name" required> <!-- Changed ID to name -->
 								</div>
 							</div>
 							<!-- Row for Email Input -->
 							<div class="row">
 								<div class="col-md-12 mb-3">
 									<label for="emailAddress">Email address</label>
-									<input type="email" class="form-control" id="emailAddress" placeholder="Email address" required>
+									<input type="email" class="form-control" name="C_email" placeholder="Email address" required> <!-- Changed ID to name -->
 								</div>
 							</div>
 							<!-- Row for Phone Input -->
 							<div class="row">
 								<div class="col-md-12 mb-3">
 									<label for="emailAddress">Phone Number</label>
-									<input type="phone" class="form-control" id="phoneNumber" placeholder="(713) XXX - XXXX" required>
+									<input type="phone" class="form-control" name="phone_numb" placeholder="(713) XXX - XXXX" required> <!-- Changed ID to name -->
 								</div>
 							</div>
-							<!-- Row for car Make Input -->
+							<div class="row">
+								<!-- First name input -->
+								<div class="col-md-6 mb-3">
+									<label for="StartZip">Starting Location Zip Code</label>
+									<input type="text" class="form-control" name="Start_Zip" placeholder="XXXXX" required> <!-- Changed ID to name -->
+								</div>
+								<!-- Last name input -->
+								<div class="col-md-6 mb-3">
+									<label for="EndZip">Ending Location Zip Code</label>
+									<input type="text" class="form-control" name="End_Zip" placeholder="XXXXX" required> <!-- Changed ID to name -->
+								</div>
+							</div>
+              <!-- Additions for car information -->
+              <!-- Row for car Make Input -->
 							<div class="row">
 								<div>
 									<label for="carMake">Make</label>
-									<input type="carMake" class="form-control" id="colFormLabel" placeholder="Car Make">
+									<input type="text" class="form-control" name="VehicleMake" placeholder="Car Make"> <!-- Changed ID to name -->
 								</div>  
 							</div>
 							<!-- Row for car Type Input -->
 							<div class="row">
 								<label for="carType">Type</label>
 									<div class="col-md-12 mb-3">
-										<select class="form-control" id="colFormLabel">
+										<select class="form-control" name="VehicleType">
 											<option selected>Choose...</option>
 											<option value="Truck">Truck</option>
 											<option value="Sedan">Sedan</option>
@@ -93,14 +106,14 @@
 							<div class="row">
 								<label for="carModel">Model</label>
 								<div class="col-md-12 mb-3">
-									<input type="carModel" class="form-control" id="colFormLabel" placeholder="Car Model">
+									<input type="text" class="form-control" name="VehicleModel" placeholder="Car Model"> <!-- Changed ID to name -->
 								</div>  
 							</div>
 							<!-- Row for car Year Input -->
 							<div class="row">
 								<label for="carYear">Year</label>
 								<div class="col-md-12 mb-3">
-								<select class="form-control" id="colFormLabel" required>
+								<select class="form-control" name="year" required>
 									<option selected>Choose...</option>
 									<option value="2000">2000</option>
     								<option value="2001">2001</option>
@@ -133,7 +146,7 @@
 							<div class="form-group row" style="padding-left: 20%;">
 								<div class="col-sm-10" style="align-content: center;">
 									<br> 
-									<input type="submit" class="btn" style="width: inherit;" id="colFormLabel">
+									<input type="submit" class="btn" style="width: inherit;" value="Submit"> <!-- Changed ID to name and value -->
 								</div>
 							</div>
 							</div>
@@ -218,6 +231,8 @@
 		<script src="js/header.js"></script>
 		<script src="js/footer.js"></script>
 		<script src="js/highlight.js"></script>
-	</body>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script src="js/formconnection.js"></script>
+</body>
 
 </html>
