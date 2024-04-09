@@ -1,19 +1,19 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
-const cors = require('cors'); // Import CORS middleware
+const cors = require('cors');
+const axios = require('axios');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware to parse form data
+// Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-// Enable CORS
+app.use(express.json());
 app.use(cors());
 
-// Create a connection to the database
+// Database connection
 const connection = mysql.createConnection({
   host: 'itcycledb.c5ms0yw8u4s3.us-east-1.rds.amazonaws.com',
   user: 'ITcycleadmin',
@@ -21,114 +21,105 @@ const connection = mysql.createConnection({
   database: 'AMG_Endeavors'
 });
 
-// Function to execute SQL queries
+// Utility function to execute SQL queries
 const query = (sql, values) => {
   return new Promise((resolve, reject) => {
     connection.query(sql, values, (error, results) => {
-      if (error) {
-        reject(error);
-        return;
-      }
-      resolve(results);
+      if (error) reject(error);
+      else resolve(results);
     });
   });
 };
 
-// Create a new client
-const axios = require('axios');
-
 app.post('/form', async (req, res) => {
   try {
-    const { Start_Zip, End_Zip, C_F_Name, C_L_Name, C_email, C_Company, phone_numb, VehicleMake, VehicleType, year, VehicleModel, VehicleOperable} = req.body;
-
-    // Use Google Maps Distance Matrix API to calculate distance
-    const distanceResponse = await axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${Start_Zip}&destinations=${End_Zip}&key=AIzaSyAwpLIn5Xx6Ojz2UKV8kqAaRUmYbgD1Zgc`);
-    const distanceData = distanceResponse.data;
-    const generalDistance = distanceData.rows[0].elements[0].distance.value; // This value will be in meters
-    const distanceInMiles = generalDistance / 1609.34
-
+    // Extract client and vehicle information from request body
+    const { Start_Zip, End_Zip, C_F_Name, C_L_Name, C_email, C_Company, phone_numb, VehicleMake, VehicleModel, VehicleType, year, VehicleOperable } = req.body;
+    
     // Insert client data
-    const insertClientSql = 'INSERT INTO Client (C_F_Name, C_L_Name, C_email, C_Company, phone_numb) VALUES (?, ?, ?, ?, ?)';
-    const clientValues = [C_F_Name, C_L_Name, C_email, C_Company, phone_numb];
+    const insertClientSql = 'INSERT INTO Client (C_F_Name, C_L_Name, C_email, C_Company, phone_numb, Num_Requests) VALUES (?, ?, ?, ?, ?, ?)';
+    const clientValues = [C_F_Name, C_L_Name, C_email, C_Company, phone_numb, VehicleMake.length];
     const clientResult = await query(insertClientSql, clientValues);
     const clientId = clientResult.insertId;
 
-    // Insert vehicle data with foreign key reference to the client
-    const insertVehicleSql = 'INSERT INTO Vehicles (VehicleMake, VehicleType, year, VehicleModel, ClientID) VALUES (?, ?, ?, ?, ?)';
-    const vehicleValues = [VehicleMake, VehicleType, year, VehicleModel, clientId];
-    const vehicleResult = await query(insertVehicleSql, vehicleValues);
-    const vehicleIDFK = vehicleResult.insertId
+    // Calculate distance
+    const distanceResponse = await axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${Start_Zip}&destinations=${End_Zip}&key=AIzaSyAwpLIn5Xx6Ojz2UKV8kqAaRUmYbgD1Zgc`);
+    const distanceInMiles = distanceResponse.data.rows[0].elements[0].distance.value / 1609.34;
 
-    // Insert distance data into the Distance table
+    // Insert distance data
     const insertDistanceSql = 'INSERT INTO Distance (Start_Zip, End_Zip, General_Distance) VALUES (?, ?, ?)';
-    const distanceValues = [Start_Zip, End_Zip, distanceInMiles];
-    const distanceResult = await query(insertDistanceSql, distanceValues);
+    const distanceResult = await query(insertDistanceSql, [Start_Zip, End_Zip, distanceInMiles]);
     const distanceIDFK = distanceResult.insertId;
 
-    // Assuming you have already retrieved the distance in miles and identified the VehicleType
-    let genPrice = 0;
-    if (VehicleOperable === "Yes"){
-        genPrice = 150;
-    };
+    let totalGenPrice = 0;
 
-    switch (VehicleType) {
-      case 'Sedan':
-        if (distanceInMiles < 150) {
-          genPrice += 350;
-        } else if (distanceInMiles < 1000) {
-          genPrice += (distanceInMiles * 0.55 + 200);
-        } else {
-          genPrice += (distanceInMiles * 0.5 + 200);
-        }
-        break;
+    // Process each vehicle
+    for (let i = 0; i < VehicleMake.length; i++) {
+      // Insert vehicle data
+      const insertVehicleSql = 'INSERT INTO Vehicles (VehicleMake, VehicleModel, VehicleType, year, Operable, ClientID) VALUES (?, ?, ?, ?, ?, ?)';
+      await query(insertVehicleSql, [VehicleMake[i], VehicleModel[i], VehicleType[i], year[i], VehicleOperable[i], clientId]);
 
-      case 'SUV':
-        if (distanceInMiles < 150) {
-          genPrice += 400;
-        } else if (distanceInMiles < 1000) {
-          genPrice += (distanceInMiles * 0.65 + 200);
-        } else {
-          genPrice += (distanceInMiles * 0.6 + 200);
-        }
-        break;
+      // Calculate price for each vehicle
+      let genPrice = VehicleOperable[i] === 'No' ? 150 : 0;
 
-      case 'Truck':
-        if (distanceInMiles < 150) {
-          genPrice += 425;
-        } else if (distanceInMiles < 1000) {
-          genPrice += (distanceInMiles * 0.7 + 200);
-        } else {
-          genPrice += (distanceInMiles * 0.6 + 200);
-        }
-        break;
-
-      default: // Other (coupe)
-        if (distanceInMiles < 150) {
-          genPrice += 400;
-        } else if (distanceInMiles < 1000) {
-          genPrice += (distanceInMiles * 0.55 + 200);
-        } else {
-          genPrice += (distanceInMiles * 0.5 + 200);
-        }
+      switch (VehicleType[i]) {
+          case 'Sedan':
+              if (distanceInMiles < 150) {
+                  genPrice += 350;
+              } else if (distanceInMiles < 1000) {
+                  genPrice += (distanceInMiles * 0.55 + 200);
+              } else { // for distances greater than 1000 miles
+                  genPrice += (distanceInMiles * 0.5 + 200);
+              }
+              break;
+          case 'SUV':
+              if (distanceInMiles < 150) {
+                  genPrice += 400;
+              } else if (distanceInMiles < 1000) {
+                  genPrice += (distanceInMiles * 0.65 + 200);
+              } else { // for distances greater than 1000 miles
+                  genPrice += (distanceInMiles * 0.6 + 200);
+              }
+              break;
+          case 'Truck':
+              if (distanceInMiles < 150) {
+                  genPrice += 425;
+              } else if (distanceInMiles < 1000) {
+                  genPrice += (distanceInMiles * 0.7 + 200);
+              } else { // for distances greater than 1000 miles
+                  genPrice += (distanceInMiles * 0.6 + 200);
+              }
+              break;
+          default:
+              // Assuming the default case applies the same logic as Sedan
+              if (distanceInMiles < 150) {
+                  genPrice += 400;
+              } else if (distanceInMiles < 1000) {
+                  genPrice += (distanceInMiles * 0.55 + 200);
+              } else { // for distances greater than 1000 miles
+                  genPrice += (distanceInMiles * 0.5 + 200);
+              }
+      }
+      totalGenPrice += genPrice;
     }
 
-// Now you can insert this genPrice into the Price table along with other details
     const insertPriceSql = 'INSERT INTO Price (Gen_Price, Description, DistanceID) VALUES (?, ?, ?)';
-    const priceValues = [genPrice,'Description here', distanceIDFK]; // Replace with appropriate values
+    const priceValues = [totalGenPrice,'Description here', distanceIDFK]; 
     const priceResult = await query(insertPriceSql, priceValues);
     const priceIDFK = priceResult.insertId
 
-    const insertRequestSql = 'INSERT INTO Request_Information (Vehicle_Request_ID, PriceID, Client_Name_Comb, Price) VALUES (?, ?, ?, ?)';
-    const RequestValues = [vehicleIDFK, priceIDFK, C_F_Name + " " + C_L_Name, genPrice]; // Replace with appropriate values
+    const insertRequestSql = 'INSERT INTO Request_Information (PriceID, Client_Name_Comb, Price) VALUES (?, ?, ?)';
+    const RequestValues = [priceIDFK, C_F_Name + " " + C_L_Name, totalGenPrice]; 
     await query(insertRequestSql, RequestValues);
-    
-    res.json({ success: true, message: 'Client, Vehicle, and Distance data saved successfully', genPrice: genPrice });
+
+    // Respond with the total price for all vehicles
+    res.json({ success: true, message: 'Client and vehicles data saved successfully', totalGenPrice: totalGenPrice });
   } catch (error) {
+    console.error(error);
     res.status(400).json({ success: false, message: error.message });
   }
 });
 
-// Start server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

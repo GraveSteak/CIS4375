@@ -16,204 +16,94 @@
   <meta name="description" content="" />
   <meta name="keywords" content="bootstrap, bootstrap4" />
 
-		<!-- Bootstrap CSS -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-		<link href="css/tiny-slider.css" rel="stylesheet">
-		<link href="css/style.css" rel="stylesheet">
-		<title>CIS 4375 Capstone project: IT Cycle for AMG Endeavors</title>
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="css/tiny-slider.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <title>CIS 4375 Capstone project: IT Cycle for AMG Endeavors</title>
 </head>
 
-	<body>
-		<div class="header" id="header-placeholder"></div>		
-		<!-- Start Form Section -->
-		<div class="product-section">
-			<div class="container">
-				<div class="row">
-					<!-- Start Column 1 -->
-					<div class="col-12 col-lg-4 mb-5 mb-lg-0">
-						<h2 class="mb-4 section-title">Get a quote</h2>
-						<h5 class="mb-4">Provide your car's information and submit to get your delivery quote ready. </h5>
-						<img src="images/luxury.jpg" style="max-width: 100%; height: auto;">
-					</div> 
-					<!-- End Column 1 -->
+<body>
+<div class="header" id="header-placeholder"></div>    
+<!-- Start Form Section -->
+<div class="product-section">
+  <div class="container">
+    <div class="row">
+      <!-- Start Column 1 -->
+      <div class="col-12 col-lg-4 mb-5 mb-lg-0">
+        <h2 class="mb-4 section-title">Get a quote</h2>
+        <h5 class="mb-4">Provide your car's information and submit to get your delivery quote ready. </h5>
+        <img src="images/luxury.jpg" style="max-width: 100%; height: auto;">
+      </div> 
+      <!-- End Column 1 -->
 
-					<!-- Start Form -->
-					<div class="col-12 col-lg-8 mb-4 mb-md-2" style="text-align: left; padding: 5%;">
-						<form id="clientForm"> <!-- Added ID for the form -->
-							<div class="row">
-								<!-- First name input -->
-								<div class="col-md-6 mb-3">
-									<label for="firstName">First name</label>
-									<input type="text" class="form-control" name="C_F_Name" placeholder="First name" required> <!-- Changed ID to name -->
-								</div>
-								<!-- Last name input -->
-								<div class="col-md-6 mb-3">
-									<label for="lastName">Last name</label>
-									<input type="text" class="form-control" name="C_L_Name" placeholder="Last name" required> <!-- Changed ID to name -->
-								</div>
-							</div>
-							<!-- Row for Email Input -->
-							<div class="row">
-								<div class="col-md-12 mb-3">
-									<label for="emailAddress">Email address</label>
-									<input type="email" class="form-control" name="C_email" placeholder="Email address" required> <!-- Changed ID to name -->
-								</div>
-							</div>
-							<!-- Row for Phone Input -->
-							<div class="row">
-								<div class="col-md-12 mb-3">
-									<label for="emailAddress">Phone Number</label>
-									<input type="phone" class="form-control" name="phone_numb" placeholder="(713) XXX - XXXX" required> <!-- Changed ID to name -->
-								</div>
-							</div>
-							<div class="row">
-								<!-- First name input -->
-								<div class="col-md-6 mb-3">
-									<label for="StartZip">Starting Location Zip Code</label>
-									<input type="text" class="form-control" name="Start_Zip" placeholder="XXXXX" required> <!-- Changed ID to name -->
-								</div>
-								<!-- Last name input -->
-								<div class="col-md-6 mb-3">
-									<label for="EndZip">Ending Location Zip Code</label>
-									<input type="text" class="form-control" name="End_Zip" placeholder="XXXXX" required> <!-- Changed ID to name -->
-								</div>
-							</div>
-              <!-- Additions for car information -->
-              <!-- Row for car Make Input -->
-							<div class="row">
-								<div>
-									<label for="carMake">Make</label>
-									<input type="text" class="form-control" name="VehicleMake" placeholder="Car Make"> <!-- Changed ID to name -->
-								</div>  
-							</div>
-							<!-- Row for car Type Input -->
-							<div class="row">
-								<label for="carType">Type</label>
-									<div class="col-md-12 mb-3">
-										<select class="form-control" name="VehicleType">
-											<option selected>Choose...</option>
-											<option value="Truck">Truck</option>
-											<option value="Sedan">Sedan</option>
-											<option value="SUV">SUV</option>
-											<option value="Other">Other</option>
-										</select>
-									</div>
-							</div>
-              <div class="row">
-								<label for="VehicleOperable">Operable</label>
-									<div class="col-md-12 mb-3">
-										<select class="form-control" name="VehicleOperable" id=VehicleOperable>
-											<option selected>Choose...</option>
-											<option value="Yes">Yes</option>
-											<option value="No">No</option>
-										</select>
-									</div>
-							</div>
-							<!-- Row for car model Input -->
-							<div class="row">
-								<label for="carModel">Model</label>
-								<div class="col-md-12 mb-3">
-									<input type="text" class="form-control" name="VehicleModel" placeholder="Car Model" required> <!-- Changed ID to name -->
-								</div>  
-							</div>
-							<!-- Row for car Year Input -->
-							<div class="row">
-								<label for="carYear">Year</label>
-								<div class="col-md-12 mb-3">
-								<input type="number" class="form-control" name="year" placeholder="Year" required>
-								</div>
-							<br>
-							<div class="form-group row" style="padding-left: 20%;">
-								<div class="col-sm-10" style="align-content: center;">
-									<br> 
-									<input type="submit" class="btn" style="width: inherit;" value="Submit"> <!-- Changed ID to name and value -->
-								</div>
-							</div>
-							</div>
-						</form>
-					</div> 
-					<!-- End Form -->
-				</div>
-			</div>
-		</div>
-		<!-- End Form Section -->
-
-		<!-- Start Why Choose Us Section -->
-		<div class="why-choose-section">
-			<div class="container">
-				<div class="row justify-content-between">
-					<div class="col-lg-6">
-						<h2 class="section-title">Why Choose Us</h2>
-						<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique.</p>
-
-						<div class="row my-5">
-							<div class="col-6 col-md-6">
-								<div class="feature">
-									<div class="icon">
-										<img src="images/truck.svg" alt="Image" class="imf-fluid">
-									</div>
-									<h3>Fast &amp; Reliable Shipping</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
-								</div>
-							</div>
-
-							<div class="col-6 col-md-6">
-								<div class="feature">
-									<div class="icon">
-										<img src="images/bag.svg" alt="Image" class="imf-fluid">
-									</div>
-									<h3>Quality Carriers</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
-								</div>
-							</div>
-
-							<div class="col-6 col-md-6">
-								<div class="feature">
-									<div class="icon">
-										<img src="images/support.svg" alt="Image" class="imf-fluid">
-									</div>
-									<h3>Fully Insured</h3>
-									<p>We make sure that all of your cargo is properly insured so you can relax and trust that your goods are protected</p>
-								</div>
-							</div>
-
-							<div class="col-6 col-md-6">
-								<div class="feature">
-									<div class="icon">
-										<img src="images/return.svg" alt="Image" class="imf-fluid">
-									</div>
-									<h3>Hassle Free Process</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
-								</div>
-							</div>
-
-						</div>
-					</div>
-
-					<div class="col-lg-5">
-						<div class="img-wrap">
-							<img src="images/truck.jpg" alt="Image" class="img-fluid">
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-		<!-- End Why Choose Us Section -->
-
-		<!-- Start Footer Section -->
-		<div id="footer-placeholder"></div>
-		<!-- End Footer Section -->
-
-		<script src="js/bootstrap.bundle.min.js"></script>
-		<script src="js/tiny-slider.js"></script>
-		<script src="js/custom.js"></script>
-		<script src="js/header.js"></script>
-		<script src="js/footer.js"></script>
-		<script src="js/highlight.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-		<script src="js/formconnection.js"></script>
+      <!-- Start Form -->
+      <div class="col-12 col-lg-8 mb-4 mb-md-2" style="text-align: left; padding: 5%;">
+        <form id="clientForm"> <!-- Added ID for the form -->
+          <div class="row">
+            <!-- First name input -->
+            <div class="col-md-6 mb-3">
+              <label for="firstName">First name</label>
+              <input type="text" class="form-control" name="C_F_Name" placeholder="First name" required> <!-- Changed ID to name -->
+            </div>
+            <!-- Last name input -->
+            <div class="col-md-6 mb-3">
+              <label for="lastName">Last name</label>
+              <input type="text" class="form-control" name="C_L_Name" placeholder="Last name" required> <!-- Changed ID to name -->
+            </div>
+          </div>
+          <!-- Row for Email Input -->
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <label for="emailAddress">Email address</label>
+              <input type="email" class="form-control" name="C_email" placeholder="Email address" required> <!-- Changed ID to name -->
+            </div>
+          </div>
+          <!-- Row for Phone Input -->
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <label for="emailAddress">Phone Number</label>
+              <input type="phone" class="form-control" name="phone_numb" placeholder="(713) XXX - XXXX" required> <!-- Changed ID to name -->
+            </div>
+          </div>
+          <div class="row">
+            <!-- Starting Zip Code input -->
+            <div class="col-md-6 mb-3">
+              <label for="StartZip">Starting Location Zip Code</label>
+              <input type="text" class="form-control" name="Start_Zip" placeholder="XXXXX" required> <!-- Changed ID to name -->
+            </div>
+            <!-- Ending Zip Code input -->
+            <div class="col-md-6 mb-3">
+              <label for="EndZip">Ending Location Zip Code</label>
+              <input type="text" class="form-control" name="End_Zip" placeholder="XXXXX" required> <!-- Changed ID to name -->
+            </div>
+          </div>
+          <div id="vehicleFormsContainer">
+            <!-- Vehicle Forms will be inserted here -->
+          </div>
+          <button type="button" id="addVehicleBtn" class="btn btn-primary">Add Another Vehicle</button>
+          <br>
+          <div class="form-group row" style="padding-top: 20px;">
+            <div class="col-sm-10" style="align-content: center;">
+              <input type="submit" class="btn" style="width: inherit;" value="Submit">
+            </div>
+          </div>
+        </form>
+      </div> 
+      <!-- End Form -->
+    </div>
+  </div>
+</div>
+<!-- End Form Section -->
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/tiny-slider.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/header.js"></script>
+<script src="js/footer.js"></script>
+<script src="js/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="js/formconnection.js"></script>
 </body>
 
 </html>
