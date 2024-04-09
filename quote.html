@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Untree.co">
+  <link rel="shortcut icon" href="favicon.png">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <title>Quote | CIS 4375 Capstone project</title>
+</head>
+
+<body>
+  <div class="header" id="header-placeholder"></div>		
+
+  <!-- Quote Display Section -->
+  <div class="quote-section">
+    <div class="container">
+      <div class="row">
+        <div text-align='center' class="col-12">
+          <h2 class="mb-4 section-title">Thank You</h2>
+          <h2 class="quote-price">Your Quote is: $<span id="quotePrice">0</span></h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- JavaScript for extracting and displaying the price -->
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const price = urlParams.get('price');
+      document.getElementById('quotePrice').textContent = price;
+    });
+  </script>
+  
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/footer.js"></script>
+</body>
+</html>

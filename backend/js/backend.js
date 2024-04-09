@@ -39,7 +39,7 @@ const axios = require('axios');
 
 app.post('/form', async (req, res) => {
   try {
-    const { Start_Zip, End_Zip, C_F_Name, C_L_Name, C_email, C_Company, phone_numb, VehicleMake, VehicleType, year, VehicleModel } = req.body;
+    const { Start_Zip, End_Zip, C_F_Name, C_L_Name, C_email, C_Company, phone_numb, VehicleMake, VehicleType, year, VehicleModel, VehicleOperable} = req.body;
 
     // Use Google Maps Distance Matrix API to calculate distance
     const distanceResponse = await axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${Start_Zip}&destinations=${End_Zip}&key=AIzaSyAwpLIn5Xx6Ojz2UKV8kqAaRUmYbgD1Zgc`);
@@ -66,46 +66,49 @@ app.post('/form', async (req, res) => {
     const distanceIDFK = distanceResult.insertId;
 
     // Assuming you have already retrieved the distance in miles and identified the VehicleType
-    let genPrice;
+    let genPrice = 0;
+    if (VehicleOperable === "Yes"){
+        genPrice = 150;
+    };
 
     switch (VehicleType) {
       case 'Sedan':
         if (distanceInMiles < 150) {
-          genPrice = 350;
+          genPrice += 350;
         } else if (distanceInMiles < 1000) {
-          genPrice = distanceInMiles * 0.55 + 200;
+          genPrice += (distanceInMiles * 0.55 + 200);
         } else {
-          genPrice = distanceInMiles * 0.5 + 200;
+          genPrice += (distanceInMiles * 0.5 + 200);
         }
         break;
 
       case 'SUV':
         if (distanceInMiles < 150) {
-          genPrice = 400;
+          genPrice += 400;
         } else if (distanceInMiles < 1000) {
-          genPrice = distanceInMiles * 0.65 + 200;
+          genPrice += (distanceInMiles * 0.65 + 200);
         } else {
-          genPrice = distanceInMiles * 0.6 + 200;
+          genPrice += (distanceInMiles * 0.6 + 200);
         }
         break;
 
       case 'Truck':
         if (distanceInMiles < 150) {
-          genPrice = 425;
+          genPrice += 425;
         } else if (distanceInMiles < 1000) {
-          genPrice = distanceInMiles * 0.7 + 200;
+          genPrice += (distanceInMiles * 0.7 + 200);
         } else {
-          genPrice = distanceInMiles * 0.6 + 200;
+          genPrice += (distanceInMiles * 0.6 + 200);
         }
         break;
 
       default: // Other (coupe)
         if (distanceInMiles < 150) {
-          genPrice = 400;
+          genPrice += 400;
         } else if (distanceInMiles < 1000) {
-          genPrice = distanceInMiles * 0.55 + 200;
+          genPrice += (distanceInMiles * 0.55 + 200);
         } else {
-          genPrice = distanceInMiles * 0.5 + 200;
+          genPrice += (distanceInMiles * 0.5 + 200);
         }
     }
 
@@ -119,7 +122,7 @@ app.post('/form', async (req, res) => {
     const RequestValues = [vehicleIDFK, priceIDFK, C_F_Name + " " + C_L_Name, genPrice]; // Replace with appropriate values
     await query(insertRequestSql, RequestValues);
     
-    res.json({ success: true, message: 'Client, Vehicle, and Distance data saved successfully' });
+    res.json({ success: true, message: 'Client, Vehicle, and Distance data saved successfully', genPrice: genPrice });
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });
   }
