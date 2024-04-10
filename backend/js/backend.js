@@ -48,7 +48,7 @@ app.post('/form', async (req, res) => {
     const clientValues = [C_F_Name, C_L_Name, C_email, C_Company, phone_numb, VehicleMake.length];
     const clientResult = await query(insertClientSql, clientValues);
     const clientId = clientResult.insertId;
-  
+    
     // Insert distance data
     const insertDistanceSql = 'INSERT INTO Distance (Start_Zip, End_Zip, General_Distance) VALUES (?, ?, ?)';
     const distanceResult = await query(insertDistanceSql, [Start_Zip, End_Zip, distanceInMiles]);
