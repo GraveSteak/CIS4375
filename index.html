@@ -68,6 +68,19 @@
             </div>
           </div>
           <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="affiliation">Affiliation</label>
+              <select class="form-control" name="affiliation" id="affiliation">
+                <option value="Self">Self</option>
+                <option value="Representative">Representative</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="companyName">Affiliate Name</label>
+              <input type="text" class="form-control" name="company_name" id="companyName" placeholder="Company Name" disabled>
+            </div>
+          </div>
+          <div class="row">
             <!-- Starting Zip Code input -->
             <div class="col-md-6 mb-3">
               <label for="StartZip">Starting Location Zip Code</label>
@@ -97,7 +110,7 @@
 </div>
 <!-- End Form Section -->
 
-		<!-- Start Why Choose Us Section -->
+<!-- Start Why Choose Us Section -->
 		<div class="why-choose-section">
 			<div class="container">
 				<div class="row justify-content-between">
@@ -163,7 +176,7 @@
 		<!-- Start Footer Section -->
 		<div id="footer-placeholder"></div>
 		<!-- End Footer Section -->
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 		<script src="js/bootstrap.bundle.min.js"></script>
 		<script src="js/tiny-slider.js"></script>
 		<script src="js/custom.js"></script>
@@ -171,6 +184,7 @@
 		<script src="js/footer.js"></script>
 		<script src="js/highlight.js"></script>
 		<script src="js/carDropDown.js"></script>
+    <script src="js/formconnection.js"></script>
 	</body>
 
 </html>
