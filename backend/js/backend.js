@@ -53,9 +53,7 @@ app.post('/form', async (req, res) => {
     const clientResult = await query(insertClientSql, clientValues);
     const clientId = clientResult.insertId;
 
-    // Calculate distance
-    const distanceResponse = await axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${Start_Zip}&destinations=${End_Zip}&key=AIzaSyAwpLIn5Xx6Ojz2UKV8kqAaRUmYbgD1Zgc`);
-    const distanceInMiles = distanceResponse.data.rows[0].elements[0].distance.value / 1609.34;
+
 
     // Insert distance data
     const insertDistanceSql = 'INSERT INTO Distance (Start_Zip, End_Zip, General_Distance) VALUES (?, ?, ?)';
