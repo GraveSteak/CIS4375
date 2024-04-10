@@ -26,7 +26,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
             .then(data => {
                 console.log('Login successful:', data);
                 // Redirect the user or show login success message
-                window.location.href = '/index.html'; // Adjust the redirect URL as needed
+                window.location.href = '/dashboard.html'; // Adjust the redirect URL as needed
             })
             .catch(error => {
                 console.error('Error:', error);
