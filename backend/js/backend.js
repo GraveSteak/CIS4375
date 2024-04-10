@@ -1,9 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mysql = require('mysql2');
+const mysql = require('mysql');
 const cors = require('cors');
 const axios = require('axios');
-
+require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -15,10 +15,10 @@ app.use(cors());
 
 // Database connection
 const connection = mysql.createConnection({
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE
+  host: 'itcycledb.c5ms0yw8u4s3.us-east-1.rds.amazonaws.com',
+  user: 'ITcycleadmin',
+  password: 'ITcyclepassword',
+  database: 'AMG_Endeavors'
 });
 
 // Utility function to execute SQL queries
@@ -31,10 +31,6 @@ const query = (sql, values) => {
   });
 };
 
-// Create a new client
-const axios = require('axios');
-
-const apiKey = process.env.GOOGLE_MAPS_API_KEY
 
 app.post('/form', async (req, res) => {
   try {
@@ -42,7 +38,7 @@ app.post('/form', async (req, res) => {
     const { Start_Zip, End_Zip, C_F_Name, C_L_Name, C_email, C_Company, phone_numb, VehicleMake, VehicleModel, VehicleType, year, VehicleOperable } = req.body;
 
     // Use Google Maps Distance Matrix API to calculate distance
-    const distanceResponse = await axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${Start_Zip}&destinations=${End_Zip}&key=${apiKey}`);
+    const distanceResponse = await axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${Start_Zip}&destinations=${End_Zip}&key=AIzaSyAwpLIn5Xx6Ojz2UKV8kqAaRUmYbgD1Zgc`);
     const distanceData = distanceResponse.data;
     const generalDistance = distanceData.rows[0].elements[0].distance.value; // This value will be in meters
     const distanceInMiles = generalDistance / 1609.34
@@ -52,9 +48,7 @@ app.post('/form', async (req, res) => {
     const clientValues = [C_F_Name, C_L_Name, C_email, C_Company, phone_numb, VehicleMake.length];
     const clientResult = await query(insertClientSql, clientValues);
     const clientId = clientResult.insertId;
-
-
-
+    
     // Insert distance data
     const insertDistanceSql = 'INSERT INTO Distance (Start_Zip, End_Zip, General_Distance) VALUES (?, ?, ?)';
     const distanceResult = await query(insertDistanceSql, [Start_Zip, End_Zip, distanceInMiles]);
