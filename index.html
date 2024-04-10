@@ -16,28 +16,29 @@
   <meta name="description" content="" />
   <meta name="keywords" content="bootstrap, bootstrap4" />
 
-		<!-- Bootstrap CSS -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-		<link href="css/tiny-slider.css" rel="stylesheet">
-		<link href="css/style.css" rel="stylesheet">
-		<title>CIS 4375 Capstone project: IT Cycle for AMG Endeavors</title>
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="css/tiny-slider.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <title>CIS 4375 Capstone project: IT Cycle for AMG Endeavors</title>
 </head>
 
-	<body>
-		<div class="header" id="header-placeholder"></div>		
-		<!-- Start Form Section -->
-		<div class="product-section">
-			<div class="container">
-				<div class="row">
-					<!-- Start Column 1 -->
-					<div class="col-12 col-lg-4 mb-5 mb-lg-0">
-						<h2 class="mb-4 section-title">Get a quote</h2>
-						<h5 class="mb-4">Provide your car's information and submit to get your delivery quote ready. </h5>
-						<img src="images/luxury.jpg" style="max-width: 100%; height: auto;">
-					</div> 
-					<!-- End Column 1 -->
+<body>
+<div class="header" id="header-placeholder"></div>    
+<!-- Start Form Section -->
+<div class="product-section">
+  <div class="container">
+    <div class="row">
+      <!-- Start Column 1 -->
+      <div class="col-12 col-lg-4 mb-5 mb-lg-0">
+        <h2 class="mb-4 section-title">Get a quote</h2>
+        <h5 class="mb-4">Provide your car's information and submit to get your delivery quote ready. </h5>
+        <img src="images/luxury.jpg" style="max-width: 100%; height: auto;">
+      </div> 
+      <!-- End Column 1 -->
 
+<<<<<<< HEAD
 					<!-- Start Form -->
 					<div class="col-12 col-lg-8 mb-4 mb-md-2" style="text-align: left; padding: 5%;">
 						<form id="clientForm"> <!-- Added ID for the form -->
@@ -128,6 +129,66 @@
 			</div>
 		</div>
 		<!-- End Form Section -->
+=======
+      <!-- Start Form -->
+      <div class="col-12 col-lg-8 mb-4 mb-md-2" style="text-align: left; padding: 5%;">
+        <form id="clientForm"> <!-- Added ID for the form -->
+          <div class="row">
+            <!-- First name input -->
+            <div class="col-md-6 mb-3">
+              <label for="firstName">First name</label>
+              <input type="text" class="form-control" name="C_F_Name" placeholder="First name" required> <!-- Changed ID to name -->
+            </div>
+            <!-- Last name input -->
+            <div class="col-md-6 mb-3">
+              <label for="lastName">Last name</label>
+              <input type="text" class="form-control" name="C_L_Name" placeholder="Last name" required> <!-- Changed ID to name -->
+            </div>
+          </div>
+          <!-- Row for Email Input -->
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <label for="emailAddress">Email address</label>
+              <input type="email" class="form-control" name="C_email" placeholder="Email address" required> <!-- Changed ID to name -->
+            </div>
+          </div>
+          <!-- Row for Phone Input -->
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <label for="emailAddress">Phone Number</label>
+              <input type="phone" class="form-control" name="phone_numb" placeholder="(713) XXX - XXXX" required> <!-- Changed ID to name -->
+            </div>
+          </div>
+          <div class="row">
+            <!-- Starting Zip Code input -->
+            <div class="col-md-6 mb-3">
+              <label for="StartZip">Starting Location Zip Code</label>
+              <input type="text" class="form-control" name="Start_Zip" placeholder="XXXXX" required> <!-- Changed ID to name -->
+            </div>
+            <!-- Ending Zip Code input -->
+            <div class="col-md-6 mb-3">
+              <label for="EndZip">Ending Location Zip Code</label>
+              <input type="text" class="form-control" name="End_Zip" placeholder="XXXXX" required> <!-- Changed ID to name -->
+            </div>
+          </div>
+          <div id="vehicleFormsContainer">
+            <!-- Vehicle Forms will be inserted here -->
+          </div>
+          <button type="button" id="addVehicleBtn" class="btn btn-primary">Add Another Vehicle</button>
+          <br>
+          <div class="form-group row" style="padding-top: 20px;">
+            <div class="col-sm-10" style="align-content: center;">
+              <input type="submit" class="btn" style="width: inherit;" value="Submit">
+            </div>
+          </div>
+        </form>
+      </div> 
+      <!-- End Form -->
+    </div>
+  </div>
+</div>
+<!-- End Form Section -->
+>>>>>>> 26a7a56f06a6c51f74b9dd2acbb70a1823f197b6
 
 		<!-- Start Why Choose Us Section -->
 		<div class="why-choose-section">
@@ -202,8 +263,7 @@
 		<script src="js/header.js"></script>
 		<script src="js/footer.js"></script>
 		<script src="js/highlight.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-		<script src="js/formconnection.js"></script>
-</body>
+		<script src="js/carDropDown.js"></script>
+	</body>
 
 </html>

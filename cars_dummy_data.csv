@@ -1,0 +1,11 @@
+car_id,make,car_type,model,car_year
+1,Toyota,Sedan,Camry,2020
+2,Ford,Truck,F-150,2019
+3,Chevrolet,SUV,Tahoe,2018
+4,Honda,Sedan,Civic,2021
+5,Nissan,Compact,Sentra,2022
+6,BMW,SUV,X5,2018
+7,Mercedes,Sedan,E-Class,2017
+8,Hyundai,Compact,Elantra,2021
+9,Kia,Truck,Sorento,2020
+10,Audi,SUV,Q5,2019
