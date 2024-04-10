@@ -118,4 +118,21 @@ document.getElementById('clientForm').addEventListener('submit', async function(
     }
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+	const affiliationSelect = document.getElementById('affiliation');
+	const companyNameInput = document.getElementById('companyName');
+  
+	affiliationSelect.addEventListener('change', function () {
+	  // Check if the 'Representative' option is selected
+	  if (this.value === 'Representative') {
+		// Enable the Company Name input
+		companyNameInput.disabled = false;
+		companyNameInput.focus(); // Optionally focus on the input
+	  } else {
+		// Disable and clear the Company Name input
+		companyNameInput.disabled = true;
+		companyNameInput.value = '';
+	  }
+	});
+  });
 
