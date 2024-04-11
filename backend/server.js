@@ -17,10 +17,11 @@ const cors = require('cors');
 
 async function connectToDatabase() {
     return mysql.createConnection({
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
+      host: 'itcycledb.c5ms0yw8u4s3.us-east-1.rds.amazonaws.com',
+      user: 'ITcycleadmin',
+      password: 'ITcyclepassword',
+      database: 'AMG_Endeavors',
+      port: 3306
     });
   }
 
@@ -38,7 +39,7 @@ app.get('/', (req, res) => {
 app.get('/api/data', async (req, res) => {
     try {
       const db = await connectToDatabase();
-      const [results] = await db.query('SELECT * FROM some_table');
+      const [results] = await db.query('SELECT * FROM Client');
       res.json(results);
     } catch (error) {
       console.error('Database query failed:', error);
@@ -46,7 +47,7 @@ app.get('/api/data', async (req, res) => {
     }
   });
 
-app.get('/api/data', (req, res) => {
+app.get('/api/test', (req, res) => {
     res.json({ message: 'Data fetched successfully' });
   });
 
@@ -77,3 +78,17 @@ const users = [
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
   });
+
+// Define a route to fetch car types and their counts  
+app.get('/api/car-types', async (req, res) => {
+  try {
+    // Await the connection to the database
+    const db = await connectToDatabase();
+    // Await the results of the query
+    const [results] = await db.query('SELECT VehicleType, COUNT(*) as count FROM Vehicles GROUP BY VehicleType');
+    return res.json(results);
+  } catch(error) {
+    console.error('Database query failed:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
