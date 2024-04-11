@@ -47,28 +47,30 @@
 					</div>
 					<div class="col-lg-8">
 						<div class="dashboard-content">
-							<h2 style="padding-bottom: 5%;">Clients dashboard for CRUD</h2>
+							<h2 style="padding-bottom: 5%;">Summary Graphs</h2>
 							<div class="row">
 								<div class="col-lg-4">
 									<div class="chart1">
-										<canvas id="myPieChart1" width="200" height="200"></canvas>
+										<canvas id="myPieChart1" width="250" height="250"></canvas>
 									</div>
 								</div>
 								<div class="col-lg-4">
 									<div class="chart2">
-										<canvas id="myBarChart" width="200" height="200"></canvas>
+										<canvas id="myBarChart" width="250" height="250"></canvas>
 									</div>
 								</div>
 								<div class="col-lg-4">
 									<div class="chart1">
-										<canvas id="myLineChart" width="200" height="200"></canvas>
+										<canvas id="myLineChart" width="250" height="250"></canvas>
 									</div>
 								</div>
 							</div>
 						</div>
                         <br>
                         <div class="col-md-6 mb-3">
-                            <label for="select-operation"><h2>Select Operation:</h2></label>
+                            <label for="client-crud"><h2>Clients Management</h2></label>
+                            <label for="select-operation"><h3>Select Operation:</h3></label>
+                            <br>
                             <br>
                             <select class="form-control" id="crud-operation" name="crud-operation">
                                 <option value="choose">Choose...</option>
@@ -150,7 +152,6 @@
                             </div>
                         </div>
                     </form>
-                    <div id="clientInfo"></div>
                 </div>
             </div>
         <br>

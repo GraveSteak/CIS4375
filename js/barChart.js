@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var data = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June'],
         datasets: [{
-            label: 'Sales',
+            label: 'Something',
             data: [65, 59, 80, 81, 56, 55], // Sample data for sales
             backgroundColor: 'rgba(54, 162, 235, 0.7)', // Background color for bars
             borderColor: 'rgba(54, 162, 235, 1)', // Border color for bars
@@ -26,8 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         responsive: false, // Disable automatic resizing
         maintainAspectRatio: false, // Don't maintain aspect ratio
-        width: 200, // Set width
-        height: 200 // Set height
     };
 
     // Create the bar chart

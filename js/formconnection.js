@@ -3,6 +3,20 @@ const maxVehicles = 10;
 const vehicleFormsContainer = document.getElementById('vehicleFormsContainer');
 const addVehicleBtn = document.getElementById('addVehicleBtn');
 
+// Define the list of car makes
+const carMakes = [
+    "Acura", "Alfa Romeo", "Audi", "BMW", "Bentley",
+    "Buick", "Cadillac", "Chevrolet", "Chrysler", "Citroën",
+    "Dodge", "Fiat", "Ford", "GMC", "Genesis",
+    "Honda", "Hyundai", "Infiniti", "Jaguar", "Jeep",
+    "Kia", "Lamborghini", "Land Rover", "Lexus", "Lincoln",
+    "Lotus", "Maserati", "Mazda", "McLaren", "Mercedes-Benz",
+    "Mini", "Mitsubishi", "Nissan", "Pagani", "Peugeot",
+    "Porsche", "RAM", "Renault", "Rolls-Royce", "Saab",
+    "Subaru", "Suzuki", "Tesla", "Toyota", "Volkswagen",
+    "Volvo"
+];
+
 function updateAddVehicleButtonState() {
 	if(vehicleCount >= maxVehicles) {
 		addVehicleBtn.setAttribute('disabled', 'true');
@@ -23,9 +37,12 @@ addVehicleBtn.addEventListener('click', function() {
 				<h4>Vehicle ${vehicleCount}</h4>
 				<div class="row">
 					<div class="col-md-6 mb-3">
-						<label for="VehicleMake${vehicleCount}">Make</label>
-						<input type="text" class="form-control" name="VehicleMake[]" placeholder="Car Make">
-					</div>
+                        <label for="VehicleMake${vehicleCount}">Make</label>
+                        <select class="form-control" id="VehicleMake${vehicleCount}" name="VehicleMake[]">
+                            <option selected>Choose...</option>
+                            ${carMakes.map(make => `<option value="${make}">${make}</option>`).join('')}
+                        </select>
+                    </div>
 					<div class="col-md-6 mb-3">
 						<label for="VehicleModel${vehicleCount}">Model</label>
 						<input type="text" class="form-control" name="VehicleModel[]" placeholder="Car Model" required>

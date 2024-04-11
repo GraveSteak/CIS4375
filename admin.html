@@ -24,50 +24,72 @@
 	</head>
 
 	<body>
-
 		<div id="header-placeholder"></div>
-
-		<!-- Start Hero Section -->
-			<div class="hero">
+			<div class="product-section">
 				<div class="container">
-					<div class="row justify-content-between">
+					<div class="row justify-content">
 						<div class="col-lg-5">
 							<div class="intro-excerpt">
 								<h1>Admin log in page</h1>
-								<p class="mb-4">Admin will have the option to use the user interface to update database</p>
+								<p class="mb-4">Use your login credentials</p>
 							</div>
 						</div>
-						<div class="col-lg-7">
+						<div class="col-12 col-lg-4 mb-4 mb-md-2" style="text-align: left;">
 							<form id="loginForm">
-								<div class="form-group row" style="padding-top: 15%;">
-									<label for="username" class="login col-sm-2 col-form-label" style="text-align: center;">Username</label>
-									<div class="col-sm-5">
-									  <input type="text" class="form-control" id="username">
-									</div>
+								<div class="form-group row">
+									<div class="col-md-6 mb-3"></div>
+											<label for="username" style="text-align: left;">Username</label>
+											<input type="text" class="form-control" id="username">
 								</div>
 								<br>
 								<div class="form-group row">
-									<label for="password" class="login col-sm-2 col-form-label" style="text-align: center;">Password</label>
-									<div class="col-sm-5">
-									  <input type="password" class="form-control" id="password">
-									</div>
+									<div class="col-md-6 mb-3"></div>
+											<label for="password" style="text-align: left;">Password</label>
+											<input type="password" class="form-control" id="password">
 								</div>
-								<div class="form-group-row" style="padding-top: 5%; padding-left: 15%;">
-									<button type="submit" class="btn btn-secondary me-2">Log in</button>
-    								<a href="#" class="btn btn-white-outline">Forgot password</a>
+								<div class="form-group-row" style="padding-top: 5%; padding-left: 35%;">
+									<button type="submit" class="btn btn-primary me-2">Log in</button>
 								</div>
 							</form>
+							<div id="loginError" style="color: red;"></div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div id="loginError" style="color: red;"></div>
-		<!-- End Hero Section -->
 
 		<!-- Start Footer Section -->
 		<div id="footer-placeholder"></div>
 		<!-- End Footer Section -->
 
+		<script>
+			document.getElementById('loginForm').addEventListener('submit', function(event) {
+				event.preventDefault();  // Prevent default form submission
+			
+				const username = document.getElementById('username').value;
+				const password = document.getElementById('password').value;
+			
+				// Simulating an AJAX request (you will need to replace this with your actual server-side validation logic)
+				fetch('api/login', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ username, password })
+				})
+				.then(response => response.json())
+				.then(data => {
+					if (data.success) {
+						window.location.href = 'dashboard.html'; // Redirect to the dashboard if login is successful
+					} else {
+						document.getElementById('loginError').textContent = 'Invalid username or password'; // Display login error
+					}
+				})
+				.catch(error => {
+					console.error('Error:', error);
+					document.getElementById('loginError').textContent = 'Login failed';
+				});
+			});
+			</script>			
 
 		<script src="js/bootstrap.bundle.min.js"></script>
 		<script src="js/tiny-slider.js"></script>
