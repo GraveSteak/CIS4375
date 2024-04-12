@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
+const nodemailer = require('nodemailer');
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -196,6 +197,56 @@ app.post('/form', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(400).json({ success: false, message: error.message });
+  }
+});
+
+// Nodemailer transporter setup
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+      user: 'itcycle0@gmail.com',
+      pass: 'whyh nyqh ghuo oygv'
+  }
+});
+
+// Route to handle POST request
+app.post('/send-email', async (req, res) => {
+  console.log('Received data:', req.body);
+  const { C_F_Name, C_L_Name, C_email, phone_numb, affiliation, company_name: rawCompanyName, Start_Zip, End_Zip, VehicleMake, VehicleModel, VehicleType, VehicleOperable, year } = req.body;
+
+  // Replace company_name with 'N/A' if it is null or undefined
+  const company_name = rawCompanyName || 'N/A';
+  
+  const emailBody = `
+    First Name: ${C_F_Name}
+    Last Name: ${C_L_Name}
+    Email: ${C_email}
+    Phone Number: ${phone_numb}
+    Affiliation: ${affiliation}
+    Company Name: ${company_name || 'N/A'}
+    Start Zip Code: ${Start_Zip}
+    End Zip Code: ${End_Zip}
+    VehicleMake: ${VehicleMake},
+    VehicleModel: ${VehicleModel},
+    VehicleType: ${VehicleType},
+    year: ${year},
+    VehicleOperable: ${VehicleOperable}
+  `;
+
+  // Email options
+  const mailOptions = {
+      from: 'itcycle0@gmail.com',
+      to: 'contactbeckytseng@gmail.com',
+      subject: 'New Form Submission',
+      text: emailBody
+  };
+
+  try {
+      await transporter.sendMail(mailOptions);
+      res.status(200).json({ success: true, message: 'Email sent successfully!' });
+  } catch (error) {
+      console.error('Failed to send email:', error);
+      res.status(500).json({ success: false, message: 'Failed to send email' });
   }
 });
 
