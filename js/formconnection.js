@@ -18,21 +18,21 @@ const carMakes = [
 ];
 
 function updateAddVehicleButtonState() {
-	if(vehicleCount >= maxVehicles) {
-		addVehicleBtn.setAttribute('disabled', 'true');
-		addVehicleBtn.classList.add('btn-secondary'); // Bootstrap class to indicate disabled state
-		addVehicleBtn.classList.remove('btn-primary'); // Assuming 'btn-primary' is the original class
-	} else {
-		addVehicleBtn.removeAttribute('disabled');
-		addVehicleBtn.classList.remove('btn-secondary');
-		addVehicleBtn.classList.add('btn-primary');
-	}
+    if (vehicleCount >= maxVehicles) {
+        addVehicleBtn.setAttribute('disabled', 'true');
+        addVehicleBtn.classList.add('btn-secondary'); // Bootstrap class to indicate disabled state
+        addVehicleBtn.classList.remove('btn-primary'); // Assuming 'btn-primary' is the original class
+    } else {
+        addVehicleBtn.removeAttribute('disabled');
+        addVehicleBtn.classList.remove('btn-secondary');
+        addVehicleBtn.classList.add('btn-primary');
+    }
 }
 
-addVehicleBtn.addEventListener('click', function() {
-	if(vehicleCount < maxVehicles) {
-		vehicleCount++;
-		const vehicleFormHTML = `
+addVehicleBtn.addEventListener('click', function () {
+    if (vehicleCount < maxVehicles) {
+        vehicleCount++;
+        const vehicleFormHTML = `
 			<div class="vehicleForm" style="border-top: 1px solid #ccc; padding-top: 20px; margin-top: 20px;" data-vehicle-index="${vehicleCount}">
 				<h4>Vehicle ${vehicleCount}</h4>
 				<div class="row">
@@ -75,60 +75,101 @@ addVehicleBtn.addEventListener('click', function() {
 				</div>
 			</div>
 		`;
-		vehicleFormsContainer.insertAdjacentHTML('beforeend', vehicleFormHTML);
-		updateDeleteButtonVisibility();
-		updateAddVehicleButtonState();
-	}
+        vehicleFormsContainer.insertAdjacentHTML('beforeend', vehicleFormHTML);
+        updateDeleteButtonVisibility();
+        updateAddVehicleButtonState();
+    }
 });
 
 function updateDeleteButtonVisibility() {
-	const deleteButtons = document.querySelectorAll('.deleteVehicleBtn');
-	deleteButtons.forEach(button => button.style.display = vehicleCount > 1 ? '' : 'none');
+    const deleteButtons = document.querySelectorAll('.deleteVehicleBtn');
+    deleteButtons.forEach(button => button.style.display = vehicleCount > 1 ? '' : 'none');
 }
 
 function renumberVehicleForms() {
-	const vehicleForms = vehicleFormsContainer.querySelectorAll('.vehicleForm');
-	vehicleForms.forEach((form, index) => {
-		form.setAttribute('data-vehicle-index', index + 1);
-		form.querySelector('h4').textContent = `Vehicle ${index + 1}`;
-	});
+    const vehicleForms = vehicleFormsContainer.querySelectorAll('.vehicleForm');
+    vehicleForms.forEach((form, index) => {
+        form.setAttribute('data-vehicle-index', index + 1);
+        form.querySelector('h4').textContent = `Vehicle ${index + 1}`;
+    });
 }
 
-vehicleFormsContainer.addEventListener('click', function(e) {
-	if (e.target.classList.contains('deleteVehicleBtn')) {
-		const vehicleForm = e.target.closest('.vehicleForm');
-		vehicleFormsContainer.removeChild(vehicleForm);
-		vehicleCount--;
-		updateDeleteButtonVisibility();
-		renumberVehicleForms();
-		updateAddVehicleButtonState();
-	}
+vehicleFormsContainer.addEventListener('click', function (e) {
+    if (e.target.classList.contains('deleteVehicleBtn')) {
+        const vehicleForm = e.target.closest('.vehicleForm');
+        vehicleFormsContainer.removeChild(vehicleForm);
+        vehicleCount--;
+        updateDeleteButtonVisibility();
+        renumberVehicleForms();
+        updateAddVehicleButtonState();
+    }
 });
 
 // Initially add one vehicle form by simulating a button click
 addVehicleBtn.click();
 
-document.getElementById('clientForm').addEventListener('submit', async function(event) {
+document.getElementById('clientForm').addEventListener('submit', async function (event) {
     event.preventDefault();
     const formData = new FormData(this);
-    const data = Object.fromEntries(formData.entries());
+
+    // Extract the company_name field and set it to 'N/A' if it's null or undefined
+    const company_name = formData.get('company_name') || 'N/A';
+    // Construct an array to store all vehicle details
+    const vehicles = [];
+    // Loop through the formData to extract vehicle details
+    let i = 1;
+    while (formData.get(`VehicleMake${i}`)) {
+        vehicles.push({
+            make: formData.get(`VehicleMake${i}`),
+            model: formData.get(`VehicleModel${i}`),
+            type: formData.get(`VehicleType${i}`),
+			operable: formData.get(`VehicleOperable${i}`),
+            year: parseInt(formData.get(`year${i}`)) // Ensure year is parsed as a number
+            
+        });
+        i++;
+    }
+
+    // Construct the payload object including all vehicle details
     const payload = {
-        ...data,
+        C_F_Name: formData.get('C_F_Name'),
+        C_L_Name: formData.get('C_L_Name'),
+        C_email: formData.get('C_email'),
+        phone_numb: formData.get('phone_numb'),
+        affiliation: formData.get('affiliation'),
+        company_name: company_name,
+        Start_Zip: formData.get('Start_Zip'),
+        End_Zip: formData.get('End_Zip'),
         VehicleMake: formData.getAll('VehicleMake[]'),
         VehicleModel: formData.getAll('VehicleModel[]'),
         VehicleType: formData.getAll('VehicleType[]'),
-        year: formData.getAll('year[]').map(Number), // Convert years to numbers
-        VehicleOperable: formData.getAll('VehicleOperable[]'),
+        year: formData.getAll('year[]').map(Number),  // Ensure year is captured as number
+        VehicleOperable: formData.getAll('VehicleOperable[]')
     };
+
+    console.log('Prepared Payload:', payload);
+
     try {
-        const response = await axios.post('http://localhost:3000/form', payload, {
+
+		// Send data to the /send-email endpoint
+        const emailResponse = await axios.post('http://localhost:3000/send-email', payload, {
             headers: {
                 'Content-Type': 'application/json',
             },
         });
-        console.log(response.data);
-        const genPrice = response.data.totalGenPrice;
+        console.log('Email Sending Response:', emailResponse.data);
+
+        // Send data to the /form endpoint
+        const formResponse = await axios.post('http://localhost:3000/form', payload, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        console.log(formResponse.data);
+        const genPrice = formResponse.data.totalGenPrice;
         window.location.href = `quote.html?price=${genPrice.toFixed(2)}`;
+
+        alert('Client created successfully!');
     } catch (error) {
         console.error(error);
         alert('Failed to create client');
@@ -136,20 +177,19 @@ document.getElementById('clientForm').addEventListener('submit', async function(
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-	const affiliationSelect = document.getElementById('affiliation');
-	const companyNameInput = document.getElementById('companyName');
-  
-	affiliationSelect.addEventListener('change', function () {
-	  // Check if the 'Representative' option is selected
-	  if (this.value === 'Representative') {
-		// Enable the Company Name input
-		companyNameInput.disabled = false;
-		companyNameInput.focus(); // Optionally focus on the input
-	  } else {
-		// Disable and clear the Company Name input
-		companyNameInput.disabled = true;
-		companyNameInput.value = '';
-	  }
-	});
-  });
+    const affiliationSelect = document.getElementById('affiliation');
+    const companyNameInput = document.getElementById('companyName');
 
+    affiliationSelect.addEventListener('change', function () {
+        // Check if the 'Representative' option is selected
+        if (this.value === 'Representative') {
+            // Enable the Company Name input
+            companyNameInput.disabled = false;
+            companyNameInput.focus(); // Optionally focus on the input
+        } else {
+            // Disable and clear the Company Name input
+            companyNameInput.disabled = true;
+            companyNameInput.value = '';
+        }
+    });
+});

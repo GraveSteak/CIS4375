@@ -7,6 +7,9 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
+const nodemailer = require('nodemailer');
+
+const { insertClient, fetchClients, fetchClientById, updateClient, deleteClient } = require('./clientCrudOperations');
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -85,6 +88,74 @@ app.get('/api/data', async (req, res) => {
   }
 });
 
+
+app.post('/api/clients', async (req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const clientId = await insertClient(req.body, db);
+    db.end();
+
+    res.json({ success: true, message: 'Client created successfully', clientId: clientId });
+  } catch (error) {
+    console.error('Failed to insert client:', error);
+    res.status(500).json({ success: false, message: 'Failed to insert client data', error: error.message });
+  }
+});
+
+// Endpoint to get all clients
+app.get('/api/clients', async (req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const clients = await fetchClients(db);
+    db.end();
+    res.json(clients);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Endpoint to get a single client by ID
+app.get('/api/clients/:id', async (req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const client = await fetchClientById(req.params.id, db);
+    db.end();
+
+    if (client.length > 0) {
+      res.json(client[0]);  // Send the first (and only) client in the array
+    } else {
+      res.status(404).json({ message: 'Client not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Endpoint to update a client
+app.put('/api/clients/:id', async (req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const result = await updateClient(req.body, req.params.id, db);
+    db.end();
+    if (result > 0) res.json({ success: true });
+    else res.status(404).json({ message: 'Client not found' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Endpoint to delete a client
+app.delete('/api/clients/:id', async (req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const result = await deleteClient(req.params.id, db);
+    db.end();
+    if (result > 0) res.json({ success: true });
+    else res.status(404).json({ message: 'Client not found' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 app.post('/form', async (req, res) => {
   try {
@@ -196,6 +267,56 @@ app.post('/form', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(400).json({ success: false, message: error.message });
+  }
+});
+
+// Nodemailer transporter setup
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+      user: 'itcycle0@gmail.com',
+      pass: 'whyh nyqh ghuo oygv'
+  }
+});
+
+// Route to handle POST request
+app.post('/send-email', async (req, res) => {
+  console.log('Received data:', req.body);
+  const { C_F_Name, C_L_Name, C_email, phone_numb, affiliation, company_name: rawCompanyName, Start_Zip, End_Zip, VehicleMake, VehicleModel, VehicleType, VehicleOperable, year } = req.body;
+
+  // Replace company_name with 'N/A' if it is null or undefined
+  const company_name = rawCompanyName || 'N/A';
+  
+  const emailBody = `
+    First Name: ${C_F_Name}
+    Last Name: ${C_L_Name}
+    Email: ${C_email}
+    Phone Number: ${phone_numb}
+    Affiliation: ${affiliation}
+    Company Name: ${company_name || 'N/A'}
+    Start Zip Code: ${Start_Zip}
+    End Zip Code: ${End_Zip}
+    VehicleMake: ${VehicleMake},
+    VehicleModel: ${VehicleModel},
+    VehicleType: ${VehicleType},
+    year: ${year},
+    VehicleOperable: ${VehicleOperable}
+  `;
+
+  // Email options
+  const mailOptions = {
+      from: 'itcycle0@gmail.com',
+      to: 'contactbeckytseng@gmail.com',
+      subject: 'New Form Submission',
+      text: emailBody
+  };
+
+  try {
+      await transporter.sendMail(mailOptions);
+      res.status(200).json({ success: true, message: 'Email sent successfully!' });
+  } catch (error) {
+      console.error('Failed to send email:', error);
+      res.status(500).json({ success: false, message: 'Failed to send email' });
   }
 });
 
