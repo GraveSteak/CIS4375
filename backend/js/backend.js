@@ -9,6 +9,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const nodemailer = require('nodemailer');
 
+const { insertClient, fetchClients, fetchClientById, updateClient, deleteClient } = require('./clientCrudOperations');
+
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -86,6 +88,74 @@ app.get('/api/data', async (req, res) => {
   }
 });
 
+
+app.post('/api/clients', async (req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const clientId = await insertClient(req.body, db);
+    db.end();
+
+    res.json({ success: true, message: 'Client created successfully', clientId: clientId });
+  } catch (error) {
+    console.error('Failed to insert client:', error);
+    res.status(500).json({ success: false, message: 'Failed to insert client data', error: error.message });
+  }
+});
+
+// Endpoint to get all clients
+app.get('/api/clients', async (req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const clients = await fetchClients(db);
+    db.end();
+    res.json(clients);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Endpoint to get a single client by ID
+app.get('/api/clients/:id', async (req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const client = await fetchClientById(req.params.id, db);
+    db.end();
+
+    if (client.length > 0) {
+      res.json(client[0]);  // Send the first (and only) client in the array
+    } else {
+      res.status(404).json({ message: 'Client not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Endpoint to update a client
+app.put('/api/clients/:id', async (req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const result = await updateClient(req.body, req.params.id, db);
+    db.end();
+    if (result > 0) res.json({ success: true });
+    else res.status(404).json({ message: 'Client not found' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Endpoint to delete a client
+app.delete('/api/clients/:id', async (req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const result = await deleteClient(req.params.id, db);
+    db.end();
+    if (result > 0) res.json({ success: true });
+    else res.status(404).json({ message: 'Client not found' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 app.post('/form', async (req, res) => {
   try {
