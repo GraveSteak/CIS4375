@@ -1,8 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
+const mysql = require('mysql2/promise');
 const cors = require('cors');
 const axios = require('axios');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,12 +15,15 @@ app.use(express.json());
 app.use(cors());
 
 // Database connection
-const connection = mysql.createConnection({
-  host: 'itcycledb.c5ms0yw8u4s3.us-east-1.rds.amazonaws.com',
-  user: 'ITcycleadmin',
-  password: 'ITcyclepassword',
-  database: 'AMG_Endeavors'
-});
+async function connectToDatabase() {
+  return mysql.createConnection({
+    host: 'itcycledb.c5ms0yw8u4s3.us-east-1.rds.amazonaws.com',
+    user: 'ITcycleadmin',
+    password: 'ITcyclepassword',
+    database: 'AMG_Endeavors',
+    port: 3306
+  });
+}
 
 // Utility function to execute SQL queries
 const query = (sql, values) => {
@@ -31,9 +35,60 @@ const query = (sql, values) => {
   });
 };
 
+// Mock user for demonstration purposes
+const users = [
+  {
+    id: 1,
+    username: 'ITcycleadmin',
+    password: 'ITcyclepassword' // In a real app, passwords should be hashed
+  }
+];
+
+app.post('/api/login', (req, res) => {
+  const { username, password } = req.body;
+
+  // Find the user in the database
+  const user = users.find(u => u.username === username && u.password === password);
+
+  if (user) {
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.json({ message: 'Login successful', token });
+  } else {
+    res.status(401).json({ message: 'Invalid username or password' });
+  }
+});
+
+// Define a route to fetch car types and their counts  
+app.get('/api/car-types', async (req, res) => {
+  try {
+    // Await the connection to the database
+    const db = await connectToDatabase();
+    // Await the results of the query
+    const [results] = await db.query('SELECT VehicleType, COUNT(*) as count FROM Vehicles GROUP BY VehicleType');
+    return res.json(results);
+  } catch(error) {
+    console.error('Database query failed:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+app.get('/api/data', async (req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const [results] = await db.query('SELECT * FROM Client');
+    console.log(results);// Check the structure of results
+    res.json(results);
+  } catch (error) {
+    console.error('Database query failed:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 app.post('/form', async (req, res) => {
   try {
+    const db = await connectToDatabase();
     // Extract client and vehicle information from request body
     const { Start_Zip, End_Zip, C_F_Name, C_L_Name, C_email, C_Company, phone_numb, VehicleMake, VehicleModel, VehicleType, year, VehicleOperable, affiliation, company_name } = req.body;
 
@@ -54,12 +109,12 @@ app.post('/form', async (req, res) => {
 
     const insertClientSql = 'INSERT INTO Client (C_F_Name, C_L_Name, C_email, C_Company, phone_numb, Num_Requests) VALUES (?, ?, ?, ?, ?, ?)';
     const clientValues = [C_F_Name, C_L_Name, C_email, Reptype, phone_numb, VehicleMake.length];
-    const clientResult = await query(insertClientSql, clientValues);
+    const clientResult = await db.query(insertClientSql, clientValues);
     const clientId = clientResult.insertId;
   
     // Insert distance data
     const insertDistanceSql = 'INSERT INTO Distance (Start_Zip, End_Zip, General_Distance) VALUES (?, ?, ?)';
-    const distanceResult = await query(insertDistanceSql, [Start_Zip, End_Zip, distanceInMiles]);
+    const distanceResult = await db.query(insertDistanceSql, [Start_Zip, End_Zip, distanceInMiles]);
     const distanceIDFK = distanceResult.insertId;
 
     let totalGenPrice = 0;
@@ -68,7 +123,7 @@ app.post('/form', async (req, res) => {
     for (let i = 0; i < VehicleMake.length; i++) {
       // Insert vehicle data
       const insertVehicleSql = 'INSERT INTO Vehicles (VehicleMake, VehicleModel, VehicleType, year, Operable, ClientID) VALUES (?, ?, ?, ?, ?, ?)';
-      await query(insertVehicleSql, [VehicleMake[i], VehicleModel[i], VehicleType[i], year[i], VehicleOperable[i], clientId]);
+      await db.query(insertVehicleSql, [VehicleMake[i], VehicleModel[i], VehicleType[i], year[i], VehicleOperable[i], clientId]);
 
       // Calculate price for each vehicle
       let genPrice = VehicleOperable[i] === 'No' ? 150 : 0;
@@ -116,12 +171,12 @@ app.post('/form', async (req, res) => {
 
     const insertPriceSql = 'INSERT INTO Price (Gen_Price, Description, DistanceID) VALUES (?, ?, ?)';
     const priceValues = [totalGenPrice,'Description here', distanceIDFK]; 
-    const priceResult = await query(insertPriceSql, priceValues);
+    const priceResult = await db.query(insertPriceSql, priceValues);
     const priceIDFK = priceResult.insertId
 
     const insertRequestSql = 'INSERT INTO Request_Information (PriceID, Client_Name_Comb, Price) VALUES (?, ?, ?)';
     const RequestValues = [priceIDFK, C_F_Name + " " + C_L_Name, totalGenPrice]; 
-    await query(insertRequestSql, RequestValues);
+    await db.query(insertRequestSql, RequestValues);
 
     // Respond with the total price for all vehicles
     res.json({ success: true, message: 'Client and vehicles data saved successfully', totalGenPrice: totalGenPrice });
