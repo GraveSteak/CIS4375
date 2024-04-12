@@ -90,7 +90,7 @@ app.post('/form', async (req, res) => {
   try {
     const db = await connectToDatabase();
     // Extract client and vehicle information from request body
-    const { Start_Zip, End_Zip, C_F_Name, C_L_Name, C_email, C_Company, phone_numb, VehicleMake, VehicleModel, VehicleType, year, VehicleOperable, affiliation, company_name } = req.body;
+    const { Start_Zip, End_Zip, C_F_Name, C_L_Name, C_email, C_Company, phone_numb, VehicleMake, VehicleModel, VehicleType, year, VehicleOperable, affiliation, company_name, chosen_date } = req.body;
 
     // Use Google Maps Distance Matrix API to calculate distance
     const distanceResponse = await axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${Start_Zip}&destinations=${End_Zip}&key=AIzaSyAwpLIn5Xx6Ojz2UKV8kqAaRUmYbgD1Zgc`);
@@ -107,14 +107,25 @@ app.post('/form', async (req, res) => {
       Reptype = company_name
     };
 
+    // Check for special circumstances
+    const specialDateCheckSql = 'SELECT Additional_Cost, SpecialDate_Descrition FROM Special_Circumstance WHERE SpecialDate = ?';
+    const [specialDates] = await db.query(specialDateCheckSql, [chosen_date]);
+    let additionalCost = 0;
+    let s_Description = 'Standard';
+
+    if (specialDates.length > 0) {
+        additionalCost = specialDates[0].Additional_Cost;
+        s_Description = specialDates[0].SpecialDate_Descrition;
+    }
+
     const insertClientSql = 'INSERT INTO Client (C_F_Name, C_L_Name, C_email, C_Company, phone_numb, Num_Requests) VALUES (?, ?, ?, ?, ?, ?)';
     const clientValues = [C_F_Name, C_L_Name, C_email, Reptype, phone_numb, VehicleMake.length];
     const clientResult = await db.query(insertClientSql, clientValues);
     const clientId = clientResult.insertId;
   
     // Insert distance data
-    const insertDistanceSql = 'INSERT INTO Distance (Start_Zip, End_Zip, General_Distance) VALUES (?, ?, ?)';
-    const distanceResult = await db.query(insertDistanceSql, [Start_Zip, End_Zip, distanceInMiles]);
+    const insertDistanceSql = 'INSERT INTO Distance (Start_Zip, End_Zip, General_Distance, Date_Rec) VALUES (?, ?, ?, ?)';
+    const distanceResult = await db.query(insertDistanceSql, [Start_Zip, End_Zip, distanceInMiles, chosen_date]);
     const distanceIDFK = distanceResult.insertId;
 
     let totalGenPrice = 0;
@@ -169,8 +180,10 @@ app.post('/form', async (req, res) => {
       totalGenPrice += genPrice;
     }
 
+    totalGenPrice += additionalCost; // Add any special circumstance costs
+
     const insertPriceSql = 'INSERT INTO Price (Gen_Price, Description, DistanceID) VALUES (?, ?, ?)';
-    const priceValues = [totalGenPrice,'Description here', distanceIDFK]; 
+    const priceValues = [totalGenPrice, s_Description, distanceIDFK]; 
     const priceResult = await db.query(insertPriceSql, priceValues);
     const priceIDFK = priceResult.insertId
 
