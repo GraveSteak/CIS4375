@@ -158,8 +158,12 @@
 		<!-- Start Footer Section -->
 		<div id="footer-placeholder"></div>
 		<!-- End Footer Section -->
+        
         <script>
-
+            if (!localStorage.getItem('isLoggedIn')) {
+              // Redirect them to the login page if not logged in
+              window.location.href = 'admin.html';
+            }
         </script>
 
 		<script src="/js/bootstrap.bundle.min.js"></script>
