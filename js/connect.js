@@ -25,6 +25,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
             })
             .then(data => {
                 console.log('Login successful:', data);
+                localStorage.setItem('isLoggedIn', 'true');
                 // Redirect the user or show login success message
                 window.location.href = '/dashboard.html'; // Adjust the redirect URL as needed
             })
