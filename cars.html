@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Untree.co">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="bootstrap, bootstrap4" />
+
+		<!-- Bootstrap CSS -->
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+		<link href="/css/tiny-slider.css" rel="stylesheet">
+		<link href="/css/style.css" rel="stylesheet">
+		<title>Cars Management</title>
+	</head>
+
+	<body>
+
+		<div id="header-placeholder"></div>
+
+		<!-- Start Dashboard Section -->
+		<div class="side-bar">
+			<div class="container">
+				<div class="row justify-content-between" style="padding-top: 5%">
+					<div class="col-lg-3">
+						<div class="dashboard-content">
+						<h2>Dashboard</h2>
+						</div>
+						<div class="items">
+							<ul>
+                                <li><a href="dashboard.html">Home</a></li>
+								<li><a href="/clients.html">Clients Management</a></li>
+								<li><a href="/prices.html">Prices Management</a></li>
+                                <li><a href="/cars.html">Cars Management</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="dashboard-content">
+							<h2 style="padding-bottom: 5%;">Summary Graphs</h2>
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="chart1">
+										<canvas id="myPieChart1" width="250" height="250"></canvas>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="chart2">
+										<canvas id="myBarChart" width="250" height="250"></canvas>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="chart1">
+										<canvas id="myLineChart" width="250" height="250"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+                        <br>
+                        <div class="col-md-6 mb-3">
+                            <label for="client-crud"><h2>Cars Management</h2></label>
+                            <label for="select-operation"><h3>Select Operation:</h3></label>
+                            <br>
+                            <br>
+                            <select class="form-control" id="crud-operation" name="crud-operation">
+                                <option value="choose">Choose...</option>
+                                <option value="find">Find</option>
+                            </select>
+                        </div>
+					</div>
+		
+        <!-- Dashboard Section -->
+            <div id="price-find-container" style="display: none;">
+                    <h3>Find car corresponding to client</h3>
+                    <form id="find_quote">
+                        <div class="row">
+                            <!-- Client ID input -->
+                            <div class="col-md-6 mb-3 form-group">
+                              <label for="client_id"></label>
+                              <input type="text" class="form-control" name="client_id" placeholder="Client ID" required>
+                            </div>
+                        <div class="form-group row" style="padding-top: 10px;">
+                            <div class="col-sm-10" style="align-content: center;">
+                                <button type="submit" id="find_quote_button" class="btn btn-primary m-3">Find Car</button>
+                                <button type="button" id="update_quote" class="btn btn-secondary m-3">Update Car</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		<!-- Start Footer Section -->
+		<div id="footer-placeholder"></div>
+		<!-- End Footer Section -->
+		<script>
+			if (!localStorage.getItem('isLoggedIn')) {
+			  // Redirect them to the login page if not logged in
+			  window.location.href = 'admin.html';
+			}
+		</script>
+
+		<script src="/js/bootstrap.bundle.min.js"></script>
+		<script src="/js/tiny-slider.js"></script>
+		<script src="/js/custom.js"></script>
+		<script src="/js/header.js"></script>
+		<script src="/js/footer.js"></script>
+		<script src="/js/pieChart.js"></script>
+		<script src="/js/barChart.js"></script>
+		<script src="/js/lineChart.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="/js/price_crud_dropdown.js"></script>
+        
+	</body>
+
+</html>
