@@ -81,9 +81,9 @@
 					</div>
 				
         <!-- Dashboard Section -->
-        <div class="justify-content-center">
+        <div id ="formContainer" class="justify-content-center" style="display: none;">
+            <h3>Create Client</h3>
             <form id="clientCreate" action="http://localhost:3000/api/clients" method="POST">
-                <h3>Create Client</h3>
                 <div class="row">
                     <!-- First name input -->
                     <div class="col-md-6 mb-3 form-group">
@@ -100,7 +100,7 @@
                     <!-- Phone number input -->
                     <div class="col-md-6 mb-3 form-group">
                         <label for="phoneNumber">Phone Number</label>
-                        <input type="text" class="form-control" name="phoneNumber" placeholder="XXX-XXX-XXX" required>
+                        <input type="text" class="form-control" name="phoneNumber" placeholder="XXX-XXX-XXX">
                     </div>
                 </div>
                 <div class="mb-3">
@@ -118,22 +118,11 @@
                     <h3>Find Client</h3>
                     <form id="find_client">
                         <div class="row">
-                            <!-- First name input -->
-                            <div class="col-md-6 mb-3 form-group">
-                              <label for="FName">First name</label>
-                              <input type="text" class="form-control" name="FName" placeholder="First name" required>
-                            </div>
-                            <!-- Last name input -->
-                            <div class="col-md-6 mb-3 form-group">
-                              <label for="LName">Last name</label>
-                              <input type="text" class="form-control" name="LName" placeholder="Last name" required>
-                            </div>
-                        </div>
                             <div class="row">
                                 <!-- Phone number input -->
                                 <div class="col-md-6 mb-3 form-group">
                                     <label for="phone_Number">Phone Number</label>
-                                    <input type="text" class="form-control" name="phone_Number" placeholder="XXX-XXX-XXX" required>
+                                    <input type="text" class="form-control" id="phone_numb" name="phone_numb" placeholder="only numbers" required>
                                 </div>
                             </div>
                         <div class="form-group row" style="padding-top: 20px;">
@@ -146,7 +135,47 @@
                     </form>
                 </div>
             </div>
+
         <br>
+
+        <!-- Client Information Form -->
+			<div id="clientPhone-info-container" style="display: none;">
+				<h3>Client Information</h3>
+				<form id="client_info_form">
+                <div class="form-group">
+                    <label for="client_id">Client ID:</label>
+                    <input type="text" class="form-control" id="client_id" name="client_id" required>
+                </div>
+				<div class="form-group">
+					<label for="first_name">First Name:</label>
+					<input type="text" class="form-control" id="first_name" name="first_name" required>
+				</div>
+				<div class="form-group">
+					<label for="last_name">Last Name:</label>
+					<input type="text" class="form-control" id="last_name" name="last_name" required>
+				</div>
+				<div class="form-group">
+					<label for="email">Email:</label>
+					<input type="email" class="form-control" id="email" name="email" required>
+				</div>
+				<div class="form-group">
+					<label for="company">Company:</label>
+					<input type="text" class="form-control" id="company" name="company">
+				</div>
+				<div class="form-group">
+					<label for="number_requests">Number of Requests:</label>
+					<input type="number" class="form-control" id="number_requests" name="number_requests">
+				</div>
+				<div class="form-group">
+					<label for="phone_number">Phone Number:</label>
+					<input type="text" class="form-control" id="phone_number" name="phone_number">
+				</div>
+				<br>
+				<button type="submit" id="update_client" class="btn btn-primary">Update Information</button>
+				</form>
+				<br>
+			</div>
+
 		<!-- Start Footer Section -->
 		<div id="footer-placeholder"></div>
 		<!-- End Footer Section -->
@@ -157,42 +186,8 @@
               window.location.href = 'admin.html';
             }
         </script>
-        
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const form = document.getElementById('clientCreate');
-                form.addEventListener('submit', function(event) {
-                    event.preventDefault(); // Prevent default form submission
-                    const formData = new FormData(form);
-                    const url = form.action;
-                    const method = form.method;
-                    
-                    // Convert FormData to JSON
-                    const jsonData = {};
-                    formData.forEach((value, key) => { jsonData[key] = value; });
-                    
-                    // Fetch API to send data
-                    fetch(url, {
-                        method: method,
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(jsonData)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Success:', data);
-                        alert('Client created successfully!');
-                        form.reset(); // Optionally reset form after successful submit
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                        alert('Failed to create client');
-                    });
-                });
-            });
-            </script>
 
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 		<script src="/js/bootstrap.bundle.min.js"></script>
 		<script src="/js/tiny-slider.js"></script>
 		<script src="/js/custom.js"></script>
@@ -203,7 +198,7 @@
 		<script src="/js/lineChart.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="/js/client_crud_dropdown.js"></script>
-        <script src="/js/client_more_car.js"></script>
+        <script src="/js/retrieveClientPhone.js"></script>
         
 	</body>
 

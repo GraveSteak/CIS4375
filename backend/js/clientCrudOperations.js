@@ -18,8 +18,39 @@ async function fetchClients(connection) {
 // Fetch clients from the database by id
 async function fetchClientById(clientId, connection) {
   const selectSql = 'SELECT * FROM Client WHERE ClientID = ?';
-  const [results] = await connection.execute(selectSql, [clientId]);
-  return results;  // This will return an array of rows; should be 0 or 1 row(s)
+  try {
+    const [results] = await connection.execute(selectSql, [clientId]);
+    return results;  // This will return an array of rows; should be 0 or 1 row(s)
+  } catch (error) {
+    console.error('Failed to fetch client:', error);
+    throw error; // Rethrow or handle as needed
+  }
+}
+
+// Fetch clients from the database by phone number
+async function fetchClientByPhoneNumber(phone_numb, connection) {
+  const selectSql = 'SELECT * FROM Client WHERE phone_numb = ?';
+  try {
+    const [results] = await connection.execute(selectSql, [phone_numb]);
+    console.log("this is running")
+    return results;  // This will return an array of rows; should be 0 or 1 row(s)
+  } catch (error) {
+    console.error('Failed to fetch client:', error);
+    throw error; // Rethrow or handle as needed
+  }
+}
+
+// Fetch car from the database by client ID
+async function fetchCar(ClientID, connection) {
+  const selectSql = 'SELECT * FROM Vehicles WHERE ClientID = ?';
+  try {
+    const [results] = await connection.execute(selectSql, [ClientID]);
+    console.log("this is running")
+    return results;  // This will return an array of rows; should be 0 or 1 row(s)
+  } catch (error) {
+    console.error('Failed to fetch car:', error);
+    throw error; // Rethrow or handle as needed
+  }
 }
 
 // Update a client in the database
@@ -37,4 +68,4 @@ async function deleteClient(clientId, connection) {
   return results.affectedRows;
 }
 
-module.exports = { insertClient, fetchClients, fetchClientById, updateClient, deleteClient };
+module.exports = { insertClient, fetchClients, fetchClientById, updateClient, deleteClient, fetchClientByPhoneNumber, fetchCar };
