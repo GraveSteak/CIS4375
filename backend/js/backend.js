@@ -238,12 +238,14 @@ app.post('/form', async (req, res) => {
     const insertClientSql = 'INSERT INTO Client (C_F_Name, C_L_Name, C_email, C_Company, phone_numb, Num_Requests) VALUES (?, ?, ?, ?, ?, ?)';
     const clientValues = [C_F_Name, C_L_Name, C_email, Reptype, phone_numb, VehicleMake.length];
     const clientResult = await db.query(insertClientSql, clientValues);
-    const clientId = clientResult.insertId;
+    const clientId = clientResult[0].insertId;
+    console.log("Inserted Client ID:", clientId);
   
     // Insert distance data
     const insertDistanceSql = 'INSERT INTO Distance (Start_Zip, End_Zip, General_Distance, Date_Rec) VALUES (?, ?, ?, ?)';
     const distanceResult = await db.query(insertDistanceSql, [Start_Zip, End_Zip, distanceInMiles, chosen_date]);
-    const distanceIDFK = distanceResult.insertId;
+    const distanceIDFK = distanceResult[0].insertId;
+    console.log("Inserted Distance ID:", distanceIDFK);
 
     let totalGenPrice = 0;
 
@@ -302,7 +304,8 @@ app.post('/form', async (req, res) => {
     const insertPriceSql = 'INSERT INTO Price (Gen_Price, Description, DistanceID) VALUES (?, ?, ?)';
     const priceValues = [totalGenPrice, s_Description, distanceIDFK]; 
     const priceResult = await db.query(insertPriceSql, priceValues);
-    const priceIDFK = priceResult.insertId
+    const priceIDFK = priceResult[0].insertId
+    console.log("Inserted Price ID:", priceResult[0].insertId);
 
     const insertRequestSql = 'INSERT INTO Request_Information (PriceID, Client_Name_Comb, Price) VALUES (?, ?, ?)';
     const RequestValues = [priceIDFK, C_F_Name + " " + C_L_Name, totalGenPrice]; 
@@ -352,7 +355,7 @@ app.post('/send-email', async (req, res) => {
   // Email options
   const mailOptions = {
       from: 'itcycle0@gmail.com',
-      to: 'contactbeckytseng@gmail.com',
+      to: C_email,
       subject: 'New Form Submission',
       text: emailBody
   };
