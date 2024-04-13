@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const nodemailer = require('nodemailer');
 
-const { insertClient, fetchClients, fetchClientById, updateClient, deleteClient } = require('./clientCrudOperations');
+const { insertClient, fetchClients, fetchClientById, updateClient, deleteClient, fetchClientByPhoneNumber, fetchCar } = require('./clientCrudOperations');
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -118,8 +118,11 @@ app.get('/api/clients', async (req, res) => {
 app.get('/api/clients/:id', async (req, res) => {
   try {
     const db = await connectToDatabase();
+    console.log("Database connected. Fetching client by ID:", req.params.id);
     const client = await fetchClientById(req.params.id, db);
+    console.log("Fetched client data:", client);
     db.end();
+    console.log("Client fetched:", client);
 
     if (client.length > 0) {
       res.json(client[0]);  // Send the first (and only) client in the array
@@ -128,6 +131,49 @@ app.get('/api/clients/:id', async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+// Endpoint for retrieving client information based on phone number
+app.get('/api/clientsPhone', async (req, res) => {
+  const phone_numb = req.query.phone_numb;
+  try {
+    const db = await connectToDatabase();
+    console.log("Database connected. Fetching client by phone number:", phone_numb);
+    const client = await fetchClientByPhoneNumber(phone_numb, db);
+    console.log("Fetched client data:", client);
+    db.end();
+
+    if (client.length > 0) {
+      res.json(client[0]);  // Send the first (and only) client in the array
+    } else {
+      res.status(404).json({ message: 'Client not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching client:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint for retrieving car information based on client ID
+app.get('/api/car', async (req, res) => {
+  const ClientID = req.query.ClientID;
+  try {
+    const db = await connectToDatabase();
+    console.log("Database connected. Fetching car by client ID:", ClientID);
+    const car = await fetchCar(ClientID, db);
+    console.log("Fetched car data:", car);
+    db.end();
+    console.log("Car fetched:", car);
+
+    if (car.length > 0) {
+      res.json(car[0]);  // Send the first (and only) client in the array
+    } else {
+      res.status(404).json({ message: 'Car not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching car:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 

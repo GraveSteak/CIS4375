@@ -79,18 +79,52 @@
                         <div class="row">
                             <!-- Client ID input -->
                             <div class="col-md-6 mb-3 form-group">
-                              <label for="client_id"></label>
-                              <input type="text" class="form-control" name="client_id" placeholder="Client ID" required>
+                              <label for="ClientID">Client ID</label>
+                              <input type="number" class="form-control" id="ClientID" name="ClientID" placeholder="Client ID" required>
                             </div>
                         <div class="form-group row" style="padding-top: 10px;">
                             <div class="col-sm-10" style="align-content: center;">
-                                <button type="submit" id="find_quote_button" class="btn btn-primary m-3">Find Car</button>
-                                <button type="button" id="update_quote" class="btn btn-secondary m-3">Update Car</button>
+                                <button type="submit" id="find_car_button" class="btn btn-primary m-3">Find Car</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
+
+		<!-- Client Information Form -->
+		<div id="car-info-container" style="display: none;">
+			<h3>Car Information</h3>
+			<form id="client_info_form">
+			<div class="form-group">
+				<label for="CarID">Car ID:</label>
+				<input type="number" class="form-control" id="CarID" name="carID" required>
+			</div>
+			<div class="form-group">
+				<label for="VehicleMake">Vehicle Make:</label>
+				<input type="text" class="form-control" id="VehicleMake" name="VehicleMake" required>
+			</div>
+			<div class="form-group">
+				<label for="VehicleType">VehicleType</label>
+				<input type="text" class="form-control" id="VehicleType" name="VehicleType" required>
+			</div>
+			<div class="form-group">
+				<label for="VehicleModel">Vehicle Model:</label>
+				<input type="text" class="form-control" id="VehicleModel" name="VehicleModel" required>
+			</div>
+			<div class="form-group">
+				<label for="year">Vehicle Year:</label>
+				<input type="number" class="form-control" id="year" name="year">
+			</div>
+			<div class="form-group">
+				<label for="Operable">Vehicle Operable:</label>
+				<input type="text" class="form-control" id="Operable" name="Operable">
+			</div>
+			<br>
+			<button type="submit" id="update_client" class="btn btn-primary">Update Information</button>
+			</form>
+			<br>
+		</div>
+
 		<!-- Start Footer Section -->
 		<div id="footer-placeholder"></div>
 		<!-- End Footer Section -->
@@ -101,6 +135,7 @@
 			}
 		</script>
 
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 		<script src="/js/bootstrap.bundle.min.js"></script>
 		<script src="/js/tiny-slider.js"></script>
 		<script src="/js/custom.js"></script>
@@ -111,6 +146,7 @@
 		<script src="/js/lineChart.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="/js/price_crud_dropdown.js"></script>
+		<script src="/js/retrieveCar.js"></script>
         
 	</body>
 
