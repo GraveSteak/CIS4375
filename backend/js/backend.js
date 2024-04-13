@@ -9,7 +9,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const nodemailer = require('nodemailer');
 
-const { insertClient, fetchClients, fetchClientById, updateClient, deleteClient, fetchClientByPhoneNumber, fetchCar } = require('./clientCrudOperations');
+const { insertClient, fetchClientById, updateClient, deleteClient, fetchClientByPhoneNumber, fetchCar } = require('./clientCrudOperations');
+const { fetchVehicleById, insertVehicle, updateVehicle, deleteVehicle } = require('./vehicleCrudOperations');
+const { fetchPriceById, insertPrice, updatePrice, deletePrice } = require('./priceCrudOperations');
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -102,18 +104,6 @@ app.post('/api/clients', async (req, res) => {
   }
 });
 
-// Endpoint to get all clients
-app.get('/api/clients', async (req, res) => {
-  try {
-    const db = await connectToDatabase();
-    const clients = await fetchClients(db);
-    db.end();
-    res.json(clients);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
 // Endpoint to get a single client by ID
 app.get('/api/clients/:id', async (req, res) => {
   try {
@@ -200,6 +190,129 @@ app.delete('/api/clients/:id', async (req, res) => {
     else res.status(404).json({ message: 'Client not found' });
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+
+
+// Get a price by ID
+app.get('/api/prices/:id', async (req, res) => {
+  try {
+      const db = await connectToDatabase();
+      const prices = await fetchPriceById(req.params.id, db);
+      db.end();
+      if (prices.length > 0) {
+          res.json(prices[0]);
+      } else {
+          res.status(404).json({ message: 'Price not found' });
+      }
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+// Create a new price
+app.post('/api/prices', async (req, res) => {
+  try {
+      const db = await connectToDatabase();
+      const PriceID = await insertPrice(req.body, db);
+      db.end();
+      res.status(201).json({ message: 'Price created', id: PriceID });
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+// Update a price
+app.put('/api/prices/:id', async (req, res) => {
+  try {
+      const db = await connectToDatabase();
+      const result = await updatePrice(req.body, req.params.id, db);
+      db.end();
+      if (result > 0) {
+          res.json({ message: 'Price updated' });
+      } else {
+          res.status(404).json({ message: 'Price not found' });
+      }
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+// Delete a price
+app.delete('/api/prices/:id', async (req, res) => {
+  try {
+      const db = await connectToDatabase();
+      const result = await deletePrice(req.params.id, db);
+      db.end();
+      if (result > 0) {
+          res.json({ message: 'Quote deleted' });
+      } else {
+          res.status(404).json({ message: 'Quote not found' });
+      }
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+// Get a vehicle by ID
+app.get('/api/vehicles/:id', async (req, res) => {
+  try {
+      const db = await connectToDatabase();
+      const vehicles = await fetchVehicleById(req.params.id, db);
+      db.end();
+
+      if (vehicles.length > 0) {
+          res.json(vehicles[0]);
+      } else {
+          res.status(404).json({ message: 'Vehicle not found' });
+      }
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+// Create a new vehicle
+app.post('/api/vehicles', async (req, res) => {
+  try {
+      const db = await connectToDatabase();
+      const Vehicle_Request_ID = await insertVehicle(req.body, db);
+      db.end();
+      res.status(201).json({ message: 'Vehicle created', id: Vehicle_Request_ID });
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+// Update a vehicle
+app.put('/api/vehicles/:id', async (req, res) => {
+  try {
+      const db = await connectToDatabase();
+      const result = await updateVehicle(req.body, req.params.id, db);
+      db.end();
+      if (result > 0) {
+          res.json({ message: 'Vehicle updated' });
+      } else {
+          res.status(404).json({ message: 'Vehicle not found' });
+      }
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+// Delete a vehicle
+app.delete('/api/vehicles/:id', async (req, res) => {
+  try {
+      const db = await connectToDatabase();
+      const result = await deleteVehicle(req.params.id, db);
+      db.end();
+      if (result > 0) {
+          res.json({ message: 'Vehicle deleted' });
+      } else {
+          res.status(404).json({ message: 'Vehicle not found' });
+      }
+  } catch (error) {
+      res.status(500).json({ error: error.message });
   }
 });
 
