@@ -144,7 +144,8 @@ document.getElementById('clientForm').addEventListener('submit', async function 
         VehicleModel: formData.getAll('VehicleModel[]'),
         VehicleType: formData.getAll('VehicleType[]'),
         year: formData.getAll('year[]').map(Number),  // Ensure year is captured as number
-        VehicleOperable: formData.getAll('VehicleOperable[]')
+        VehicleOperable: formData.getAll('VehicleOperable[]'),
+        chosen_date: formData.get('chosen_date')
     };
 
     console.log('Prepared Payload:', payload);

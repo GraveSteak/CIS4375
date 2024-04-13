@@ -63,6 +63,22 @@ app.post('/api/login', (req, res) => {
   }
 });
 
+app.get('/api/num_requests_chart', async (req, res) => {
+  try {
+      const db = await connectToDatabase();
+      const query = `
+          SELECT DATE(Date_Created) as RequestDate, COUNT(*) as NumRequests
+          FROM Request_Information
+          GROUP BY DATE(Date_Created)
+          ORDER BY DATE(Date_Created);
+      `;
+      const [results] = await db.query(query);
+      return res.json(results);
+  } catch (error) {
+      console.error('Failed to fetch request data:', error);
+      res.status(500).json({ success: false, message: 'Failed to fetch request data', error: error.message });
+  }
+});
 // Define a route to fetch car types and their counts  
 app.get('/api/car-types', async (req, res) => {
   try {
@@ -332,20 +348,22 @@ app.post('/form', async (req, res) => {
     let Reptype;
     
     if (affiliation === 'Self'){
-        Reptype = affiliation
+        Reptype = affiliation;
     }else{
-      Reptype = company_name
+        Reptype = company_name;
     };
 
     // Check for special circumstances
-    const specialDateCheckSql = 'SELECT Additional_Cost, SpecialDate_Descrition FROM Special_Circumstance WHERE SpecialDate = ?';
+    const specialDateCheckSql = 'SELECT SpecialID, Additional_Cost, SpecialDate_Descrition FROM Special_Circumstance WHERE SpecialDate = ?';
     const [specialDates] = await db.query(specialDateCheckSql, [chosen_date]);
     let additionalCost = 0;
     let s_Description = 'Standard';
+    let s_ID = null;
 
     if (specialDates.length > 0) {
         additionalCost = specialDates[0].Additional_Cost;
         s_Description = specialDates[0].SpecialDate_Descrition;
+        s_ID = specialDates[0].SpecialID;
     }
 
     const insertClientSql = 'INSERT INTO Client (C_F_Name, C_L_Name, C_email, C_Company, phone_numb, Num_Requests) VALUES (?, ?, ?, ?, ?, ?)';
@@ -414,8 +432,8 @@ app.post('/form', async (req, res) => {
 
     totalGenPrice += additionalCost; // Add any special circumstance costs
 
-    const insertPriceSql = 'INSERT INTO Price (Gen_Price, Description, DistanceID) VALUES (?, ?, ?)';
-    const priceValues = [totalGenPrice, s_Description, distanceIDFK]; 
+    const insertPriceSql = 'INSERT INTO Price (Gen_Price, Description, DistanceID, SpecialID, clientID) VALUES (?, ?, ?, ?, ?)';
+    const priceValues = [totalGenPrice, s_Description, distanceIDFK, s_ID, clientId]; 
     const priceResult = await db.query(insertPriceSql, priceValues);
     const priceIDFK = priceResult[0].insertId
     console.log("Inserted Price ID:", priceResult[0].insertId);
