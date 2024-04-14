@@ -67,7 +67,7 @@ addVehicleBtn.addEventListener('click', function () {
 					</div>
 					<div class="col-md-6 mb-3">
 						<label for="year${vehicleCount}">Year</label>
-						<input type="number" class="form-control" name="year[]" placeholder="Year" required>
+						<input type="number" class="form-control" name="year[]" placeholder="XXXX" required>
 					</div>
 				</div>
 				<div style="text-align: right; margin-top: 10px;">
