@@ -114,10 +114,10 @@ async function updateClient(data, phone_numb, connection) {
 }
 
 // Delete a client from the database
-async function deleteClient(phone_number, connection) {
-  const deleteSql = 'DELETE FROM Client WHERE phone_numb = ?';
-  const [results] = await connection.execute(deleteSql, [phone_number]);
+async function deleteSpecial(date, connection) {
+  const deleteSql = 'DELETE FROM Special_Circumstance WHERE SpecialDate = ?';
+  const [results] = await connection.execute(deleteSql, [date]);
   return results.affectedRows;
 }
 
-module.exports = { fetchSpecial, fetchProgress, insertClient, fetchClients, fetchClientById, updateClient, deleteClient, fetchClientByPhoneNumber, fetchCar, fetchPriceById };
+module.exports = { fetchSpecial, fetchProgress, insertClient, fetchClients, fetchClientById, updateClient, deleteSpecial, fetchClientByPhoneNumber, fetchCar, fetchPriceById };

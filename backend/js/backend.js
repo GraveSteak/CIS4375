@@ -11,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 
-const { fetchSpecial, fetchProgress, insertClient, fetchClients, fetchClientById, updateClient, deleteClient, fetchClientByPhoneNumber, fetchCar, fetchPriceById } = require('./clientCrudOperations');
+const { fetchSpecial, fetchProgress, insertClient, fetchClients, fetchClientById, updateClient, deleteSpecial, fetchClientByPhoneNumber, fetchCar, fetchPriceById } = require('./clientCrudOperations');
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`, req.body);
@@ -263,14 +263,14 @@ app.put('/api/clients/:id', async (req, res) => {
   }
 });
 
-// Endpoint to delete a client
-app.delete('/api/clients/:id', async (req, res) => {
+// Endpoint to delete a holiday
+app.delete('/api/special/:id', async (req, res) => {
   try {
     const db = await connectToDatabase();
-    const result = await deleteClient(req.params.id, db);
+    const result = await deleteSpecial(req.params.id, db);
     db.end();
     if (result > 0) res.json({ success: true });
-    else res.status(404).json({ message: 'Client not found' });
+    else res.status(404).json({ message: 'Holiday not found' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
