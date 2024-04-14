@@ -11,6 +11,7 @@
     "server-http": "^1.0.1"
   },
   "name": "cis4375",
+  "proxy": "http://localhost:3000",
   "description": "Template Name: Furni\r Template Author: Untree.co\r Template License: https://creativecommons.org/licenses/by/3.0/\r Author URI: https://untree.co/",
   "version": "1.0.0",
   "main": "index.js",
