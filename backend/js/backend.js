@@ -626,7 +626,7 @@ app.post('/form', async (req, res) => {
     const db = await connectToDatabase();
     // Extract client and vehicle information from request body
     const { Start_Zip, End_Zip, C_F_Name, C_L_Name, C_email, C_Company, phone_numb, VehicleMake, VehicleModel, VehicleType, year, VehicleOperable, affiliation, company_name, chosen_date } = req.body;
-
+    console.log(req.body);
     // Use Google Maps Distance Matrix API to calculate distance
     const distanceResponse = await axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${Start_Zip}&destinations=${End_Zip}&key=AIzaSyAwpLIn5Xx6Ojz2UKV8kqAaRUmYbgD1Zgc`);
     const distanceData = distanceResponse.data;
