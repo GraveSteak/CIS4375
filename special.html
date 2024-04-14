@@ -75,8 +75,8 @@
 				</div>
 			</div>
 		
-				<!-- Dashboard Section -->
-				<div id="holiday-find-container" style="display: none;">
+			<!-- Dashboard Section -->
+			<div id="holiday-find-container" style="display: none;">
 					<h3>Find Holidays with the Date</h3>
 					<form id="find_holiday">
 						<div class="row">
@@ -84,7 +84,7 @@
 							<div class="col-sm-8">
 								<div class="form-group">
 									<label for="holiday">Date</label>
-									<input type="text" class="form-control" id="holiday" name="holiday" placeholder="YYYY-MM-DD" required>
+									<input type="date" class="form-control" id="holiday" name="holiday" placeholder="YYYY-MM-DD" required>
 								</div>
 								<div class="form-group">
 									<label for="description">Description</label>
@@ -110,10 +110,10 @@
 				<!-- Create holiday Form -->
 				<div id="holiday-create-container" style="display: none;">
 					<h3>Add Holiday</h3>
-					<form id="holiday_create_form">
+					<form id="holiday_create_form" method="POST">
 						<div class="form-group">
 							<label for="holiday_create_date">Date</label>
-							<input type="text" class="form-control" id="holiday_create_date" name="holiday_create_date" placeholder="YYYY-MM-DD" required>
+							<input type="date" class="form-control" id="holiday_create_date" name="holiday_create_date" placeholder="YYYY-MM-DD" required>
 						</div>
 						<div class="form-group">
 							<label for="description">Description:</label>
@@ -129,14 +129,12 @@
 					<br>
 				</div>
 			</div>
-		</div>
-		
-    
 
         <!-- Start Footer Section -->
 		<div id="footer-placeholder"></div>
 		<!-- End Footer Section -->
 
+		<script src="/js/specialCreate.js"></script>
 		<script src="/js/special_crud_dropdown.js"></script>
         <script src="/js/retrieveSpecial.js"></script>
 		<script src="/js/redirect.js"></script>
