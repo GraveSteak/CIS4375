@@ -14,7 +14,7 @@
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 		<link href="/css/tiny-slider.css" rel="stylesheet">
 		<link href="/css/style.css" rel="stylesheet">
-		<title>Prices Management</title>
+		<title>Progress Management</title>
 	</head>
 
 	<body>
@@ -64,60 +64,67 @@
 						</div>
                         <br>
                         <div class="col-md-6 mb-3">
-                            <label for="client-crud"><h2>Prices Management</h2></label>
+                            <label for="progress-crud"><h2>Progress Management</h2></label>
                         </div>
 					</div>
-		
-        <!-- Dashboard Section -->
-            <div id="price-find-container">
-                    <h3>Find generated quote</h3>
-                    <form id="find_quote">
-                        <div class="row">
-                            <!-- Client ID input -->
-                            <div class="col-md-6 mb-3 form-group">
-                              <label for="client_id"></label>
-                              <input type="text" class="form-control" id="client_id" placeholder="Client ID" required>
-                            </div>
-                        	<div class="form-group row" style="padding-top: 10px;">
-								<div class="col-sm-10" style="align-content: center;">
-									<button type="button" id="find_quote_button" class="btn btn-primary m-3">Find Quote</button>
-								</div>
-                        	</div>
-						</div>
-					</div>
-                    </form>
-                </div>
 
-			<!-- Client Information Form -->
-			<div id="price-info-container" style="display: none;">
-				<h3>Quote Information</h3>
-				<form id="price_info_form">
+             <!-- Dashboard Section -->
+             <div id="client-find-container">
+                <h3>Find progress corresponding to client</h3>
+                <form id="find_progress">
+                    <div class="row">
+                        <!-- Client ID input -->
+                        <div class="col-md-6 mb-3 form-group">
+                          <label for="ClientID">Client ID</label>
+                          <input type="number" class="form-control" id="ClientID" name="ClientID" placeholder="Client ID" required>
+                        </div>
+                    <div class="form-group row" style="padding-top: 10px;">
+                        <div class="col-sm-10" style="align-content: center;">
+                            <button type="submit" id="find_progress_button" class="btn btn-primary m-3">Find Client</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <!-- Client Information Form -->
+			<div id="progress-info-container" style="display: none;">
+				<h3>Client Information</h3>
+				<form id="progress_info_form">
 				<div class="form-group">
-					<label for="Gen_Price">Generated Price:</label>
-					<input type="text" class="form-control" id="Gen_Price" name="Gen_Price" required>
+					<label for="FullName">Full Name: </label>
+					<input type="text" class="form-control" id="FullName" name="FullName" required>
 				</div>
-				<br>
+				<div class="form-group">
+					<label for="Quote">Quoted Price:</label>
+					<input type="text" class="form-control" id="Quote" name="Quote" required>
+				</div>
+				<div class="form-group">
+					<label for="AllVehicles">All Vehicles: </label>
+					<input type="text" class="form-control" id="AllVehicles" name="AllVehicles" required>
+				</div>
+                <br>
+				<button type="submit" id="update_progress" class="btn btn-primary">Update Information</button>
 				</form>
 				<br>
 			</div>
+    
 
-		<!-- Start Footer Section -->
+        <!-- Start Footer Section -->
 		<div id="footer-placeholder"></div>
 		<!-- End Footer Section -->
 
-		<script src="/js/bootstrap.bundle.min.js"></script>
-		<script src="/js/logout.js"></script>
-		<script src="/js/header.js"></script>
-		<script src="/js/footer.js"></script>
-		<script src="/js/pieChart.js"></script>
-		<script src="/js/barChart.js"></script>
-		<script src="/js/lineChart.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="/js/retrieveProgress.js"></script>
 		<script src="/js/redirect.js"></script>
-		<script src="/js/retrieveGenPrice.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script src="/js/logout.js"></script>
+		<script src="js/bootstrap.bundle.min.js"></script>
+		<script src="js/header.js"></script>
+		<script src="js/footer.js"></script>
+		<script src="js/pieChart.js"></script>
+		<script src="js/barChart.js"></script>
+		<script src="js/lineChart.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-        
 	</body>
 
 </html>

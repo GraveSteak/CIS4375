@@ -35,6 +35,9 @@
 								<li><a href="/clients.html">Clients Management</a></li>
 								<li><a href="/prices.html">Prices Management</a></li>
                                 <li><a href="/cars.html">Cars Management</a></li>
+								<li><a href="/progress.html">Progress Management</a></li>
+								<li><a href="/special.html">Special Circumstances</a></li>
+								<li><button class="btn btn-primary me-2" style="width: 100%;" onclick="logout()">Logout</button></li>
 							</ul>
 						</div>
 					</div>
@@ -62,18 +65,11 @@
                         <br>
                         <div class="col-md-6 mb-3">
                             <label for="client-crud"><h2>Cars Management</h2></label>
-                            <label for="select-operation"><h3>Select Operation:</h3></label>
-                            <br>
-                            <br>
-                            <select class="form-control" id="crud-operation" name="crud-operation">
-                                <option value="choose">Choose...</option>
-                                <option value="find">Find</option>
-                            </select>
                         </div>
 					</div>
 		
         <!-- Dashboard Section -->
-            <div id="price-find-container" style="display: none;">
+            <div id="price-find-container">
                     <h3>Find car corresponding to client</h3>
                     <form id="find_quote">
                         <div class="row">
@@ -84,69 +80,29 @@
                             </div>
                         <div class="form-group row" style="padding-top: 10px;">
                             <div class="col-sm-10" style="align-content: center;">
-                                <button type="submit" id="find_car_button" class="btn btn-primary m-3">Find Car</button>
+                                <button type="button" id="find_car_button" class="btn btn-primary m-3">Find Car</button>
                             </div>
                         </div>
                     </form>
+					<div id="carInfoDisplay" class="mt-4"></div>
                 </div>
             </div>
-
-		<!-- Client Information Form -->
-		<div id="car-info-container" style="display: none;">
-			<h3>Car Information</h3>
-			<form id="client_info_form">
-			<div class="form-group">
-				<label for="CarID">Car ID:</label>
-				<input type="number" class="form-control" id="CarID" name="carID" required>
-			</div>
-			<div class="form-group">
-				<label for="VehicleMake">Vehicle Make:</label>
-				<input type="text" class="form-control" id="VehicleMake" name="VehicleMake" required>
-			</div>
-			<div class="form-group">
-				<label for="VehicleType">VehicleType</label>
-				<input type="text" class="form-control" id="VehicleType" name="VehicleType" required>
-			</div>
-			<div class="form-group">
-				<label for="VehicleModel">Vehicle Model:</label>
-				<input type="text" class="form-control" id="VehicleModel" name="VehicleModel" required>
-			</div>
-			<div class="form-group">
-				<label for="year">Vehicle Year:</label>
-				<input type="number" class="form-control" id="year" name="year">
-			</div>
-			<div class="form-group">
-				<label for="Operable">Vehicle Operable:</label>
-				<input type="text" class="form-control" id="Operable" name="Operable">
-			</div>
-			<br>
-			<button type="submit" id="update_client" class="btn btn-primary">Update Information</button>
-			</form>
-			<br>
-		</div>
 
 		<!-- Start Footer Section -->
 		<div id="footer-placeholder"></div>
 		<!-- End Footer Section -->
-		<script>
-			if (!localStorage.getItem('isLoggedIn')) {
-			  // Redirect them to the login page if not logged in
-			  window.location.href = 'admin.html';
-			}
-		</script>
 
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 		<script src="/js/bootstrap.bundle.min.js"></script>
-		<script src="/js/tiny-slider.js"></script>
-		<script src="/js/custom.js"></script>
+		<script src="/js/logout.js"></script>
 		<script src="/js/header.js"></script>
 		<script src="/js/footer.js"></script>
 		<script src="/js/pieChart.js"></script>
 		<script src="/js/barChart.js"></script>
 		<script src="/js/lineChart.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="/js/price_crud_dropdown.js"></script>
 		<script src="/js/retrieveCar.js"></script>
+		<script src="/js/redirect.js"></script>
         
 	</body>
 

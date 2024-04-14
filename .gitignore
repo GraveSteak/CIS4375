@@ -24976,3 +24976,7 @@ node_modules/bcrypt/appveyor.yml
 node_modules/bcrypt/bcrypt.js
 node_modules/.bin/color-support
 node_modules/.bin/color-support.cmd
+node_modules/wildcard/test/strings.js
+/node_modules
+node_modules/.package-lock.json
+node_modules/.package-lock.json

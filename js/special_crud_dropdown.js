@@ -1,31 +1,30 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const operationSelect = document.getElementById('crud-operation'); // Make sure the ID matches your updated HTML
-    const formContainer = document.getElementById('formContainer'); // For create client
-    const formFindContainer = document.getElementById('form-find-container'); // For find client
+    const operationSelect = document.getElementById('crud-operation');
+    const holidayFind = document.getElementById('holiday-find-container');
+    const holidayCreate = document.getElementById('holiday-create-container');
 
     operationSelect.addEventListener('change', function() {
         // Hide both forms initially
-        formContainer.style.display = 'none';
-        formFindContainer.style.display = 'none';
+        holidayCreate.style.display = 'none';
+        holidayFind.style.display = 'none';
 
         // Then, show the selected form based on the dropdown's value
-        if (this.value === 'create') {
-            console.log("Attempting to display creating client form");
-            formContainer.style.display = 'block';
-            formFindContainer.style.display = 'none';
+        if (this.value === 'choose') {
+            holidayCreate.style.display = 'none';
+            holidayFind.style.display = 'none';
         } else if (this.value === 'find') {
-            console.log("Attempting to display finding client form");
-            formContainer.style.display = 'none';
-            formFindContainer.style.display = 'block';
-        } else if (this.value === 'choose') { // Assuming '' is the value for "Choose..."
-            console.log("No operation selected, hiding both forms");
-            // Both forms are already set to display: none; above
-            formContainer.style.display = 'none';
-            formFindContainer.style.display = 'none';
-    }
+            holidayCreate.style.display = 'none';
+            holidayFind.style.display = 'block';
+        } else if (this.value === 'create') {
+            holidayCreate.style.display = 'block';
+            holidayFind.style.display = 'none';
+        }
     });
 });
 
+
+
+/*
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('clientCreate');
     form.addEventListener('submit', function(event) {
@@ -58,3 +57,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+ */
