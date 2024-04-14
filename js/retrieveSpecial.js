@@ -80,35 +80,35 @@ document.getElementById('delete_holiday_button').addEventListener('click', async
     }
 });
 
-/* 
-//Update function (not working yet) 
+
 document.getElementById('update_holiday_button').addEventListener('click', async function(event) {
     event.preventDefault();
-    
-    const holiday = document.getElementById('holiday').value.trim();
 
-    if (!holiday) {
-        alert('Please enter a valid holiday date');
-        return;
-    }
+    // Get form input values
+    const holidayDate = document.getElementById('holiday').value.trim();
+    const description = document.getElementById('description').value.trim();
+    const additionalCost = document.getElementById('additional_cost').value.trim();
 
     try {
-        const response = await fetch(`http://127.0.0.1:3000/api/special/${holiday}`, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({date, description, additional_cost}) //needs double-checking 
-        });
+        // Construct payload
+        const payload = {
+            description: description,
+            additional_cost: additionalCost
+        };
 
-        if (!response.ok) {
+        // Send PUT request to update holiday using axios
+        const response = await axios.put(`http://127.0.0.1:3000/api/special/${holidayDate}`, payload);
+
+        if (response.status !== 200) {
             throw new Error(`HTTP status ${response.status}`);
         }
 
-        const responseData = await response.json();
-        alert(responseData.message || 'Holiday updated successfully');
-        location.reload(); // Reload the page after successful deletion
+        alert('Holiday updated successfully');
+        location.reload(); // Reload the page after successful update
     } catch (error) {
         console.error('Update error:', error);
         alert('Update failed: ' + error.message);
     }
 });
-*/
+
+

@@ -157,7 +157,6 @@ app.get('/api/car-types', async (req, res) => {
     const db = await connectToDatabase(); // Connect to the database
     // Perform the SQL query to get vehicle types and their counts
     const [results] = await db.query('SELECT VehicleType, COUNT(*) AS count FROM Vehicles GROUP BY VehicleType');
-    return results;
     // Close the database connection gracefully
     await db.end();
 
@@ -350,24 +349,141 @@ app.get('/api/special/:date', async (req, res) => {
   }
 });
 
-// Endpoint to update a client
-app.put('/api/clients/:id', async (req, res) => {
-  const db = await connectToDatabase();
-  console.log("Attempting to update client:", req.params.id);
+// PUT endpoint to update a holiday
+app.put('/api/special/:date', async (req, res) => {
+  const { date } = req.params; // Get the date from the URL parameter
+  const { description, additional_cost } = req.body; // Get the updated values from the request body
+  
+  // Validate that all required parameters are provided and not undefined
+  if (description === undefined && additional_cost === undefined) {
+    return res.status(400).json({
+      success: false,
+      message: 'At least one parameter (description or additional_cost) must be provided for update'
+    });
+  }
+
   try {
-    const result = await updateClient(req.body, req.params.id, db);
-    console.log("Update result:", result); 
-    if (result > 0) {
-      res.json({ success: true });
-    } else {
-      res.status(404).json({ message: 'Client not found' });
+    const db = await connectToDatabase();
+    console.log('Database connected');
+
+    // Prepare the SQL query based on the provided parameters
+    let query = 'UPDATE Special_Circumstance SET ';
+    const values = [];
+    if (description !== undefined) {
+      query += 'SpecialDate_Description = ?';
+      values.push(description);
     }
+    if (additional_cost !== undefined) {
+      if (values.length > 0) {
+        query += ', ';
+      }
+      query += 'Additional_Cost = ?';
+      values.push(additional_cost);
+    }
+    query += ' WHERE SpecialDate = ?';
+    values.push(date);
+
+    // Execute the query
+    const [result] = await db.query(query, values);
+
+    if (result.affectedRows === 0) {
+      // If no rows were affected, the holiday with the provided date does not exist
+      return res.status(404).json({
+        success: false,
+        message: 'Holiday not found'
+      });
+    }
+
+    // If the query was successful, return a success response
+    res.json({
+      success: true,
+      message: 'Holiday updated successfully'
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
-  } finally {
-    db.end();
+    // If an error occurs, return a 500 error response
+    console.error('Failed to update holiday:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to update holiday data',
+      error: error.message
+    });
   }
 });
+
+
+//Update Progress table
+app.put('/api/progress/:ClientID', async (req, res) => {
+  const ClientID = req.params.ClientID;
+  const { fullName, quote, allVehicles } = req.body;
+
+  // Validate that at least one of the fields is provided
+  if (!fullName && !quote && !allVehicles) {
+      return res.status(400).json({
+          success: false,
+          message: 'At least one field (full_name, quote, or allVehicles) must be provided for updating progress.'
+      });
+  }
+
+  try {
+      // Assuming you have a database connection
+      const db = await connectToDatabase();
+      
+      // Build the SQL query based on the provided fields
+      let query = 'UPDATE Request_Information SET ';
+      let values = [];
+      let setCount = 0;
+
+      if (fullName) {
+          query += 'Client_Name_Comb = ?, ';
+          values.push(fullName);
+          setCount++;
+      }
+
+      if (quote) {
+          query += 'Price = ?, ';
+          values.push(quote);
+          setCount++;
+      }
+
+      if (allVehicles) {
+          query += 'List_Of_Vehicles = ?, ';
+          values.push(allVehicles);
+          setCount++;
+      }
+
+      // Remove the trailing comma and space from the query
+      query = query.slice(0, -2);
+
+      // Add the ClientID to the WHERE clause
+      query += ' WHERE ClientID = ?';
+      values.push(ClientID);
+
+      // Execute the update query
+      const [result] = await db.query(query, values);
+
+      if (result.affectedRows === 0) {
+          // No client found with the provided ID
+          return res.status(404).json({
+              success: false,
+              message: 'Client not found or could not be updated.'
+          });
+      }
+
+      // Progress updated successfully
+      res.json({
+          success: true,
+          message: 'Progress updated successfully.'
+      });
+  } catch (error) {
+      console.error('Failed to update progress:', error);
+      res.status(500).json({
+          success: false,
+          message: 'Failed to update progress.',
+          error: error.message
+      });
+  }
+});
+
 
 // Endpoint to delete a holiday
 app.delete('/api/special/:id', async (req, res) => {
@@ -638,7 +754,7 @@ const transporter = nodemailer.createTransport({
 // Route to handle POST request
 app.post('/send-email', async (req, res) => {
   console.log('Received data:', req.body);
-  const { C_F_Name, C_L_Name, C_email, phone_numb, affiliation, company_name: rawCompanyName, Start_Zip, End_Zip, VehicleMake, VehicleModel, VehicleType, VehicleOperable, year } = req.body;
+  const { C_F_Name, C_L_Name, C_email, phone_numb, affiliation, company_name: rawCompanyName, Start_Zip, End_Zip, VehicleMake, VehicleModel, VehicleType, VehicleOperable, year, chosen_date } = req.body;
 
   // Replace company_name with 'N/A' if it is null or undefined
   const company_name = rawCompanyName || 'N/A';
@@ -652,11 +768,12 @@ app.post('/send-email', async (req, res) => {
     Company Name: ${company_name || 'N/A'}
     Start Zip Code: ${Start_Zip}
     End Zip Code: ${End_Zip}
-    VehicleMake: ${VehicleMake},
-    VehicleModel: ${VehicleModel},
-    VehicleType: ${VehicleType},
+    Arrival Date: ${chosen_date}
+    Vehicle Make: ${VehicleMake},
+    Vehicle Model: ${VehicleModel},
+    Vehicle Type: ${VehicleType},
     Vehicle year: ${year},
-    VehicleOperable: ${VehicleOperable}
+    Vehicle Operable: ${VehicleOperable}
 
     We'll be in touch soon! 
 
@@ -667,8 +784,8 @@ app.post('/send-email', async (req, res) => {
 // Email options
   const mailOptions = {
     from: 'itcycle0@gmail.com',
-    to: ['contactbeckytseng@gmail.com', C_email], // Array of email addresses
-    subject: 'New Form Submission',
+    to: ['itcycle0@gmail.com', C_email], // Array of email addresses
+    subject: 'Form Submission Copy',
     text: emailBody
 };
 

@@ -24,7 +24,7 @@
 		<!-- Start Dashboard Section -->
 		<div class="side-bar">
 			<div class="container">
-				<div class="row justify-content-between" style="padding-top: 5%">
+				<div class="row justify-content-evenly" style="padding-top: 5%">
 					<div class="col-lg-3">
 						<div class="dashboard-content">
 						<h2>Dashboard</h2>
@@ -40,34 +40,13 @@
 								<li><button class="btn btn-primary me-2" style="width: 100%;" onclick="logout()">Logout</button></li>
 							</ul>
 						</div>
-					</div>
-					<div class="col-lg-8">
-						<div class="dashboard-content">
-							<h2 style="padding-bottom: 5%;">Summary Graphs</h2>
-							<div class="row">
-								<div class="col-lg-4">
-									<div class="chart1">
-										<canvas id="myPieChart1" width="250" height="250"></canvas>
-									</div>
-								</div>
-								<div class="col-lg-4">
-									<div class="chart2">
-										<canvas id="myBarChart" width="250" height="250"></canvas>
-									</div>
-								</div>
-								<div class="col-lg-4">
-									<div class="chart1">
-										<canvas id="myLineChart" width="250" height="250"></canvas>
-									</div>
-								</div>
-							</div>
 						</div>
                         <br>
-                        <div class="col-md-6 mb-3">
-                            <label for="client-crud"><h2>Cars Management</h2></label>
-                        </div>
-					</div>
-		
+                        <div class="col-md-6 mb-3" style="position: flex;
+						display: flex;
+						flex-direction: column;
+						justify-content: space-around;">
+                            <label for="client-crud"><h2 style="padding-top: 20%;">Cars Management</h2></label>
         <!-- Dashboard Section -->
             <div id="price-find-container">
                     <h3>Find car corresponding to client</h3>
@@ -84,10 +63,15 @@
                             </div>
                         </div>
                     </form>
-					<div id="carInfoDisplay" class="mt-4"></div>
+					
                 </div>
+				
             </div>
-
+			
+			<div>
+			</div>
+		</div>
+		<div id="carInfoDisplay" class="mt-4 row justify-content-evenly"></div>
 		<!-- Start Footer Section -->
 		<div id="footer-placeholder"></div>
 		<!-- End Footer Section -->

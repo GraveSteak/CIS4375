@@ -22,41 +22,53 @@ document.getElementById('find_progress_button').addEventListener('click', functi
     });
 });
 
-document.getElementById('progress-info-container').addEventListener('submit', async function(event) {
+document.getElementById('progress_info_form').addEventListener('submit', async function(event) {
     event.preventDefault();
 
+    // Get form input values
     const ClientID = document.getElementById('ClientID').value.trim();
-    const FullName = document.getElementById('FullName').value.trim();
-    const Quote = document.getElementById('Quote').value.trim();
-    const AllVehicles = document.getElementById('AllVehicles').value.trim();
+    const full_name = document.getElementById('FullName').value.trim();
+    const quote = document.getElementById('Quote').value.trim();
+    const allVehicles = document.getElementById('AllVehicles').value.trim();
 
-    if (!ClientID || !FullName || !Quote || !AllVehicles) {
-        alert('Please fill out all required fields.');
+
+    // Validate input
+    if (!ClientID) {
+        alert('Client ID not found in URL.');
         return;
     }
 
-    const data = {
-        ClientID, 
-        FullName, 
-        Quote,
-        AllVehicles,
-    };
+    // Check if at least one field is provided
+    if (!full_name && !quote && !allVehicles) {
+        alert('Please provide at least one field (Full Name, Quote, or All Vehicles) to update.');
+        return;
+    }
+
+    // Construct payload
+    const payload = {};
+    if (full_name) payload.full_name = full_name;
+    if (quote) payload.quote = quote;
+    if (allVehicles) payload.allVehicles = allVehicles;
 
     try {
-        const response = await fetch(`http://127.0.0.1:3000/api/progress/${ClientID}`, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
+        // Send PUT request to update progress
+        const response = await axios.put(`http://127.0.0.1:3000/api/progress/${ClientID}`, payload, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP status ${response.status}`);
+        // Check if response is successful
+        if (response.status === 200) {
+            alert('Client updated successfully!');
+            // Reload the page or perform any other actions needed
+            location.reload();
+        } else {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-
-        const responseData = await response.json();
-        alert(responseData.message || 'Client updated successfully');
     } catch (error) {
         console.error('Update error:', error);
-        alert('Update failed: ' + error.message);
+        alert('Failed to update client. Please try again.');
     }
 });
+
