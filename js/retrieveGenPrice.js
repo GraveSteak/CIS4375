@@ -20,9 +20,9 @@ document.getElementById('find_quote_button').addEventListener('click', function(
                 style: 'currency',
                 currency: 'USD'
             }).format(data.Gen_Price || 0);  // Ensures zero is formatted if undefined or null
-
+            const desc = data.Description;
             document.getElementById('Gen_Price').value = formattedPrice;
-            
+            document.getElementById('Description').value = desc;
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);

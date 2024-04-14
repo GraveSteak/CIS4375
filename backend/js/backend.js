@@ -11,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 
-const { fetchSpecial, fetchProgress, insertSpecial, fetchClients, fetchClientById, updateClient, deleteSpecial, fetchClientByPhoneNumber, fetchCar, fetchPriceById } = require('./clientCrudOperations');
+const { fetchSpecial, fetchProgress, fetchClients, fetchClientById, updateClient, deleteSpecial, fetchCar, fetchPriceById } = require('./clientCrudOperations');
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`, req.body);
