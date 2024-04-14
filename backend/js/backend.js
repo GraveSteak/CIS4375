@@ -1,7 +1,7 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2/promise');
-const cors = require('cors');
 const axios = require('axios');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
@@ -11,25 +11,20 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 
-// This is mine - Becky 
-const { fetchSpecial, fetchProgress, insertClient, fetchClients, fetchClientById, updateClient, deleteSpecial, fetchClientByPhoneNumber, fetchCar, fetchPriceById } = require('./clientCrudOperations');
+const { fetchSpecial, fetchProgress, insertSpecial, fetchClients, fetchClientById, updateClient, deleteSpecial, fetchClientByPhoneNumber, fetchCar, fetchPriceById } = require('./clientCrudOperations');
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`, req.body);
   next();
 });
 
-// Is this new? - Becky
-const { insertClient, fetchClientById, updateClient, deleteClient, fetchClientByPhoneNumber, fetchCar } = require('./clientCrudOperations');
-const { fetchVehicleById, insertVehicle, updateVehicle, deleteVehicle } = require('./vehicleCrudOperations');
-const { fetchPriceById, insertPrice, updatePrice, deletePrice } = require('./priceCrudOperations');
-
-
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH']
+}));
 
 // Database connection
 async function connectToDatabase() {
@@ -91,17 +86,20 @@ app.get('/api/num_requests_chart', async (req, res) => {
       res.status(500).json({ success: false, message: 'Failed to fetch request data', error: error.message });
   }
 });
-// Define a route to fetch car types and their counts  
 app.get('/api/car-types', async (req, res) => {
   try {
-    // Await the connection to the database
-    const db = await connectToDatabase();
-    // Await the results of the query
-    const [results] = await db.query('SELECT VehicleType, COUNT(*) as count FROM Vehicles GROUP BY VehicleType');
+    const db = await connectToDatabase(); // Connect to the database
+    // Perform the SQL query to get vehicle types and their counts
+    const [results] = await db.query('SELECT VehicleType, COUNT(*) AS count FROM Vehicles GROUP BY VehicleType');
+    return results;
+    // Close the database connection gracefully
+    await db.end();
+
+    // Return the results as JSON
     return res.json(results);
-  } catch(error) {
+  } catch (error) {
     console.error('Database query failed:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error', details: error.message });
   }
 });
 
@@ -119,18 +117,39 @@ app.get('/api/data', async (req, res) => {
 });
 
 
-app.post('/api/clients', async (req, res) => {
-  try {
-    const db = await connectToDatabase();
-    const clientId = await insertClient(req.body, db);
-    db.end();
+app.post('/api/special', async (req, res) => {
+  const { date, description, additional_cost } = req.body;
+  
+  // Validate that all required parameters are provided and not undefined
+  if (date === undefined || description === undefined || additional_cost === undefined) {
+      return res.status(400).json({
+          success: false,
+          message: 'Missing required parameters or parameters are undefined'
+      });
+  }
 
-    res.json({ success: true, message: 'Client created successfully', clientId: clientId });
+  try {
+      const db = await connectToDatabase();
+      const query = 'INSERT INTO Special_Circumstance (SpecialDate, SpecialDate_Description, Additional_Cost) VALUES (?, ?, ?)';
+      const values = [date, description, additional_cost]; // Ensure this line is correct
+      console.log(values);
+
+      // Execute the query without capturing the result
+    await db.query(query, values);
+      res.json({
+          success: true,
+          message: 'Holiday created successfully'
+      });
   } catch (error) {
-    console.error('Failed to insert client:', error);
-    res.status(500).json({ success: false, message: 'Failed to insert client data', error: error.message });
+      console.error('Failed to insert holiday:', error);
+      res.status(500).json({
+          success: false,
+          message: 'Failed to insert holiday data',
+          error: error.message
+      });
   }
 });
+
 
 
 // Endpoint to get all clients
@@ -208,7 +227,6 @@ app.get('/api/car', async (req, res) => {
   const ClientID = req.query.ClientID;
   try {
     const db = await connectToDatabase();
-    console.log("Database connected. Fetching car by client ID:", ClientID);
     const car = await fetchCar(ClientID, db);
     console.log("Fetched car data:", car);
     db.end();
@@ -580,7 +598,7 @@ app.post('/send-email', async (req, res) => {
   `;
 
 // Email options
-const mailOptions = {
+  const mailOptions = {
     from: 'itcycle0@gmail.com',
     to: ['contactbeckytseng@gmail.com', C_email], // Array of email addresses
     subject: 'New Form Submission',

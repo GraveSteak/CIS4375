@@ -23,9 +23,9 @@ document.getElementById('find_holiday_button').addEventListener('click', functio
 document.getElementById('holiday-find-container').addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    const holiday = document.getElementById('holiday').value.trim();
-    const description = document.getElementById('description').value.trim();
-    const additional_cost = document.getElementById('additional_cost').value.trim();
+    const holiday = document.getElementById('holiday_create_date').value.trim();
+    const description = document.getElementById('holiday_create_description').value.trim();
+    const additional_cost = document.getElementById('holiday_create_additional_cost').value.trim();
 
     // Check for completeness of the data
     if (!holiday || !description || (additional_cost === '')) {

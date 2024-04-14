@@ -1,13 +1,19 @@
 const mysql = require('mysql2/promise');
 
-// Insert a new client into the database
-async function insertClient(data, connection) {
-  const { firstName, lastName, email, phoneNumber } = data;
-  const insertSql = 'INSERT INTO Client (C_F_Name, C_L_Name, C_email, C_Company, phone_numb) VALUES (?, ?, ?, ?, ?)';
-  const [results] = await connection.execute(insertSql, [firstName, lastName, email, phoneNumber]);
-  return results.insertId;
+// Insert a new holiday into the database
+async function insertSpecial(data, connection) {
+  const { date, description, additional_amount } = data;
+  const insertSql = 'INSERT INTO Special_Circumstance (SpecialDate, SpecialDate_Description, Additional_Cost) VALUES (?, ?, ?, ?, ?)';
+  const [results] = await connection.execute(insertSql, [date, description, additional_amount]);
+  return results.insertdate;
 }
 
+// Fetch all clients from the database
+async function fetchClients(connection) {
+  const selectSql = 'SELECT * FROM Client';
+  const [clients] = await connection.execute(selectSql);
+  return clients;
+}
 
 // Fetch clients from the database by id
 async function fetchClientById(clientId, connection) {
@@ -114,6 +120,4 @@ async function deleteSpecial(date, connection) {
   return results.affectedRows;
 }
 
-
-module.exports = { fetchSpecial, fetchProgress, insertClient, fetchClients, fetchClientById, updateClient, deleteSpecial, fetchClientByPhoneNumber, fetchCar, fetchPriceById };
-
+module.exports = { fetchSpecial, fetchProgress, insertSpecial, fetchClients, fetchClientById, updateClient, deleteSpecial, fetchClientByPhoneNumber, fetchCar, fetchPriceById };
