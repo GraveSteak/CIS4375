@@ -643,7 +643,7 @@ app.post('/form', async (req, res) => {
     };
 
     // Check for special circumstances
-    const specialDateCheckSql = 'SELECT SpecialID, Additional_Cost, SpecialDate_Descrition FROM Special_Circumstance WHERE SpecialDate = ?';
+    const specialDateCheckSql = 'SELECT SpecialID, Additional_Cost, SpecialDate_Description FROM Special_Circumstance WHERE SpecialDate = ?';
     const [specialDates] = await db.query(specialDateCheckSql, [chosen_date]);
     let additionalCost = 0;
     let s_Description = 'Standard';
@@ -651,7 +651,7 @@ app.post('/form', async (req, res) => {
 
     if (specialDates.length > 0) {
         additionalCost = specialDates[0].Additional_Cost;
-        s_Description = specialDates[0].SpecialDate_Descrition;
+        s_Description = specialDates[0].SpecialDate_Description;
         s_ID = specialDates[0].SpecialID;
     }
 
