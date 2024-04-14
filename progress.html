@@ -24,10 +24,10 @@
 		<!-- Start Dashboard Section -->
 		<div class="side-bar">
 			<div class="container">
-				<div class="row justify-content-between" style="padding-top: 5%">
+				<div class="row justify-content-evenly" style="padding-top: 5%">
 					<div class="col-lg-3">
-						<div class="dashboard-content">
-						<h2>Dashboard</h2>
+					<div class="dashboard-content">
+						<h2 style="text-align: center;">Dashboard</h2>
 						</div>
 						<div class="items">
 							<ul>
@@ -39,34 +39,10 @@
 								<li><a href="/special.html">Special Circumstances</a></li>
 								<li><button class="btn btn-primary me-2" style="width: 100%;" onclick="logout()">Logout</button></li>
 							</ul>
-						</div>
-					</div>
-					<div class="col-lg-8">
-						<div class="dashboard-content">
-							<h2 style="padding-bottom: 5%;">Summary Graphs</h2>
-							<div class="row">
-								<div class="col-lg-4">
-									<div class="chart1">
-										<canvas id="myPieChart1" width="250" height="250"></canvas>
-									</div>
-								</div>
-								<div class="col-lg-4">
-									<div class="chart2">
-										<canvas id="myBarChart" width="250" height="250"></canvas>
-									</div>
-								</div>
-								<div class="col-lg-4">
-									<div class="chart1">
-										<canvas id="myLineChart" width="250" height="250"></canvas>
-									</div>
-								</div>
 							</div>
-						</div>
-                        <br>
+							</div>
                         <div class="col-md-6 mb-3">
                             <label for="progress-crud"><h2>Progress Management</h2></label>
-                        </div>
-					</div>
 
              <!-- Dashboard Section -->
              <div id="client-find-container">
@@ -87,9 +63,10 @@
             </div>
         </div>
     <!-- Client Information Form -->
-			<div id="progress-info-container" style="display: none;">
+			<div id="progress-info-container" style="display: none; padding-top: 5%;">
 				<h3>Client Information</h3>
 				<form id="progress_info_form">
+				<input type="hidden" id="ClientID" name="ClientID">
 				<div class="form-group">
 					<label for="FullName">Full Name: </label>
 					<input type="text" class="form-control" id="FullName" name="FullName" required>
@@ -108,7 +85,7 @@
 				<br>
 			</div>
     
-
+		</div>
         <!-- Start Footer Section -->
 		<div id="footer-placeholder"></div>
 		<!-- End Footer Section -->
@@ -119,9 +96,6 @@
 		<script src="js/bootstrap.bundle.min.js"></script>
 		<script src="js/header.js"></script>
 		<script src="js/footer.js"></script>
-		<script src="js/pieChart.js"></script>
-		<script src="js/barChart.js"></script>
-		<script src="js/lineChart.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
