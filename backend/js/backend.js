@@ -75,6 +75,22 @@ app.post('/api/login', (req, res) => {
   }
 });
 
+app.get('/api/client-type-counts', async (req, res) => {
+  try {
+  const db = await connectToDatabase();
+  const [data] = await db.query(`
+      SELECT
+          COUNT(*) AS TotalClients,
+          SUM(CASE WHEN C_Company = 'Self' THEN 1 ELSE 0 END) AS SelfClients
+      FROM Client;
+  `);
+  return res.json(data);
+} catch (error) {
+  console.error('Failed to fetch request data:', error);
+  res.status(500).json({ success: false, message: 'Failed to fetch request data', error: error.message });
+}
+});
+
 app.get('/api/num_requests_chart', async (req, res) => {
   try {
       const db = await connectToDatabase();
@@ -91,6 +107,55 @@ app.get('/api/num_requests_chart', async (req, res) => {
       res.status(500).json({ success: false, message: 'Failed to fetch request data', error: error.message });
   }
 });
+
+app.get('/api/average-price-data', async (req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const [data] = await db.query(`
+        SELECT DATE(Date_Created) AS RequestDate, AVG(Price) AS AveragePrice
+        FROM Request_Information
+        GROUP BY DATE(Date_Created)
+        ORDER BY DATE(Date_Created);
+    `);
+    return res.json(data);
+  } catch (error) {
+    console.error('Failed to fetch request data:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch request data', error: error.message });
+}
+});
+
+app.get('/api/top-zip-codes', async (req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const [data] = await db.query(`
+        SELECT Start_Zip, SUM(Price) AS TotalRevenue
+        FROM Distance
+        JOIN Request_Information ON Distance.DistanceID = Request_Information.PriceID
+        GROUP BY Start_Zip
+        ORDER BY SUM(Price) DESC
+        LIMIT 10;
+    `);
+    return res.json(data);
+  } catch (error) {
+    console.error('Failed to fetch request data:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch request data', error: error.message });
+}
+});
+
+app.get('/api/distance-distribution', async (req, res) => {
+  try {
+    const db = await connectToDatabase();
+    const [data] = await db.query(`
+        SELECT General_Distance
+        FROM Distance;
+    `);
+    return res.json(data);
+  } catch (error) {
+    console.error('Failed to fetch request data:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch request data', error: error.message });
+}
+});
+
 // Define a route to fetch car types and their counts  
 app.get('/api/car-types', async (req, res) => {
   try {
@@ -471,6 +536,7 @@ app.post('/form', async (req, res) => {
 
     let totalGenPrice = 0;
 
+    list_of_vehicles = ['Vehicles: '];
     // Process each vehicle
     for (let i = 0; i < VehicleMake.length; i++) {
       // Insert vehicle data
@@ -479,6 +545,8 @@ app.post('/form', async (req, res) => {
 
       // Calculate price for each vehicle
       let genPrice = VehicleOperable[i] === 'No' ? 150 : 0;
+
+      list_of_vehicles[0] += VehicleMake[i] + " " + VehicleModel[i] + ", ";
 
       switch (VehicleType[i]) {
           case 'Sedan':
@@ -529,8 +597,8 @@ app.post('/form', async (req, res) => {
     const priceIDFK = priceResult[0].insertId
     console.log("Inserted Price ID:", priceResult[0].insertId);
 
-    const insertRequestSql = 'INSERT INTO Request_Information (PriceID, Client_Name_Comb, Price) VALUES (?, ?, ?)';
-    const RequestValues = [priceIDFK, C_F_Name + " " + C_L_Name, totalGenPrice]; 
+    const insertRequestSql = 'INSERT INTO Request_Information (PriceID, Client_Name_Comb, Price, List_Of_Vehicles, ClientID) VALUES (?, ?, ?, ?, ?)';
+    const RequestValues = [priceIDFK, C_F_Name + " " + C_L_Name, totalGenPrice, list_of_vehicles, clientId]; 
     await db.query(insertRequestSql, RequestValues);
 
     // Respond with the total price for all vehicles
