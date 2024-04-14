@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Untree.co">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="bootstrap, bootstrap4" />
+
+		<!-- Bootstrap CSS -->
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+		<link href="/css/tiny-slider.css" rel="stylesheet">
+		<link href="/css/style.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+		<title>Special Circumstances</title>
+	</head>
+
+	<body>
+
+		<div id="header-placeholder"></div>
+
+		<!-- Start Dashboard Section -->
+		<div class="side-bar">
+			<div class="container">
+				<div class="row justify-content-between" style="padding-top: 5%">
+					<div class="col-lg-3">
+						<div class="dashboard-content">
+						<h2>Dashboard</h2>
+						</div>
+						<div class="items">
+							<ul>
+                                <li><a href="dashboard.html">Home</a></li>
+								<li><a href="/clients.html">Clients Management</a></li>
+								<li><a href="/prices.html">Prices Management</a></li>
+                                <li><a href="/cars.html">Cars Management</a></li>
+								<li><a href="/progress.html">Progress Management</a></li>
+								<li><a href="/special.html">Special Circumstances</a></li>
+								<li><button class="btn btn-primary me-2" style="width: 100%;" onclick="logout()">Logout</button></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="dashboard-content">
+							<h2 style="padding-bottom: 5%;">Summary Graphs</h2>
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="chart1">
+										<canvas id="myPieChart1" width="250" height="250"></canvas>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="chart2">
+										<canvas id="myBarChart" width="250" height="250"></canvas>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="chart1">
+										<canvas id="myLineChart" width="250" height="250"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+                        <br>
+                        <div class="col-md-6 mb-3">
+                            <label for="progress-crud"><h2>Special Circumstances</h2></label>
+                        </div>
+					</div>
+
+             <!-- Dashboard Section -->
+             <div id="holiday-find-container">
+                <h3>Find Holidays with the date</h3>
+                <form id="find_holiday">
+                    <div class="row">
+                        <!-- Client ID input -->
+                        <div class="col-md-6 mb-3 form-group">
+                          <label for="date">Date</label>
+                          <input type="date" class="form-control" id="date" name="date" placeholder="YYYY-MM-DD" required>
+                        </div>
+                    <div class="form-group row" style="padding-top: 10px;">
+                        <div class="col-sm-10" style="align-content: center;">
+                            <button type="submit" id="find_holiday_button" class="btn btn-primary m-3">Find Holiday</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <!-- Client Information Form -->
+			<div id="holiday-info-container" style="display: none;">
+				<h3>Special Circumstance Information</h3>
+				<form id="holiday_info_form">
+				<div class="form-group">
+					<label for="date">Holiday Date: </label>
+					<input type="text" class="form-control" id="date" name="date" required>
+				</div>
+				<div class="form-group">
+					<label for="description">Description:</label>
+					<input type="text" class="form-control" id="description" name="description" required>
+				</div>
+				<div class="form-group">
+					<label for="additional_cost">Additional Cost: </label>
+					<input type="number" class="form-control" id="additional_cost" name="additional_cost" required>
+				</div>
+                <br>
+				<button type="submit" id="update_holiday" class="btn btn-primary">Update Special Circumstances</button>
+				</form>
+				<br>
+			</div>
+    
+
+        <!-- Start Footer Section -->
+		<div id="footer-placeholder"></div>
+		<!-- End Footer Section -->
+
+        <script src="/js/retrieveSpecial.js"></script>
+		<script src="/js/redirect.js"></script>
+		<script src="/js/logout.js"></script>
+		<script src="js/bootstrap.bundle.min.js"></script>
+		<script src="js/header.js"></script>
+		<script src="js/footer.js"></script>
+		<script src="js/pieChart.js"></script>
+		<script src="js/barChart.js"></script>
+		<script src="js/lineChart.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script>
+            flatpickr("#date", {
+              dateFormat: "Y-m-d", // Sets the format displayed to the user
+            });
+        </script>
+
+	</body>
+
+</html>

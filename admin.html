@@ -62,39 +62,41 @@
 		<!-- End Footer Section -->
 
 		<script>
-			document.getElementById('loginForm').addEventListener('submit', function(event) {
-				event.preventDefault();  // Prevent default form submission
-			
-				const username = document.getElementById('username').value;
-				const password = document.getElementById('password').value;
-			
-				// Simulating an AJAX request (you will need to replace this with your actual server-side validation logic)
-				fetch('api/login', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({ username, password })
-				})
-				.then(response => response.json())
-				.then(data => {
-					if (data.success) {
-						window.location.href = 'dashboard.html'; // Redirect to the dashboard if login is successful
-						localStorage.setItem('isLoggedIn', 'true');
-					} else {
-						document.getElementById('loginError').textContent = 'Invalid username or password'; // Display login error
-					}
-				})
-				.catch(error => {
-					console.error('Error:', error);
-					document.getElementById('loginError').textContent = 'Login failed';
-				});
-			});
-			</script>			
+		
+		document.getElementById('loginForm').addEventListener('submit', function(event) {
+		event.preventDefault();  // Prevent default form submission
+
+		const username = document.getElementById('username').value;
+		const password = document.getElementById('password').value;
+
+		// Simulating an AJAX request (you will need to replace this with your actual server-side validation logic)
+		fetch('api/login', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ username, password })
+		})
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok.'); // Ensures we handle non-200 responses as well
+			}
+			return response.json();
+		})
+		.then(data => {
+			if (data.success) {
+				localStorage.setItem('isLoggedIn', 'true');
+				window.location.href = 'dashboard.html'; // Redirect to the dashboard if login is successful
+			} else {
+				document.getElementById('loginError').textContent = 'Invalid username or password'; // Display login error
+			}
+		})
+	});
+
+		
+		</script>			
 
 		<script src="js/bootstrap.bundle.min.js"></script>
-		<script src="js/tiny-slider.js"></script>
-		<script src="js/custom.js"></script>
 		<script src="js/header.js"></script>
 		<script src="js/footer.js"></script>
 		<script src="js/connect.js"></script>

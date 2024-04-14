@@ -4,12 +4,19 @@ const mysql = require('mysql2/promise');
 const cors = require('cors');
 const axios = require('axios');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 require('dotenv').config();
+
 const app = express();
 const PORT = process.env.PORT || 3000;
-const nodemailer = require('nodemailer');
 
-const { insertClient, fetchClients, fetchClientById, updateClient, deleteClient, fetchClientByPhoneNumber, fetchCar } = require('./clientCrudOperations');
+
+const { fetchSpecial, fetchProgress, insertClient, fetchClients, fetchClientById, updateClient, deleteClient, fetchClientByPhoneNumber, fetchCar, fetchPriceById } = require('./clientCrudOperations');
+
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`, req.body);
+  next();
+});
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -114,41 +121,58 @@ app.get('/api/clients', async (req, res) => {
   }
 });
 
-// Endpoint to get a single client by ID
+// Define your route handler here
 app.get('/api/clients/:id', async (req, res) => {
+  const clientId = req.params.id;
   try {
     const db = await connectToDatabase();
-    console.log("Database connected. Fetching client by ID:", req.params.id);
-    const client = await fetchClientById(req.params.id, db);
-    console.log("Fetched client data:", client);
+    const client = await fetchClientById(clientId, db);
     db.end();
-    console.log("Client fetched:", client);
 
-    if (client.length > 0) {
-      res.json(client[0]);  // Send the first (and only) client in the array
-    } else {
+    if (!client || client.length === 0) {
       res.status(404).json({ message: 'Client not found' });
+    } else {
+      res.json(client[0]);
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error fetching client:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
+
+// Get generated prices
+app.get('/api/price/:id', async (req, res) => {
+  const clientId = req.params.id;
+  try {
+      const db = await connectToDatabase();  // Get connection from the pool
+      const [prices] = await db.query('SELECT * FROM Price WHERE ClientID = ?', [clientId]);
+      if (prices.length === 0) {
+          res.status(404).json({ message: 'Price information not found for the client' });
+      } else {
+          res.json(prices[0]); // Send the first record if found
+      }
+  } catch (error) {
+      console.error("Failed to fetch price:", error);
+      res.status(500).json({ error: 'Internal server error while fetching price' });
+  }
+});
+
+
 // Endpoint for retrieving client information based on phone number
-app.get('/api/clientsPhone', async (req, res) => {
-  const phone_numb = req.query.phone_numb;
+app.get('/api/clientID', async (req, res) => {
+  const clientId = req.query.ClientID;
   try {
     const db = await connectToDatabase();
-    console.log("Database connected. Fetching client by phone number:", phone_numb);
-    const client = await fetchClientByPhoneNumber(phone_numb, db);
-    console.log("Fetched client data:", client);
+    const client = await fetchClientById(clientId, db);
     db.end();
 
     if (client.length > 0) {
       res.json(client[0]);  // Send the first (and only) client in the array
-    } else {
-      res.status(404).json({ message: 'Client not found' });
+    } else if (response.status === 404) {
+      throw new Error('Client not found'); 
     }
+    
   } catch (error) {
     console.error('Error fetching client:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -167,26 +191,75 @@ app.get('/api/car', async (req, res) => {
     console.log("Car fetched:", car);
 
     if (car.length > 0) {
-      res.json(car[0]);  // Send the first (and only) client in the array
+      res.json(car);  // Send all cars found
     } else {
-      res.status(404).json({ message: 'Car not found' });
+      res.status(404).json({ message: 'No cars found' });
     }
   } catch (error) {
-    console.error('Error fetching car:', error);
+    console.error('Error fetching cars:', error);
     res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//GET client progress
+app.get('/api/progress/:ClientID', async (req, res) => {
+  const ClientID = req.params.ClientID;
+  try {
+    const db = await connectToDatabase(); // Get connection from the pool
+    const progress = await fetchProgress(ClientID, db);
+
+    if (progress.length === 0) {
+      res.status(404).json({ message: 'No progress found for this client.' });
+    } else {
+      res.json(progress[0]); // Send back the first (and should be only) record
+    }
+  } catch (error) {
+    console.error('Error fetching client progress:', error);
+    res.status(500).json({ error: 'Internal server error while fetching client progress' });
+  }
+  // No need to call db.end() or db.release() if you're using mysql2/promise properly
+});
+
+//GET special dates
+app.get('/api/special/:date', async (req, res) => {
+  const date = req.params.date;
+
+  // Validate the date format to avoid SQL injection and ensure it's the correct format
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    return res.status(400).json({ message: 'Invalid date format. Please use YYYY-MM-DD format.' });
+  }
+
+  try {
+    const db = await connectToDatabase(); // Get connection from the pool
+    const special = await fetchSpecial(date, db);
+
+    if (special.length === 0) {
+      res.status(404).json({ message: 'No holiday found for this date.' });
+    } else {
+      res.json(special[0]); // Send back the first (and should be only) record
+    }
+  } catch (error) {
+    console.error(`Error fetching holiday for date ${date}:`, error);
+    res.status(500).json({ error: 'Internal server error while fetching holiday' });
   }
 });
 
 // Endpoint to update a client
 app.put('/api/clients/:id', async (req, res) => {
+  const db = await connectToDatabase();
+  console.log("Attempting to update client:", req.params.id);
   try {
-    const db = await connectToDatabase();
     const result = await updateClient(req.body, req.params.id, db);
-    db.end();
-    if (result > 0) res.json({ success: true });
-    else res.status(404).json({ message: 'Client not found' });
+    console.log("Update result:", result); 
+    if (result > 0) {
+      res.json({ success: true });
+    } else {
+      res.status(404).json({ message: 'Client not found' });
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
+  } finally {
+    db.end();
   }
 });
 
@@ -345,15 +418,20 @@ app.post('/send-email', async (req, res) => {
     VehicleMake: ${VehicleMake},
     VehicleModel: ${VehicleModel},
     VehicleType: ${VehicleType},
-    year: ${year},
+    Vehicle year: ${year},
     VehicleOperable: ${VehicleOperable}
+
+    We'll be in touch soon! 
+
+    Sincerely, 
+    AMG Endeavors 
   `;
 
   // Email options
   const mailOptions = {
       from: 'itcycle0@gmail.com',
       to: 'contactbeckytseng@gmail.com',
-      subject: 'New Form Submission',
+      subject: 'Submitted Form Copy',
       text: emailBody
   };
 
