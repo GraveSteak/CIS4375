@@ -11,12 +11,19 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 
+// This is mine - Becky 
 const { fetchSpecial, fetchProgress, insertClient, fetchClients, fetchClientById, updateClient, deleteSpecial, fetchClientByPhoneNumber, fetchCar, fetchPriceById } = require('./clientCrudOperations');
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`, req.body);
   next();
 });
+
+// Is this new? - Becky
+const { insertClient, fetchClientById, updateClient, deleteClient, fetchClientByPhoneNumber, fetchCar } = require('./clientCrudOperations');
+const { fetchVehicleById, insertVehicle, updateVehicle, deleteVehicle } = require('./vehicleCrudOperations');
+const { fetchPriceById, insertPrice, updatePrice, deletePrice } = require('./priceCrudOperations');
+
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -68,6 +75,22 @@ app.post('/api/login', (req, res) => {
   }
 });
 
+app.get('/api/num_requests_chart', async (req, res) => {
+  try {
+      const db = await connectToDatabase();
+      const query = `
+          SELECT DATE(Date_Created) as RequestDate, COUNT(*) as NumRequests
+          FROM Request_Information
+          GROUP BY DATE(Date_Created)
+          ORDER BY DATE(Date_Created);
+      `;
+      const [results] = await db.query(query);
+      return res.json(results);
+  } catch (error) {
+      console.error('Failed to fetch request data:', error);
+      res.status(500).json({ success: false, message: 'Failed to fetch request data', error: error.message });
+  }
+});
 // Define a route to fetch car types and their counts  
 app.get('/api/car-types', async (req, res) => {
   try {
@@ -109,6 +132,7 @@ app.post('/api/clients', async (req, res) => {
   }
 });
 
+
 // Endpoint to get all clients
 app.get('/api/clients', async (req, res) => {
   try {
@@ -121,7 +145,7 @@ app.get('/api/clients', async (req, res) => {
   }
 });
 
-// Define your route handler here
+// Endpoint to get a single client by ID
 app.get('/api/clients/:id', async (req, res) => {
   const clientId = req.params.id;
   try {
@@ -276,6 +300,129 @@ app.delete('/api/special/:id', async (req, res) => {
   }
 });
 
+
+
+// Get a price by ID
+app.get('/api/prices/:id', async (req, res) => {
+  try {
+      const db = await connectToDatabase();
+      const prices = await fetchPriceById(req.params.id, db);
+      db.end();
+      if (prices.length > 0) {
+          res.json(prices[0]);
+      } else {
+          res.status(404).json({ message: 'Price not found' });
+      }
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+// Create a new price
+app.post('/api/prices', async (req, res) => {
+  try {
+      const db = await connectToDatabase();
+      const PriceID = await insertPrice(req.body, db);
+      db.end();
+      res.status(201).json({ message: 'Price created', id: PriceID });
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+// Update a price
+app.put('/api/prices/:id', async (req, res) => {
+  try {
+      const db = await connectToDatabase();
+      const result = await updatePrice(req.body, req.params.id, db);
+      db.end();
+      if (result > 0) {
+          res.json({ message: 'Price updated' });
+      } else {
+          res.status(404).json({ message: 'Price not found' });
+      }
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+// Delete a price
+app.delete('/api/prices/:id', async (req, res) => {
+  try {
+      const db = await connectToDatabase();
+      const result = await deletePrice(req.params.id, db);
+      db.end();
+      if (result > 0) {
+          res.json({ message: 'Quote deleted' });
+      } else {
+          res.status(404).json({ message: 'Quote not found' });
+      }
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+// Get a vehicle by ID
+app.get('/api/vehicles/:id', async (req, res) => {
+  try {
+      const db = await connectToDatabase();
+      const vehicles = await fetchVehicleById(req.params.id, db);
+      db.end();
+
+      if (vehicles.length > 0) {
+          res.json(vehicles[0]);
+      } else {
+          res.status(404).json({ message: 'Vehicle not found' });
+      }
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+// Create a new vehicle
+app.post('/api/vehicles', async (req, res) => {
+  try {
+      const db = await connectToDatabase();
+      const Vehicle_Request_ID = await insertVehicle(req.body, db);
+      db.end();
+      res.status(201).json({ message: 'Vehicle created', id: Vehicle_Request_ID });
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+// Update a vehicle
+app.put('/api/vehicles/:id', async (req, res) => {
+  try {
+      const db = await connectToDatabase();
+      const result = await updateVehicle(req.body, req.params.id, db);
+      db.end();
+      if (result > 0) {
+          res.json({ message: 'Vehicle updated' });
+      } else {
+          res.status(404).json({ message: 'Vehicle not found' });
+      }
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+// Delete a vehicle
+app.delete('/api/vehicles/:id', async (req, res) => {
+  try {
+      const db = await connectToDatabase();
+      const result = await deleteVehicle(req.params.id, db);
+      db.end();
+      if (result > 0) {
+          res.json({ message: 'Vehicle deleted' });
+      } else {
+          res.status(404).json({ message: 'Vehicle not found' });
+      }
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
 app.post('/form', async (req, res) => {
   try {
     const db = await connectToDatabase();
@@ -292,31 +439,35 @@ app.post('/form', async (req, res) => {
     let Reptype;
     
     if (affiliation === 'Self'){
-        Reptype = affiliation
+        Reptype = affiliation;
     }else{
-      Reptype = company_name
+        Reptype = company_name;
     };
 
     // Check for special circumstances
-    const specialDateCheckSql = 'SELECT Additional_Cost, SpecialDate_Descrition FROM Special_Circumstance WHERE SpecialDate = ?';
+    const specialDateCheckSql = 'SELECT SpecialID, Additional_Cost, SpecialDate_Descrition FROM Special_Circumstance WHERE SpecialDate = ?';
     const [specialDates] = await db.query(specialDateCheckSql, [chosen_date]);
     let additionalCost = 0;
     let s_Description = 'Standard';
+    let s_ID = null;
 
     if (specialDates.length > 0) {
         additionalCost = specialDates[0].Additional_Cost;
         s_Description = specialDates[0].SpecialDate_Descrition;
+        s_ID = specialDates[0].SpecialID;
     }
 
     const insertClientSql = 'INSERT INTO Client (C_F_Name, C_L_Name, C_email, C_Company, phone_numb, Num_Requests) VALUES (?, ?, ?, ?, ?, ?)';
     const clientValues = [C_F_Name, C_L_Name, C_email, Reptype, phone_numb, VehicleMake.length];
     const clientResult = await db.query(insertClientSql, clientValues);
-    const clientId = clientResult.insertId;
+    const clientId = clientResult[0].insertId;
+    console.log("Inserted Client ID:", clientId);
   
     // Insert distance data
     const insertDistanceSql = 'INSERT INTO Distance (Start_Zip, End_Zip, General_Distance, Date_Rec) VALUES (?, ?, ?, ?)';
     const distanceResult = await db.query(insertDistanceSql, [Start_Zip, End_Zip, distanceInMiles, chosen_date]);
-    const distanceIDFK = distanceResult.insertId;
+    const distanceIDFK = distanceResult[0].insertId;
+    console.log("Inserted Distance ID:", distanceIDFK);
 
     let totalGenPrice = 0;
 
@@ -372,10 +523,11 @@ app.post('/form', async (req, res) => {
 
     totalGenPrice += additionalCost; // Add any special circumstance costs
 
-    const insertPriceSql = 'INSERT INTO Price (Gen_Price, Description, DistanceID) VALUES (?, ?, ?)';
-    const priceValues = [totalGenPrice, s_Description, distanceIDFK]; 
+    const insertPriceSql = 'INSERT INTO Price (Gen_Price, Description, DistanceID, SpecialID, clientID) VALUES (?, ?, ?, ?, ?)';
+    const priceValues = [totalGenPrice, s_Description, distanceIDFK, s_ID, clientId]; 
     const priceResult = await db.query(insertPriceSql, priceValues);
-    const priceIDFK = priceResult.insertId
+    const priceIDFK = priceResult[0].insertId
+    console.log("Inserted Price ID:", priceResult[0].insertId);
 
     const insertRequestSql = 'INSERT INTO Request_Information (PriceID, Client_Name_Comb, Price) VALUES (?, ?, ?)';
     const RequestValues = [priceIDFK, C_F_Name + " " + C_L_Name, totalGenPrice]; 
@@ -427,13 +579,13 @@ app.post('/send-email', async (req, res) => {
     AMG Endeavors 
   `;
 
-  // Email options
-  const mailOptions = {
-      from: 'itcycle0@gmail.com',
-      to: 'contactbeckytseng@gmail.com',
-      subject: 'Submitted Form Copy',
-      text: emailBody
-  };
+// Email options
+const mailOptions = {
+    from: 'itcycle0@gmail.com',
+    to: ['contactbeckytseng@gmail.com', C_email], // Array of email addresses
+    subject: 'New Form Submission',
+    text: emailBody
+};
 
   try {
       await transporter.sendMail(mailOptions);

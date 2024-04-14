@@ -8,12 +8,6 @@ async function insertClient(data, connection) {
   return results.insertId;
 }
 
-// Fetch all clients from the database
-async function fetchClients(connection) {
-  const selectSql = 'SELECT * FROM Client';
-  const [clients] = await connection.execute(selectSql);
-  return clients;
-}
 
 // Fetch clients from the database by id
 async function fetchClientById(clientId, connection) {
@@ -120,4 +114,6 @@ async function deleteSpecial(date, connection) {
   return results.affectedRows;
 }
 
+
 module.exports = { fetchSpecial, fetchProgress, insertClient, fetchClients, fetchClientById, updateClient, deleteSpecial, fetchClientByPhoneNumber, fetchCar, fetchPriceById };
+
