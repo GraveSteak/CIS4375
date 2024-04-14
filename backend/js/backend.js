@@ -725,13 +725,13 @@ app.post('/form', async (req, res) => {
     totalGenPrice += additionalCost; // Add any special circumstance costs
 
     const insertPriceSql = 'INSERT INTO Price (Gen_Price, Description, DistanceID, SpecialID, clientID) VALUES (?, ?, ?, ?, ?)';
-    const priceValues = [totalGenPrice, s_Description, distanceIDFK, s_ID, clientId]; 
+    const priceValues = [totalGenPrice.toFixed(2), s_Description, distanceIDFK, s_ID, clientId]; 
     const priceResult = await db.query(insertPriceSql, priceValues);
     const priceIDFK = priceResult[0].insertId
     console.log("Inserted Price ID:", priceResult[0].insertId);
 
     const insertRequestSql = 'INSERT INTO Request_Information (PriceID, Client_Name_Comb, Price, List_Of_Vehicles, ClientID) VALUES (?, ?, ?, ?, ?)';
-    const RequestValues = [priceIDFK, C_F_Name + " " + C_L_Name, totalGenPrice, list_of_vehicles, clientId]; 
+    const RequestValues = [priceIDFK, C_F_Name + " " + C_L_Name, totalGenPrice.toFixed(2), list_of_vehicles, clientId]; 
     await db.query(insertRequestSql, RequestValues);
 
     // Respond with the total price for all vehicles
