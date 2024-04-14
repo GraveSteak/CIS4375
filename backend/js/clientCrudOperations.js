@@ -29,7 +29,7 @@ async function fetchClientById(clientId, connection) {
 
 // Fetch price from the database by id
 async function fetchPriceById(clientId, connection) {
-  const selectSql = 'SELECT Gen_Price FROM Price WHERE ClientID = ?';
+  const selectSql = 'SELECT Gen_Price, Description FROM Price WHERE ClientID = ?';
   try {
     const [results] = await connection.execute(selectSql, [clientId]);
     return results;  // This will return an array of rows; should be 0 or 1 row(s)
