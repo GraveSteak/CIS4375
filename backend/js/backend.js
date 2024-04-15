@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 3000;
 
 const { fetchSpecial, fetchProgress, fetchClients, fetchClientById, deleteSpecial, fetchCar, fetchPriceById } = require('./clientCrudOperations');
 
+
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`, req.body);
   next();
@@ -621,6 +622,7 @@ app.delete('/api/vehicles/:id', async (req, res) => {
   }
 });
 
+//Creates the client 
 app.post('/form', async (req, res) => {
   try {
     const db = await connectToDatabase();
@@ -654,13 +656,16 @@ app.post('/form', async (req, res) => {
         s_Description = specialDates[0].SpecialDate_Description;
         s_ID = specialDates[0].SpecialID;
     }
-
+    
     const insertClientSql = 'INSERT INTO Client (C_F_Name, C_L_Name, C_email, C_Company, phone_numb, Num_Requests) VALUES (?, ?, ?, ?, ?, ?)';
     const clientValues = [C_F_Name, C_L_Name, C_email, Reptype, phone_numb, VehicleMake.length];
     const clientResult = await db.query(insertClientSql, clientValues);
     const clientId = clientResult[0].insertId;
+    console.log('Data inserted successfully');
+
     console.log("Inserted Client ID:", clientId);
-  
+    globalClientId = clientId;
+
     // Insert distance data
     const insertDistanceSql = 'INSERT INTO Distance (Start_Zip, End_Zip, General_Distance, Date_Rec) VALUES (?, ?, ?, ?)';
     const distanceResult = await db.query(insertDistanceSql, [Start_Zip, End_Zip, distanceInMiles, chosen_date]);
@@ -736,11 +741,11 @@ app.post('/form', async (req, res) => {
 
     // Respond with the total price for all vehicles
     res.json({ success: true, message: 'Client and vehicles data saved successfully', totalGenPrice: totalGenPrice });
-  } catch (error) {
-    console.error(error);
-    res.status(400).json({ success: false, message: error.message });
-  }
+} catch (error) {
+    console.log(error);
+}
 });
+
 
 // Nodemailer transporter setup
 const transporter = nodemailer.createTransport({
@@ -760,15 +765,16 @@ app.post('/send-email', async (req, res) => {
   const company_name = rawCompanyName || 'N/A';
   
   const emailBody = `
-    First Name: ${C_F_Name}
-    Last Name: ${C_L_Name}
-    Email: ${C_email}
-    Phone Number: ${phone_numb}
-    Affiliation: ${affiliation}
-    Company Name: ${company_name || 'N/A'}
-    Start Zip Code: ${Start_Zip}
-    End Zip Code: ${End_Zip}
-    Arrival Date: ${chosen_date}
+    Client ID: ${globalClientId},
+    First Name: ${C_F_Name},
+    Last Name: ${C_L_Name},
+    Email: ${C_email},
+    Phone Number: ${phone_numb},
+    Affiliation: ${affiliation},
+    Company Name: ${company_name || 'N/A'},
+    Start Zip Code: ${Start_Zip},
+    End Zip Code: ${End_Zip},
+    Arrival Date: ${chosen_date},
     Vehicle Make: ${VehicleMake},
     Vehicle Model: ${VehicleModel},
     Vehicle Type: ${VehicleType},
@@ -776,7 +782,7 @@ app.post('/send-email', async (req, res) => {
     Vehicle Operable: ${VehicleOperable}
 
     We'll be in touch soon! 
-
+    
     Sincerely, 
     AMG Endeavors 
   `;
@@ -788,6 +794,7 @@ app.post('/send-email', async (req, res) => {
     subject: 'Form Submission Copy',
     text: emailBody
 };
+//'Jerrod.a@amgendeavors.com'
 
   try {
       await transporter.sendMail(mailOptions);

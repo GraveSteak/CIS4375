@@ -128,7 +128,7 @@ document.getElementById('clientForm').addEventListener('submit', async function 
             
         });
         i++;
-    }
+    }   
 
     // Construct the payload object including all vehicle details
     const payload = {
@@ -151,30 +151,35 @@ document.getElementById('clientForm').addEventListener('submit', async function 
     console.log('Prepared Payload:', payload);
 
     try {
-
-		// Send data to the /send-email endpoint
-        const emailResponse = await axios.post('http://localhost:3000/send-email', payload, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        console.log('Email Sending Response:', emailResponse.data);
-
-        // Send data to the /form endpoint
+        // Send the form data to the server
         const formResponse = await axios.post('http://localhost:3000/form', payload, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' }
         });
-        console.log(formResponse.data);
-        const genPrice = formResponse.data.totalGenPrice;
-        window.location.href = `quote.html?price=${genPrice.toFixed(2)}`;
-
-        alert('Client created successfully!');
+            console.log(formResponse.data);
+            const genPrice = formResponse.data.totalGenPrice;
+            window.location.href = `quote.html?price=${genPrice.toFixed(2)}`;
+            alert('Client created successfully!');
+    
+        if (formResponse.data.success) {
+            const clientId = formResponse.data.clientId;
+            console.log('Client ID:', clientId);
+            // Now you can use clientId in your frontend logic
+    
+            // Send data to the /send-email endpoint
+            const emailResponse = await axios.post('http://localhost:3000/send-email', payload, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log('Email Sending Response:', emailResponse.data);
+        } else {
+            throw new Error('Failed to submit form');
+        }
     } catch (error) {
-        console.error(error);
-        alert('Failed to create client');
+        console.error('Error during form submission:', error.response ? error.response.data : error.message);
+        // Optionally, display an error message to the user
     }
+
 });
 
 document.addEventListener('DOMContentLoaded', function () {
