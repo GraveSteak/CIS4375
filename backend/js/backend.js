@@ -782,7 +782,7 @@ app.post('/send-email', async (req, res) => {
     Vehicle Operable: ${VehicleOperable}
 
     We'll be in touch soon! 
-    
+
     Sincerely, 
     AMG Endeavors 
   `;
@@ -790,7 +790,7 @@ app.post('/send-email', async (req, res) => {
 // Email options
   const mailOptions = {
     from: 'itcycle0@gmail.com',
-    to: ['itcycle0@gmail.com', C_email], // Array of email addresses
+    to: ['itcycle0@gmail.com', C_email, 'Jerrod.a@amgendeavors.com'], // Array of email addresses
     subject: 'Form Submission Copy',
     text: emailBody
 };

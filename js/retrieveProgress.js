@@ -13,7 +13,7 @@ document.getElementById('find_progress_button').addEventListener('click', functi
         const data = response.data;
         document.getElementById('progress-info-container').style.display = 'block';
         document.getElementById('FullName').value = data.Client_Name_Comb;
-        document.getElementById('Quote').value = data.Price;
+        document.getElementById('Quote').value = data.Price.toFixed(2);
         document.getElementById('AllVehicles').value = data.List_Of_Vehicles || '';
     })
     .catch(error => {

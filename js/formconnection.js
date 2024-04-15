@@ -157,6 +157,7 @@ document.getElementById('clientForm').addEventListener('submit', async function 
         });
             console.log(formResponse.data);
             const genPrice = formResponse.data.totalGenPrice;
+            console.log(genPrice)
             window.location.href = `quote.html?price=${genPrice.toFixed(2)}`;
             alert('Client created successfully!');
     
