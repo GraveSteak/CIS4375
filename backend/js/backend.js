@@ -124,12 +124,13 @@ app.get('/api/top-zip-codes', async (req, res) => {
   try {
     const db = await connectToDatabase();
     const [data] = await db.query(`
-        SELECT Start_Zip, SUM(Price) AS TotalRevenue
-        FROM Distance
-        JOIN Request_Information ON Distance.DistanceID = Request_Information.PriceID
-        GROUP BY Start_Zip
-        ORDER BY SUM(Price) DESC
-        LIMIT 10;
+      SELECT d.Start_Zip, SUM(p.Gen_Price) AS TotalRevenue
+      FROM Distance d
+      JOIN Price p ON d.DistanceID = p.DistanceID
+      JOIN Request_Information ri ON p.PriceID = ri.PriceID
+      GROUP BY d.Start_Zip
+      ORDER BY SUM(p.Gen_Price) DESC
+      LIMIT 5;
     `);
     return res.json(data);
   } catch (error) {
