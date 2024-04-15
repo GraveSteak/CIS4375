@@ -791,11 +791,10 @@ app.post('/send-email', async (req, res) => {
 // Email options
   const mailOptions = {
     from: 'itcycle0@gmail.com',
-    to: ['itcycle0@gmail.com', C_email], // Array of email addresses
+    to: ['itcycle0@gmail.com', C_email, 'Jerrod.a@amgendeavors.com'], // Array of email addresses
     subject: 'Form Submission Copy',
     text: emailBody
 };
-//'Jerrod.a@amgendeavors.com'
 
   try {
       await transporter.sendMail(mailOptions);
