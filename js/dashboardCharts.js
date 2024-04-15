@@ -11,11 +11,12 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => {
         const TotalClients = data.map(entry => entry.TotalClients);
         const SelfClients = data.map(entry => entry.SelfClients);
+        const ThirdParty = TotalClients - SelfClients;
         const chartData = {
             labels: ['Third Party', 'Self'],
             datasets: [{
                 label: 'Number of Clients',
-                data: [TotalClients, SelfClients],
+                data: [ThirdParty, SelfClients],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)'
